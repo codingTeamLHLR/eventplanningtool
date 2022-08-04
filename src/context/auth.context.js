@@ -20,7 +20,7 @@ function AuthProviderWrapper(props) {
 
     if (storedToken) {
     axios
-      .get('http://localhost:5005/api/verify', { headers: { Authorization: `Bearer ${storedToken}`} })
+      .get(process.env.REACT_APP_API_URL + '/verify', { headers: { Authorization: `Bearer ${storedToken}`} })
       .then((response) => {
         const user = response.data;
         setUser(user);

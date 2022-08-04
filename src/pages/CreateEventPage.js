@@ -1,7 +1,8 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../context/auth.context'; 
+
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -14,9 +15,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Link from '@mui/material/Link';
+import { FormControlLabel } from "@mui/material";
 
-
-function SignupPage() {
+function CreateEventPage() {
 
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState(undefined);
@@ -25,29 +26,37 @@ function SignupPage() {
 
     const { storeToken, authenticateUser } = useContext(AuthContext); 
 
-      const handleSignupSubmit = (event) => {
+
+    const handleCreateEventSubmit = (event) => {
         event.preventDefault();
 
         const data = new FormData(event.currentTarget);
 
         const requestBody = {
-            email: data.get('email'),
-            password: data.get('password'),
-            username: data.get('username'),
-            birthdate: data.get('birthdate')
+            name: data.get('name'),
+            date: data.get('date'),
+            location: {
+                street: data.get('street'),
+                housenumber: data.get('housenumber')
+                // citycode: data.get('citycode'),
+                // city: data.get('city'),
+                // country: data.get('country')
+            },
+            participants: data.get('participants'),
+            // threads: data.get('threads'),
+            // polls: data.get('polls'),
+            // organizers: data.get('organizers')
         }
 
         console.log(requestBody)
 
-        axios.post(process.env.REACT_APP_API_URL + '/signup', requestBody)
+        axios.post(process.env.REACT_APP_API_URL + '/login', requestBody)
         .then((response) => {
-          // console.log('JWT token', response.data.authToken );
           storeToken(response.data.authToken);  
           authenticateUser();  
           navigate('/');
         })
         .catch((error) => {
-            // console.log("this is error object", error);
           const errorDescription = error.response.data.errorMessage;
           setError(true);
           setErrorMessage(errorDescription);
@@ -55,10 +64,14 @@ function SignupPage() {
         })
     }
 
+    const theme = createTheme();
 
-      const theme = createTheme();
 
-    return (
+    return(
+        <>
+
+        <h1>Create Event</h1>
+
 
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -71,23 +84,23 @@ function SignupPage() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign Up
-          </Typography>
-          <Box component="form" onSubmit={handleSignupSubmit} noValidate sx={{ mt: 1 }}>
+            Create Event
+          </Typography> */}
+          <Box component="form" onSubmit={handleCreateEventSubmit} noValidate sx={{ mt: 1 }}>
           
             <TextField
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
+            id="name"
+            label="Event Name"
             InputLabelProps={{ shrink: true }}
-            name="email"
-            autoComplete="email"
+            name="name"
+            autoComplete="name"
             autoFocus
             error={error}
             helperText={errorMessage}
@@ -95,44 +108,47 @@ function SignupPage() {
 
             <TextField
             margin="normal"
-            required
             fullWidth
-            name="password"
-            label="Password"
+            name="date"
+            label="Date"
             InputLabelProps={{ shrink: true }}
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            error={error}
-            helperText={errorMessage}
+            type="date"
+            id="date"
             />
 
             <TextField
             margin="normal"
-            required
             fullWidth
-            name="username"
-            label="Username"
+            name="street"
+            label="Street"
             InputLabelProps={{ shrink: true }}
-            type="string"
-            id="username"
-            autoComplete="username"
-            error={error}
-            helperText={errorMessage}
+            id="street"
             />
 
             <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="birthdate"
-              label="Birthdate"
-              InputLabelProps={{ shrink: true }}
-              type="date"
-              id="birthdate"
-              error={error}
-            helperText={errorMessage}
+            margin="normal"
+            fullWidth
+            name="housenumber"
+            label="Housenumber"
+            InputLabelProps={{ shrink: true }}
+            type="nuhousenumbermber"
+            id="street"
             />
+
+
+            {/* street: data.get('location.street'),
+                housenumber: data.get('location.housenumber'),
+                citycode: data.get('location.citycode'),
+                city: data.get('location.city'),
+                country: data.get('location.country') */}
+            
+            {/* 
+            location: data.get('location'),
+            participants: data.get('participants'),
+            threads: data.get('threads'),
+            polls: data.get('polls'),
+            organizers: data.get('organizers') 
+            */}
 
             <p>
                 {errorMessage}
@@ -144,12 +160,12 @@ function SignupPage() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Create
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="/login" variant="body2">
-                  {"Already have an account? Log In"}
+                <Link href="/signup" variant="body2">
+                  {"Don't have an account yet? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
@@ -159,7 +175,8 @@ function SignupPage() {
       </Container>
     </ThemeProvider>
 
-  );
+    </>
+    )
 }
 
-export default SignupPage;
+export default CreateEventPage;
