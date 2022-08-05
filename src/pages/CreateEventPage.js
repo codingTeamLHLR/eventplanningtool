@@ -90,7 +90,7 @@ function CreateEventPage() {
           <Typography component="h1" variant="h5">
             Create Event
           </Typography> */}
-          <Box component="form" onSubmit={handleCreateEventSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleCreateEventSubmit} noValidate sx={{ mt: 1 }} enctype="multipart/form-data">
           
             <TextField
             margin="normal"
@@ -149,6 +149,8 @@ function CreateEventPage() {
             polls: data.get('polls'),
             organizers: data.get('organizers') 
             */}
+
+            <input type="file" name="event-cover-image" />
 
             <p>
                 {errorMessage}
