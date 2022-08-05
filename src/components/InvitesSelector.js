@@ -3,7 +3,7 @@ import { FormControl, Select, InputLabel, OutlinedInput, MenuItem } from "@mui/m
 import { createTheme } from '@mui/material/styles';
 import axios from 'axios';
 
-function InvitesSelector() {
+function InvitesSelector(props) {
 
     // Styling for the Selector
     const ITEM_HEIGHT = 48;
@@ -30,6 +30,7 @@ function InvitesSelector() {
     //   ];
 
     const [personName, setPersonName] = React.useState([]);
+
     const [users, setUsers] = React.useState([]);
     const [errorMessage, setErrorMessage] = React.useState(undefined);
 
@@ -39,9 +40,9 @@ function InvitesSelector() {
 
         axios
             .get(process.env.REACT_APP_API_URL + '/users', { headers: { Authorization: `Bearer ${storedToken}` }})
-            .then(users => {
-                console.log(users.data)
-                setUsers(users.data);
+            .then(response => {
+                console.log("this is array of all users", response.data)
+                setUsers(response.data);
             })
             .catch((error) => {
                 // console.log(error);
@@ -61,8 +62,6 @@ function InvitesSelector() {
     };
     }
 
-
-
     const handleInvitesChange = (event) => {
         const {
           target: { value },
@@ -73,11 +72,11 @@ function InvitesSelector() {
         );
       };
 
-    const theme = createTheme();
+    const theme = createTheme(personName);
 
 
     return (
-
+        <>
         <FormControl sx={{ m: 1, width: 300 }}>
         <InputLabel id="demo-multiple-name-label">Name</InputLabel>
         <Select
@@ -86,34 +85,36 @@ function InvitesSelector() {
           multiple
           value={personName}
           onChange={handleInvitesChange}
+          onClose={() => props.getParticipantsCallback(personName)}
           input={<OutlinedInput label="Name" />}
           MenuProps={MenuProps}
         >
-        {users.length === 0
-            ?
-                <MenuItem> loading.... </MenuItem>
-            :
-                <>
-                {users.map((user) =>  {
-                    return(
-                        <MenuItem
-                        key={user._id}
-                        value={user.username}
-                        style={getStyles(user.username, personName, theme)}
-                        >
-                        {user.username}
-                        </MenuItem>
+            {users.map((user) =>  {
+                return (
+                <MenuItem
+                key={user._id}
+                value={user.username}
+                style={getStyles(user.username, personName, theme)}
+                >
+                {user.username}
+                </MenuItem>
+                )
+            }
+            )} 
 
-                    )
-                }
-                )}
-                </>
-        }
-          
         </Select>
-      </FormControl>
+        </FormControl>
 
+</>
     )
 }
 
 export default InvitesSelector;
+
+            {/* {users.length === 0
+            ?
+            <MenuItem> loading.... </MenuItem>
+            : */}
+
+                        {/* }          */}
+

@@ -21,9 +21,10 @@ function CreateEventPage() {
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState(undefined);
 
+    const [participants, setParticipants] = useState([]);
+
     const navigate = useNavigate();
 
-    const { storeToken, authenticateUser } = useContext(AuthContext); 
 
     const handleCreateEventSubmit = (event) => {
         event.preventDefault();
@@ -40,16 +41,17 @@ function CreateEventPage() {
                 city: data.get('city'),
                 country: data.get('country')
             },
-            participants: data.get('participants'),
+            participants,
             // organizers: data.get('organizers')
         }
 
+        const storedToken = localStorage.getItem("authToken");
+
         console.log(requestBody)
 
-        axios.post(process.env.REACT_APP_API_URL + '/events', requestBody)
+        axios.post(process.env.REACT_APP_API_URL + '/events', requestBody, { headers: { Authorization: `Bearer ${storedToken}` }})
         .then((response) => {
-          storeToken(response.data.authToken);  
-          authenticateUser();  
+          // console.log(response);
           navigate('/');
         })
         .catch((error) => {
@@ -159,7 +161,7 @@ function CreateEventPage() {
             id="country"
             />
 
-            <InvitesSelector/>
+            <InvitesSelector getParticipantsCallback={setParticipants}/>
 
             <p>
                 {errorMessage}
