@@ -18,7 +18,7 @@ function App() {
 
       {/* <MenuList/> */}
       
-      <Nav/>
+      <Nav />
       
       <Routes>
         <Route path="/" element={<HomePage />} />

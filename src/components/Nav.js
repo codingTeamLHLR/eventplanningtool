@@ -9,10 +9,8 @@ import Person from '@mui/icons-material/Person';
 export default function SimpleBottomNavigation() {
   const [value, setValue] = React.useState(0);
 
-//backgroundColor: 'lightgrey'
-
   return (
-    <Box sx={{ width: '100vw', position: 'fixed', bottom: 0 }}> 
+    <Box sx={{ width: '100vw', position: 'fixed', bottom: 0, zIndex: 1 }}> 
       <BottomNavigation
         showLabels
         value={value}
