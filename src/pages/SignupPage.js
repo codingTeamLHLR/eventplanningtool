@@ -25,7 +25,7 @@ function SignupPage() {
 
     const { storeToken, authenticateUser } = useContext(AuthContext); 
 
-      const handleSignupSubmit = (event) => {
+    const handleSignupSubmit = (event) => {
         event.preventDefault();
 
         const data = new FormData(event.currentTarget);

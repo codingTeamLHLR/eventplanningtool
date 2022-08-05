@@ -1,20 +1,16 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from '../context/auth.context'; 
 
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import InvitesSelector from '../components/InvitesSelector';
+import PeopleSelector from '../components/PeopleSelector';
 
 function CreateEventPage() {
 
@@ -22,9 +18,12 @@ function CreateEventPage() {
     const [errorMessage, setErrorMessage] = useState(undefined);
 
     const [participants, setParticipants] = useState([]);
+    const [organizers, setOrganizers] = useState([]);
+
+    // console.log('participants are', participants)
+    // console.log('organizers are', organizers)
 
     const navigate = useNavigate();
-
 
     const handleCreateEventSubmit = (event) => {
         event.preventDefault();
@@ -42,16 +41,14 @@ function CreateEventPage() {
                 country: data.get('country')
             },
             participants,
-            // organizers: data.get('organizers')
+            organizers
         }
 
         const storedToken = localStorage.getItem("authToken");
 
-        console.log(requestBody)
-
         axios.post(process.env.REACT_APP_API_URL + '/events', requestBody, { headers: { Authorization: `Bearer ${storedToken}` }})
         .then((response) => {
-          // console.log(response);
+          console.log("post request is", response);
           navigate('/');
         })
         .catch((error) => {
@@ -76,18 +73,12 @@ function CreateEventPage() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 0,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Create Event
-          </Typography> */}
           <Box component="form" onSubmit={handleCreateEventSubmit} noValidate sx={{ mt: 1 }}>
           
             <TextField
@@ -113,6 +104,16 @@ function CreateEventPage() {
             type="date"
             id="date"
             />
+
+            <TextField
+            margin="normal"
+            fullWidth
+            name="time"
+            label="Time"
+            InputLabelProps={{ shrink: true }}
+            type="time"
+            id="time"
+            />    
 
             <TextField
             margin="normal"
@@ -161,11 +162,9 @@ function CreateEventPage() {
             id="country"
             />
 
-            <InvitesSelector getParticipantsCallback={setParticipants}/>
-
-            <p>
-                {errorMessage}
-            </p>
+            <PeopleSelector type='invites' getPeopleCallback={setParticipants} />
+        
+            <PeopleSelector type='organizers' getPeopleCallback={setOrganizers} participants={participants}/>
 
             <Button
               type="submit"
