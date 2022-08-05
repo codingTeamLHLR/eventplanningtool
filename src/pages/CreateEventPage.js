@@ -13,6 +13,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 
 import InvitesSelector from '../components/InvitesSelector';
 
@@ -22,6 +24,7 @@ function CreateEventPage() {
     const [errorMessage, setErrorMessage] = useState(undefined);
 
     const [participants, setParticipants] = useState([]);
+    const [image, setImage] = useState("");
 
     const navigate = useNavigate();
 
@@ -41,13 +44,16 @@ function CreateEventPage() {
                 city: data.get('city'),
                 country: data.get('country')
             },
-            participants,
+            image,
+            participants
             // organizers: data.get('organizers')
         }
 
         const storedToken = localStorage.getItem("authToken");
 
-        console.log(requestBody)
+        // console.log(requestBody)
+        console.log('here');
+        console.log(event.currentTarget);
 
         axios.post(process.env.REACT_APP_API_URL + '/events', requestBody, { headers: { Authorization: `Bearer ${storedToken}` }})
         .then((response) => {
@@ -163,7 +169,20 @@ function CreateEventPage() {
 
             <InvitesSelector getParticipantsCallback={setParticipants}/>
 
-            <input type="file" name="event-cover-image" />
+            <input
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="image"
+              type="file"
+              name="image"
+              value={image}
+              onChange={(target) => setImage(target.value)}
+            />
+            <label htmlFor="image">
+              <Button variant="raised" component="span">
+                Upload Image
+              </Button>
+            </label> 
 
             <p>
                 {errorMessage}

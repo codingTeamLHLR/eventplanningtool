@@ -4,7 +4,7 @@ import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import CreateEventPage from './pages/CreateEventPage';
-// import EventDetailsPage from './pages/EventDetailsPage';
+import EventDetailsPage from './pages/EventDetailsPage';
 import NavBar from './components/NavBar';
 // import IsPrivate from './components/IsPrivate';
 import IsAnon from './components/IsAnon';
@@ -25,7 +25,7 @@ function App() {
         <Route path="/signup" element={<IsAnon> <SignupPage/> </IsAnon>} />
         <Route path="/login" element={<IsAnon> <LoginPage/> </IsAnon>} />
         <Route path="/create-event" element={<CreateEventPage/>} />
-        {/* <Route path="/:eventId" element={<EventDetailsPage/>} /> */}
+        <Route path="/:eventId" element={<EventDetailsPage/>} />
       </Routes>
     </div>
   );

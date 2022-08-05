@@ -6,6 +6,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Moment from 'moment';
+import Link from '@mui/material/Link';
+
 
 export default function EventCard(props) {
 
@@ -29,10 +31,17 @@ export default function EventCard(props) {
           {formatDate}
         </Typography>
       </CardContent>
-      {/* <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions> */}
+      <CardActions>
+        {/* <Button size="small">Share</Button> */}
+        <Button size="small">
+          <Link
+            underline="hover"
+            href={`./${props.data._id}`}
+          >
+            Learn more
+          </Link>
+        </Button>
+      </CardActions>
     </Card>
   );
 }
