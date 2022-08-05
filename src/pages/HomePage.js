@@ -4,6 +4,7 @@ import EventCard from '../components/EventCard'
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Button, MenuList } from "@mui/material";
+import { Link } from "react-router-dom";
 
 
 
@@ -19,7 +20,7 @@ function HomePage() {
         axios
             .get(process.env.REACT_APP_API_URL + '/events', { headers: { Authorization: `Bearer ${storedToken}` }} )
             .then( response => {
-                console.log(response.data);
+                console.log('Object of all events:', response.data);
                 setEvents(response.data)
             })
             .catch(err => {
@@ -38,7 +39,7 @@ function HomePage() {
                 :   <>
                         <Grid item xs={12} >
                             {events.map(element => {
-                                return(<EventCard data={element}/>)
+                                return(<EventCard key={element._id} data={element}/>)
                             })
                             } 
                         </Grid>
@@ -46,7 +47,7 @@ function HomePage() {
             }
         </Grid>
 
-        <Button>Create Event</Button>
+        <Link to='create-event'> <Button> Create Event</Button></Link>
         </>
     )
 }

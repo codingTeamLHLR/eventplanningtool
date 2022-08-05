@@ -3,7 +3,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../context/auth.context'; 
 
-
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,8 +13,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Link from '@mui/material/Link';
-import { FormControlLabel } from "@mui/material";
+
+import InvitesSelector from '../components/InvitesSelector';
 
 function CreateEventPage() {
 
@@ -25,7 +24,6 @@ function CreateEventPage() {
     const navigate = useNavigate();
 
     const { storeToken, authenticateUser } = useContext(AuthContext); 
-
 
     const handleCreateEventSubmit = (event) => {
         event.preventDefault();
@@ -37,20 +35,18 @@ function CreateEventPage() {
             date: data.get('date'),
             location: {
                 street: data.get('street'),
-                housenumber: data.get('housenumber')
-                // citycode: data.get('citycode'),
-                // city: data.get('city'),
-                // country: data.get('country')
+                housenumber: data.get('housenumber'),
+                citycode: data.get('citycode'),
+                city: data.get('city'),
+                country: data.get('country')
             },
             participants: data.get('participants'),
-            // threads: data.get('threads'),
-            // polls: data.get('polls'),
             // organizers: data.get('organizers')
         }
 
         console.log(requestBody)
 
-        axios.post(process.env.REACT_APP_API_URL + '/login', requestBody)
+        axios.post(process.env.REACT_APP_API_URL + '/events', requestBody)
         .then((response) => {
           storeToken(response.data.authToken);  
           authenticateUser();  
@@ -60,7 +56,7 @@ function CreateEventPage() {
           const errorDescription = error.response.data.errorMessage;
           setError(true);
           setErrorMessage(errorDescription);
-          console.log("this is error", errorDescription);
+          console.log(errorDescription);
         })
     }
 
@@ -131,24 +127,39 @@ function CreateEventPage() {
             name="housenumber"
             label="Housenumber"
             InputLabelProps={{ shrink: true }}
-            type="nuhousenumbermber"
+            type="number"
             id="street"
             />
 
+            <TextField
+            margin="normal"
+            fullWidth
+            name="citycode"
+            label="Citycode"
+            InputLabelProps={{ shrink: true }}
+            type="number"
+            id="street"
+            />
 
-            {/* street: data.get('location.street'),
-                housenumber: data.get('location.housenumber'),
-                citycode: data.get('location.citycode'),
-                city: data.get('location.city'),
-                country: data.get('location.country') */}
-            
-            {/* 
-            location: data.get('location'),
-            participants: data.get('participants'),
-            threads: data.get('threads'),
-            polls: data.get('polls'),
-            organizers: data.get('organizers') 
-            */}
+            <TextField
+            margin="normal"
+            fullWidth
+            name="city"
+            label="City"
+            InputLabelProps={{ shrink: true }}
+            id="city"
+            />
+
+            <TextField
+            margin="normal"
+            fullWidth
+            name="country"
+            label="Country"
+            InputLabelProps={{ shrink: true }}
+            id="country"
+            />
+
+            <InvitesSelector/>
 
             <p>
                 {errorMessage}
@@ -163,11 +174,6 @@ function CreateEventPage() {
               Create
             </Button>
             <Grid container>
-              <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"Don't have an account yet? Sign Up"}
-                </Link>
-              </Grid>
             </Grid>
           </Box>
         </Box>
