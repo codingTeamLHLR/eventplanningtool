@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
-import BackgroundLetterAvatars from "../functions/BackgroundLetterAvatars";
+import BackgroundLetterAvatars from "../components/BackgroundLetterAvatars";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -15,8 +15,7 @@ import { Link, Typography } from "@mui/material";
 import Moment from "moment";
 import ThreadList from "../components/ThreasList";
 import PollList from "../components/PollList";
-import CircularProgress from '@mui/material/CircularProgress';
-
+import CircularProgress from "@mui/material/CircularProgress";
 
 function EventDetailsPage() {
   const { eventId } = useParams();
@@ -29,15 +28,21 @@ function EventDetailsPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     axios
       .get(process.env.REACT_APP_API_URL + "/events/" + eventId, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
         setEvent(response.data);
-        setEventImage(ShowImage(response.data.image));
         setFormatDate(Moment(response.data.date).format("MMM Do YY"));
+
+        if (response.data.image) {
+          setEventImage(ShowImage(response.data.image));
+        } else {
+          setEventImage(
+            "https://www.tagesspiegel.de/images/feiern-unter-freiem-himmel-sind-parks-die-neuen-clubs/26047962/1-format6001.jpg"
+          );
+        }
         console.log(response.data);
       })
       .catch((err) => {
@@ -45,8 +50,7 @@ function EventDetailsPage() {
       });
   }, []);
 
-  const deleteEvent = () => {    
-
+  const deleteEvent = () => {
     axios
       .delete(process.env.REACT_APP_API_URL + "/events/" + eventId, {
         headers: { Authorization: `Bearer ${storedToken}` },
@@ -61,12 +65,17 @@ function EventDetailsPage() {
 
   return (
     <>
-      {!event 
-      ? <Box align="center">
-            <CircularProgress />
+      {!event ? (
+        <Box align="center">
+          <CircularProgress />
         </Box>
-      : (
-        <Grid container rowSpacing={3} columnSpacing={1} sx={{ p: 2, marginBottom: 10 }}>
+      ) : (
+        <Grid
+          container
+          rowSpacing={3}
+          columnSpacing={1}
+          sx={{ p: 2, marginBottom: 10 }}
+        >
           <Grid item xs={12}>
             <Typography
               align="center"
@@ -97,10 +106,15 @@ function EventDetailsPage() {
                 <p>TBD</p>
               )}
             </Typography>
-            </Grid>
-            
-            <Grid item xs={6}>
-            <Typography variant="h5" color="text.secondary" component="div" align="right">
+          </Grid>
+
+          <Grid item xs={6}>
+            <Typography
+              variant="h5"
+              color="text.secondary"
+              component="div"
+              align="right"
+            >
               {formatDate}
             </Typography>
           </Grid>
@@ -143,18 +157,26 @@ function EventDetailsPage() {
           </Grid>
 
           <Grid item xs={6}>
-            <Button variant="contained" startIcon={<EditIcon />}  href={`/${eventId}/update-event`}>
+            <Button
+              variant="contained"
+              startIcon={<EditIcon />}
+              href={`/${eventId}/update-event`}
+            >
               Edit
             </Button>
-            </Grid>
-            <Grid item xs={6}>
-            <Button variant="outlined" onClick={() => deleteEvent()} startIcon={<DeleteIcon />}>
+          </Grid>
+          <Grid item xs={6}>
+            <Button
+              variant="outlined"
+              onClick={() => deleteEvent()}
+              startIcon={<DeleteIcon />}
+            >
               Delete
             </Button>
           </Grid>
           <Grid item xs={6}>
             <ThreadList />
-            </Grid>
+          </Grid>
           <Grid item xs={6}>
             <PollList />
           </Grid>
