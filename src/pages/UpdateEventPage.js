@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -17,7 +17,9 @@ import PeopleSelector from '../components/PeopleSelector';
 import CloudinaryWidget from "../components/CloudinaryWidget";
 import ShowImage from "../functions/ShowImage";
 
-function CreateEventPage() {
+function UpdateEventPage() {
+
+  const { eventId } = useParams();
 
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState(undefined);
@@ -55,10 +57,10 @@ function CreateEventPage() {
 
         const storedToken = localStorage.getItem("authToken");
 
-        axios.post(process.env.REACT_APP_API_URL + '/events', requestBody, { headers: { Authorization: `Bearer ${storedToken}` }})
+        axios.put(process.env.REACT_APP_API_URL + '/events/' + eventId, requestBody, { headers: { Authorization: `Bearer ${storedToken}` }})
         .then((response) => {
-          console.log("post request is", response);
-          navigate('/');
+          console.log("put request is", response);
+          navigate(`/${eventId}`);
         })
         .catch((error) => {
           const errorDescription = error.response.data.errorMessage;
@@ -74,7 +76,7 @@ function CreateEventPage() {
     return(
         <>
 
-        <h1>Create Event</h1>
+        <h1>Update Event</h1>
 
 
     <ThemeProvider theme={theme}>
@@ -188,7 +190,7 @@ function CreateEventPage() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Create
+              Save Changes
             </Button>
             <Grid container>
             </Grid>
@@ -202,4 +204,4 @@ function CreateEventPage() {
     )
 }
 
-export default CreateEventPage;
+export default UpdateEventPage;

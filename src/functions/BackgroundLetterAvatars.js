@@ -4,7 +4,7 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 
-function stringToColor(string: string) {
+function stringToColor(string = "") {
   let hash = 0;
   let i;
 
@@ -24,21 +24,25 @@ function stringToColor(string: string) {
   return color;
 }
 
-function stringAvatar(name: string) {
+function stringAvatar(name = "") {
+  const split = name.split(' ')
+  let initials = split[0][0];
+  if (split.length > 1) {
+    initials = initials + split[1][0]
+  }
+
   return {
     sx: {
-      bgcolor: stringToColor(name),
+      bgcolor: stringToColor(initials),
     },
-    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+    children: initials.toUpperCase(),
   };
 }
 
-export default function BackgroundLetterAvatars() {
+export default function BackgroundLetterAvatars(props) {
   return (
     <Stack direction="row" spacing={2}>
-      <Avatar {...stringAvatar('Kent Dodds')} />
-      <Avatar {...stringAvatar('Jed Watson')} />
-      <Avatar {...stringAvatar('Tim Neutkens')} />
+      <Avatar {...stringAvatar(props.name)} />
     </Stack>
   );
 }

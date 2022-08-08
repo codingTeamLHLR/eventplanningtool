@@ -81,11 +81,18 @@ function PeopleSelector(props) {
 
     const theme = createTheme(personName);
 
+    let label; 
+    if(props.type ==='organizers'){
+      label = "Organizers"
+    } else if (props.type === 'invites') {
+      label = "Guests"
+    }
+
 
     return (
 
         <FormControl sx={{ width: '100%', mt: 2, mb: 1 }}>
-        <InputLabel id="demo-multiple-name-label" shrink style={{backgroundColor: 'white'}}>Name</InputLabel>
+        <InputLabel id="demo-multiple-name-label" shrink style={{backgroundColor: 'white'}}>{label}</InputLabel>
         <Select
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"

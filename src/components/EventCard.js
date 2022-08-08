@@ -7,20 +7,30 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Moment from 'moment';
 import Link from '@mui/material/Link';
+import { letterSpacing } from '@mui/system';
+import ShowImage from '../functions/ShowImage';
 
 
 export default function EventCard(props) {
 
   const formatDate = Moment(props.data.date).format("MMM Do YY");
 
+  const imageUrl = ShowImage(props.data.image)
+  console.log(imageUrl)
   // console.log(props.data.date)
+  let eventImage;
+  if(props.data.image) {
+    eventImage = imageUrl
+  } else {
+    eventImage = "https://www.tagesspiegel.de/images/feiern-unter-freiem-himmel-sind-parks-die-neuen-clubs/26047962/1-format6001.jpg"
+  }
 
   return (
     <Card >
       <CardMedia
         component="img"
         height="140"
-        image="https://www.tagesspiegel.de/images/feiern-unter-freiem-himmel-sind-parks-die-neuen-clubs/26047962/1-format6001.jpg"
+        image={eventImage}
         alt="green iguana"
       />
       <CardContent>
