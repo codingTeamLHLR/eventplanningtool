@@ -37,12 +37,13 @@ function PeopleSelector(props) {
 
 
   const [personName, setPersonName] = React.useState([]);
-  const [personId, setPersonId] = React.useState([]);
+  const [personId, setPersonId] = React.useState(props.people);
   const [users, setUsers] = React.useState([]);
   const [errorMessage, setErrorMessage] = React.useState(undefined);
 
 
   React.useEffect(() => {
+
     const storedToken = localStorage.getItem("authToken");
 
     if (props.type === "invites") {
@@ -51,11 +52,12 @@ function PeopleSelector(props) {
           headers: { Authorization: `Bearer ${storedToken}` },
         })
         .then((response) => {
+          console.log("api response", response.data)
           setUsers(response.data);
           console.log('type is invites, people are', users)
         })
         .catch((error) => {
-          // console.log(error);
+          console.log(error);
           const errorDescription = error.response.data.message;
           setErrorMessage(errorDescription);
           console.log("this is error", errorDescription);
@@ -66,7 +68,7 @@ function PeopleSelector(props) {
       axios
         .get(process.env.REACT_APP_API_URL + "/users", {
           headers: { Authorization: `Bearer ${storedToken}` },
-          params: { ids: props.participants },
+          params: { ids: props.participants._id },
         })
         .then((response) => {
           setUsers(response.data);
@@ -78,7 +80,9 @@ function PeopleSelector(props) {
           console.log("this is error", errorDescription);
         });
     }
-  }, [props.participants]);
+  }, [props]);
+
+  console.log(personId)
 
   // dynamically show who is selected
   function getStyles(name, personName, theme) {
@@ -89,6 +93,7 @@ function PeopleSelector(props) {
           : theme.typography.fontWeightMedium,
     };
   }
+
 
   const handlePeopleChange = (event) => {
     const {
@@ -107,6 +112,10 @@ function PeopleSelector(props) {
   }
 
   return (
+    <>
+    {users.length === 0 
+      ? <p>loading.. </p>
+      : <>
     <FormControl sx={{ width: "100%", mt: 2, mb: 1 }}>
       <InputLabel
         id="demo-multiple-name-label"
@@ -115,6 +124,7 @@ function PeopleSelector(props) {
       >
         {label}
       </InputLabel>
+
       <Select
         labelId="demo-multiple-name-label"
         id="demo-multiple-name"
@@ -139,6 +149,9 @@ function PeopleSelector(props) {
       </Select>
       {/* {errorMessage} */}
     </FormControl>
+    </>
+  }
+  </>
   );
 }
 

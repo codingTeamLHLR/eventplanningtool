@@ -200,13 +200,12 @@ function CreateEventPage() {
                 getPeopleCallback={setParticipants}
               />
 
-              {/* <PeopleSelector
+              <PeopleSelector
                 name="Organizers"
                 type="organizers"
                 getPeopleCallback={setOrganizers}
                 participants={participants}
-                selectedOrganizers = {organizers}
-              /> */}
+              />
 
               <CloudinaryWidget setImage={setImage} />
 
