@@ -27,6 +27,8 @@ function CreateEventPage() {
   const [organizers, setOrganizers] = useState([]);
   const [time, setTime] = useState(null)
 
+
+
   const navigate = useNavigate();
 
   const handleCreateEventSubmit = (event) => {

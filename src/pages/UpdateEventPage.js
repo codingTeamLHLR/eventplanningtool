@@ -32,6 +32,8 @@ function UpdateEventPage() {
   const [organizers, setOrganizers] = useState([]);
   const [event, setEvent] = useState({});
 
+  console.log("initial state of participants", participants)
+
   const storedToken = localStorage.getItem("authToken");
 
   const navigate = useNavigate();

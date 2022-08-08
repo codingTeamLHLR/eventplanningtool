@@ -24,10 +24,23 @@ function PeopleSelector(props) {
     },
   };
 
+  console.log("props", props)
+
+  // console.log("selectedParticipants", props.selectedParticipants)
+
+  // const personNameArray = props.selectedOrganizers.map(element => element.name)
+  // const personIdArray = props.selectedOrganizers.map(element => element._id)
+
+  // console.log(personNameArray)
+  // console.log(personIdArray)
+
+
+
   const [personName, setPersonName] = React.useState([]);
   const [personId, setPersonId] = React.useState(props.people);
   const [users, setUsers] = React.useState([]);
   const [errorMessage, setErrorMessage] = React.useState(undefined);
+
 
   React.useEffect(() => {
 
@@ -41,7 +54,7 @@ function PeopleSelector(props) {
         .then((response) => {
           console.log("api response", response.data)
           setUsers(response.data);
-          // console.log('type is invites, people are', users)
+          console.log('type is invites, people are', users)
         })
         .catch((error) => {
           console.log(error);
@@ -59,7 +72,7 @@ function PeopleSelector(props) {
         })
         .then((response) => {
           setUsers(response.data);
-          // console.log('type is orgnizers, people are', users)
+          console.log('type is orgnizers, people are', users)
         })
         .catch((error) => {
           const errorDescription = error.response.data.message;
