@@ -37,12 +37,16 @@ function PeopleSelector(props) {
 
 
   const [personName, setPersonName] = React.useState([]);
-  const [personId, setPersonId] = React.useState(props.people);
+  const [personId, setPersonId] = React.useState([]);
   const [users, setUsers] = React.useState([]);
   const [errorMessage, setErrorMessage] = React.useState(undefined);
 
 
   React.useEffect(() => {
+
+    if(props.people){ 
+      setPersonId(props.people)
+    }
 
     const storedToken = localStorage.getItem("authToken");
 
