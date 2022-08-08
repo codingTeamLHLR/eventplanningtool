@@ -75,6 +75,8 @@ function UpdateEventPage() {
 
     const data = new FormData(e.currentTarget);
 
+    console.log("participants", participants)
+
     const requestBody = {
       name: event.name,
       date: event.date,
