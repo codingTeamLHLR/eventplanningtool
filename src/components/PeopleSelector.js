@@ -72,7 +72,7 @@ function PeopleSelector(props) {
       axios
         .get(process.env.REACT_APP_API_URL + "/users", {
           headers: { Authorization: `Bearer ${storedToken}` },
-          params: { ids: props.participants._id },
+          params: { ids: props.participants },
         })
         .then((response) => {
           setUsers(response.data);
@@ -86,7 +86,6 @@ function PeopleSelector(props) {
     }
   }, [props]);
 
-  console.log(personId)
 
   // dynamically show who is selected
   function getStyles(name, personName, theme) {
