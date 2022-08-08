@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import * as React from 'react';
+import * as React from "react";
 
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -10,14 +10,14 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
 import PeopleSelector from "../components/PeopleSelector";
 import CloudinaryWidget from "../components/CloudinaryWidget";
 import ShowImage from "../functions/ShowImage";
 import Moment from "moment";
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { timePickerValueManager } from "@mui/x-date-pickers/TimePicker/shared";
 import { CircularProgress, getNativeSelectUtilityClasses } from "@mui/material";
 
@@ -30,7 +30,7 @@ function UpdateEventPage() {
   const [participants, setParticipants] = useState([]);
   const [image, setImage] = useState("");
   const [organizers, setOrganizers] = useState([]);
-  const [event, setEvent] = useState({})
+  const [event, setEvent] = useState({});
 
   const storedToken = localStorage.getItem("authToken");
 
@@ -44,8 +44,8 @@ function UpdateEventPage() {
       .then((response) => {
         setEvent(response.data);
         setImage(response.data.image);
-        setParticipants(response.data.participants._id);
-        setOrganizers(response.data.organizers._id);
+        setParticipants(response.data.participants.map((element) => element._id));
+        setOrganizers(response.data.organizers.map((element) => element._id));
         console.log(response.data);
       })
       .catch((err) => {
@@ -53,28 +53,25 @@ function UpdateEventPage() {
       });
   }, [eventId, storedToken]);
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-            setEvent(prevState => ({
-                ...prevState,
-                [name]: value
-            }));
-  }
+    setEvent((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   const handleNestedChange = (e) => {
     const { name, value } = e.target;
-            setEvent(prevState => ({
-                ...prevState,
-                location: {...prevState.location, [name]: value}
-            }));
-  }
-
-console.log("state", event)
+    setEvent((prevState) => ({
+      ...prevState,
+      location: { ...prevState.location, [name]: value },
+    }));
+  };
 
   const handleCreateEventSubmit = (e) => {
     e.preventDefault();
-
-    console.log("eventdata", event)
 
     const data = new FormData(e.currentTarget);
 
@@ -109,6 +106,7 @@ console.log("state", event)
       });
   };
 
+
   const theme = createTheme();
 
   return (
@@ -119,146 +117,155 @@ console.log("state", event)
         </Box>
       ) : (
         <>
-      <h1>Update Event</h1>
+          <h1>Update Event</h1>
 
-      <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 0,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              marginBottom: 10,
-            }}
-          >
-            <Box
-              component="form"
-              onSubmit={handleCreateEventSubmit}
-              noValidate
-              sx={{ mt: 1 }}
-              enctype="multipart/form-data"
-            >
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="name"
-                label="Event Name"
-                InputLabelProps={{ shrink: true }}
-                name="name"
-                autoComplete="name"
-                autoFocus
-                error={error}
-                helperText={errorMessage}
-                value={event.name}
-                onChange={handleChange}
-              />
-
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DateTimePicker
-                  renderInput={(props) => <TextField sx={{ mt: 1 }} fullWidth InputLabelProps={{ shrink: true }} {...props} />}
-                  disablePast={true}
-                  label="Date and Time"
-                  value={event.date}
-                  onChange={(newValue) => {
-                    setEvent(prevState => ({
-                      ...prevState,
-                      date: newValue
-                    }))
-                  }}
-                />
-              </LocalizationProvider>
-
-              <TextField
-                margin="normal"
-                fullWidth
-                name="street"
-                label="Street"
-                InputLabelProps={{ shrink: true }}
-                id="street"
-                value={event.location.street}
-                onChange={handleNestedChange}
-              />
-
-              <TextField
-                margin="normal"
-                fullWidth
-                name="housenumber"
-                label="Housenumber"
-                InputLabelProps={{ shrink: true }}
-                type="number"
-                id="housenumber"
-                value={event.location.housenumber}
-                onChange={handleNestedChange}
-              />
-
-              <TextField
-                margin="normal"
-                fullWidth
-                name="citycode"
-                label="Citycode"
-                InputLabelProps={{ shrink: true }}
-                type="number"
-                id="citycode"
-                value={event.location.citycode}
-                onChange={handleNestedChange}
-              />
-
-              <TextField
-                margin="normal"
-                fullWidth
-                name="city"
-                label="City"
-                InputLabelProps={{ shrink: true }}
-                id="city"
-                value={event.location.city}
-                onChange={handleNestedChange}
-              />
-
-              <TextField
-                margin="normal"
-                fullWidth
-                name="country"
-                label="Country"
-                InputLabelProps={{ shrink: true }}
-                id="country"
-                value={event.location.country}
-                onChange={handleNestedChange}
-              />
-
-              <PeopleSelector
-                name="Guests"
-                type="invites"
-                getPeopleCallback={setParticipants}
-              />
-
-              <PeopleSelector
-                name="Organizers"
-                type="organizers"
-                getPeopleCallback={setOrganizers}
-                participants={participants}
-              />
-
-              <CloudinaryWidget setImage={setImage} image={event.image}/>
-
-              <p>{errorMessage}</p>
-
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+          <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="xs">
+              <CssBaseline />
+              <Box
+                sx={{
+                  marginTop: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginBottom: 10,
+                }}
               >
-                Save Changes
-              </Button>
-              <Grid container></Grid>
-            </Box>
-          </Box>
-        </Container>
-      </ThemeProvider>
-      </>
+                <Box
+                  component="form"
+                  onSubmit={handleCreateEventSubmit}
+                  noValidate
+                  sx={{ mt: 1 }}
+                  enctype="multipart/form-data"
+                >
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="name"
+                    label="Event Name"
+                    InputLabelProps={{ shrink: true }}
+                    name="name"
+                    autoComplete="name"
+                    autoFocus
+                    error={error}
+                    helperText={errorMessage}
+                    value={event.name}
+                    onChange={handleChange}
+                  />
+
+                  <LocalizationProvider dateAdapter={AdapterMoment}>
+                    <DateTimePicker
+                      renderInput={(props) => (
+                        <TextField
+                          sx={{ mt: 1 }}
+                          fullWidth
+                          InputLabelProps={{ shrink: true }}
+                          {...props}
+                        />
+                      )}
+                      disablePast={true}
+                      label="Date and Time"
+                      value={event.date}
+                      onChange={(newValue) => {
+                        setEvent((prevState) => ({
+                          ...prevState,
+                          date: newValue,
+                        }));
+                      }}
+                    />
+                  </LocalizationProvider>
+
+                  <TextField
+                    margin="normal"
+                    fullWidth
+                    name="street"
+                    label="Street"
+                    InputLabelProps={{ shrink: true }}
+                    id="street"
+                    value={event.location.street}
+                    onChange={handleNestedChange}
+                  />
+
+                  <TextField
+                    margin="normal"
+                    fullWidth
+                    name="housenumber"
+                    label="Housenumber"
+                    InputLabelProps={{ shrink: true }}
+                    type="number"
+                    id="housenumber"
+                    value={event.location.housenumber}
+                    onChange={handleNestedChange}
+                  />
+
+                  <TextField
+                    margin="normal"
+                    fullWidth
+                    name="citycode"
+                    label="Citycode"
+                    InputLabelProps={{ shrink: true }}
+                    type="number"
+                    id="citycode"
+                    value={event.location.citycode}
+                    onChange={handleNestedChange}
+                  />
+
+                  <TextField
+                    margin="normal"
+                    fullWidth
+                    name="city"
+                    label="City"
+                    InputLabelProps={{ shrink: true }}
+                    id="city"
+                    value={event.location.city}
+                    onChange={handleNestedChange}
+                  />
+
+                  <TextField
+                    margin="normal"
+                    fullWidth
+                    name="country"
+                    label="Country"
+                    InputLabelProps={{ shrink: true }}
+                    id="country"
+                    value={event.location.country}
+                    onChange={handleNestedChange}
+                  />
+
+                  <PeopleSelector
+                    name="Guests"
+                    type="invites"
+                    getPeopleCallback={setParticipants} 
+                    people={participants}
+                  />
+
+                  <PeopleSelector
+                    name="Organizers"
+                    type="organizers"
+                    getPeopleCallback={setOrganizers}
+                    participants={participants}
+                    people={organizers}
+                  />
+
+                  <CloudinaryWidget setImage={setImage} image={event.image} />
+
+                  <p>{errorMessage}</p>
+
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    Save Changes
+                  </Button>
+                  <Grid container></Grid>
+                </Box>
+              </Box>
+            </Container>
+          </ThemeProvider>
+        </>
       )}
     </>
   );
