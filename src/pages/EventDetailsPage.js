@@ -66,7 +66,7 @@ function EventDetailsPage() {
             <CircularProgress />
         </Box>
       : (
-        <Grid container rowSpacing={3} columnSpacing={1} sx={{ p: 2 }}>
+        <Grid container rowSpacing={3} columnSpacing={1} sx={{ p: 2, marginBottom: 10 }}>
           <Grid item xs={12}>
             <Typography
               align="center"

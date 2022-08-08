@@ -88,6 +88,7 @@ function UpdateEventPage() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            marginBottom: 10
           }}
         >
           <Box component="form" onSubmit={handleCreateEventSubmit} noValidate sx={{ mt: 1 }} enctype="multipart/form-data">

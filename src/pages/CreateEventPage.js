@@ -25,7 +25,6 @@ function CreateEventPage() {
     const [participants, setParticipants] = useState([]);
     const [image, setImage] = useState("");
     const [organizers, setOrganizers] = useState([]);
-    const [imageToDisplay, setImageToDisplay] = useState(null)
 
     // console.log('participants are', participants)
     // console.log('organizers are', organizers)
@@ -86,6 +85,7 @@ function CreateEventPage() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            marginBottom: 10
           }}
         >
           <Box component="form" onSubmit={handleCreateEventSubmit} noValidate sx={{ mt: 1 }} enctype="multipart/form-data">
@@ -175,7 +175,7 @@ function CreateEventPage() {
         
             <PeopleSelector name="Organizers" type='organizers' getPeopleCallback={setOrganizers} participants={participants}/>
 
-            <CloudinaryWidget setImage={setImage} setImageToDisplay={setImageToDisplay}/>
+            <CloudinaryWidget setImage={setImage}/>
 
             <p>
                 {errorMessage}

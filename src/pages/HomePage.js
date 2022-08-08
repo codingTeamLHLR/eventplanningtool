@@ -35,7 +35,7 @@ function HomePage() {
 
         <Link to='create-event'> <Button> Create Event</Button></Link>
         
-        <Grid container spacing={2} sx={{ p: 2}}>
+        <Grid container spacing={2} sx={{ p: 2, marginBottom: 10}} >
             {events.length === 0
                 ?   <p>loading...</p>
                 :   <>
