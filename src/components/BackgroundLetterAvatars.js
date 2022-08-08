@@ -1,8 +1,8 @@
 // function for colored inital avatars from MUI
 
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Stack from '@mui/material/Stack';
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
 
 function stringToColor(string = "") {
   let hash = 0;
@@ -13,7 +13,7 @@ function stringToColor(string = "") {
     hash = string.charCodeAt(i) + ((hash << 5) - hash);
   }
 
-  let color = '#';
+  let color = "#";
 
   for (i = 0; i < 3; i += 1) {
     const value = (hash >> (i * 8)) & 0xff;
@@ -25,10 +25,10 @@ function stringToColor(string = "") {
 }
 
 function stringAvatar(name = "") {
-  const split = name.split(' ')
+  const split = name.split(" ");
   let initials = split[0][0];
   if (split.length > 1) {
-    initials = initials + split[1][0]
+    initials = initials + split[1][0];
   }
 
   return {

@@ -10,7 +10,7 @@ import Close from '@mui/icons-material/Close';
 
 
 import Stack from "@mui/material/Stack";
-import BackgroundLetterAvatars from "../functions/BackgroundLetterAvatars";
+import BackgroundLetterAvatars from "../components/BackgroundLetterAvatars";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -42,14 +42,12 @@ function EventDetailsPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     axios
       .get(process.env.REACT_APP_API_URL + "/events/" + eventId, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
         setEvent(response.data);
-        setEventImage(ShowImage(response.data.image));
         setFormatDate(Moment(response.data.date).format("MMM Do YY"));
         setFormatTime(Moment(response.data.date).format("h:mm A"));
         setOrganizersArray(response.data.organizers.map(element => element._id))
@@ -60,8 +58,7 @@ function EventDetailsPage() {
       });
   }, []);
 
-  const deleteEvent = () => {    
-
+  const deleteEvent = () => {
     axios
       .delete(process.env.REACT_APP_API_URL + "/events/" + eventId, {
         headers: { Authorization: `Bearer ${storedToken}` },
@@ -76,9 +73,9 @@ function EventDetailsPage() {
 
   return (
     <>
-      {!event 
-      ? <Box align="center">
-            <CircularProgress />
+      {!event ? 
+        <Box align="center">
+          <CircularProgress />
         </Box>
       : (
         <Grid container rowSpacing={3} columnSpacing={1} sx={{ width: "100%", p: "5%"}}>
@@ -239,7 +236,7 @@ function EventDetailsPage() {
         </Grid>
       )}
     </>
-  );
+  )
 }
 
 export default EventDetailsPage;

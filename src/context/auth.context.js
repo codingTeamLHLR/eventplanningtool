@@ -10,46 +10,46 @@ function AuthProviderWrapper(props) {
   const [user, setUser] = useState(null);
 
   const storeToken = (token) => {
-    localStorage.setItem('authToken', token);
-  }
+    localStorage.setItem("authToken", token);
+  };
 
-
-  const authenticateUser = () => { 
-
-    const storedToken = localStorage.getItem('authToken');
+  const authenticateUser = () => {
+    const storedToken = localStorage.getItem("authToken");
     // console.log(storedToken);
 
     if (storedToken) {
-    axios
-      .get(process.env.REACT_APP_API_URL + '/verify', { headers: { Authorization: `Bearer ${storedToken}`} })
-      .then((response) => {
-        const user = response.data;
-        setUser(user);
-        setIsLoggedIn(true);
-        setIsLoading(false);
-      })
-      .catch((error) => { 
-        setIsLoggedIn(false);
-        setUser(null);
-        setIsLoading(false);
-    });
-  } else {
-    setIsLoggedIn(false);
-    setIsLoading(false);
-    setUser(null);    
-  }
-}
+      axios
+        .get(process.env.REACT_APP_API_URL + "/verify", {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        })
+        .then((response) => {
+          const user = response.data;
+          setUser(user);
+          setIsLoggedIn(true);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          setIsLoggedIn(false);
+          setUser(null);
+          setIsLoading(false);
+        });
+    } else {
+      setIsLoggedIn(false);
+      setIsLoading(false);
+      setUser(null);
+    }
+  };
 
   const removeToken = () => {
     localStorage.removeItem("authToken");
   };
-  
+
   // const navigate = useNavigate();
 
   const logOutUser = () => {
     removeToken();
     authenticateUser();
-    // navigate('/');      
+    // navigate('/');
   };
 
   useEffect(() => {
@@ -57,7 +57,16 @@ function AuthProviderWrapper(props) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, isLoading, user, storeToken, authenticateUser, logOutUser }}>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn,
+        isLoading,
+        user,
+        storeToken,
+        authenticateUser,
+        logOutUser,
+      }}
+    >
       {props.children}
     </AuthContext.Provider>
   );
