@@ -136,7 +136,7 @@ function PeopleSelector(props) {
                 );
               })}
             </Select>
-            {/* {errorMessage} */}
+            {errorMessage}
           </FormControl>
         </>
       )}

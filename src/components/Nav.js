@@ -14,9 +14,7 @@ import { AuthContext } from "../context/auth.context";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {
-  Avatar,
   Button,
-  Divider,
   IconButton,
   ListItemIcon,
   Menu,
@@ -27,7 +25,7 @@ import {
 export default function SimpleBottomNavigation() {
   const [value, setValue] = React.useState(0);
 
-  const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
+  const { isLoggedIn, logOutUser } = useContext(AuthContext);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);

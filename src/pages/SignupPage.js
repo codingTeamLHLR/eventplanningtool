@@ -15,8 +15,8 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Link from "@mui/material/Link";
 import CloudinaryWidget from "../components/CloudinaryWidget";
-import InputLabel from "@mui/material/InputLabel";
-import { FormControlLabel, FormLabel } from "@mui/material";
+
+import { FormLabel } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 

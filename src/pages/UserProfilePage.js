@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
-import Check from "@mui/icons-material/Check";
-import Close from "@mui/icons-material/Close";
+import { useNavigate } from "react-router-dom";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -10,13 +8,10 @@ import ShowImage from "../functions/ShowImage";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { Link, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Moment from "moment";
-import ThreadList from "../components/ThreasList";
-import PollList from "../components/PollList";
 import CircularProgress from "@mui/material/CircularProgress";
-import { CalendarMonth, Place } from "@mui/icons-material";
-import GroupedAvatars from "../components/GroupedAvatars";
+import { CalendarMonth } from "@mui/icons-material";
 
 function UserProfilePage() {
   const [userDetails, setUserDetails] = useState(null);
@@ -46,7 +41,7 @@ function UserProfilePage() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [storedToken]);
 
   const deleteUser = () => {
     axios
