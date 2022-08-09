@@ -9,8 +9,6 @@ import {
 import { createTheme } from "@mui/material/styles";
 import axios from "axios";
 
-// const { ObjectId } = require('mongodb');
-
 function PeopleSelector(props) {
   // Styling for the Selector
   const ITEM_HEIGHT = 48;
@@ -24,28 +22,16 @@ function PeopleSelector(props) {
     },
   };
 
-  console.log("props", props)
-
-  // console.log("selectedParticipants", props.selectedParticipants)
-
-  // const personNameArray = props.selectedOrganizers.map(element => element.name)
-  // const personIdArray = props.selectedOrganizers.map(element => element._id)
-
-  // console.log(personNameArray)
-  // console.log(personIdArray)
-
-
+  console.log("props", props);
 
   const [personName, setPersonName] = React.useState([]);
   const [personId, setPersonId] = React.useState([]);
   const [users, setUsers] = React.useState([]);
   const [errorMessage, setErrorMessage] = React.useState(undefined);
 
-
   React.useEffect(() => {
-
-    if(props.people){ 
-      setPersonId(props.people)
+    if (props.people) {
+      setPersonId(props.people);
     }
 
     const storedToken = localStorage.getItem("authToken");
@@ -56,9 +42,9 @@ function PeopleSelector(props) {
           headers: { Authorization: `Bearer ${storedToken}` },
         })
         .then((response) => {
-          console.log("api response", response.data)
+          console.log("api response", response.data);
           setUsers(response.data);
-          console.log('type is invites, people are', users)
+          console.log("type is invites, people are", users);
         })
         .catch((error) => {
           console.log(error);
@@ -76,7 +62,7 @@ function PeopleSelector(props) {
         })
         .then((response) => {
           setUsers(response.data);
-          console.log('type is orgnizers, people are', users)
+          console.log("type is orgnizers, people are", response.data);
         })
         .catch((error) => {
           const errorDescription = error.response.data.message;
@@ -85,8 +71,6 @@ function PeopleSelector(props) {
         });
     }
   }, [props]);
-
-  console.log(personId)
 
   // dynamically show who is selected
   function getStyles(name, personName, theme) {
@@ -97,7 +81,6 @@ function PeopleSelector(props) {
           : theme.typography.fontWeightMedium,
     };
   }
-
 
   const handlePeopleChange = (event) => {
     const {
@@ -118,45 +101,46 @@ function PeopleSelector(props) {
 
   return (
     <>
-    {users.length === 0 
-      ? <p>loading.. </p>
-      : <>
-    <FormControl sx={{ width: "100%", mt: 2, mb: 1 }}>
-      <InputLabel
-        id="demo-multiple-name-label"
-        shrink
-        style={{ backgroundColor: "white" }}
-      >
-        {label}
-      </InputLabel>
-
-      <Select
-        labelId="demo-multiple-name-label"
-        id="demo-multiple-name"
-        multiple
-        value={personId}
-        onChange={handlePeopleChange}
-        onClose={() => props.getPeopleCallback(personId)}
-        input={<OutlinedInput notched label="Name" />}
-        MenuProps={MenuProps}
-      >
-        {users.map((user) => {
-          return (
-            <MenuItem
-              key={user._id}
-              value={user._id}
-              style={getStyles(user.username, personName, theme)}
+      {users.length === 0 ? (
+        <p>loading.. </p>
+      ) : (
+        <>
+          <FormControl sx={{ width: "100%", mt: 2, mb: 1 }}>
+            <InputLabel
+              id="demo-multiple-name-label"
+              shrink
+              style={{ backgroundColor: "white" }}
             >
-              {user.username}
-            </MenuItem>
-          );
-        })}
-      </Select>
-      {/* {errorMessage} */}
-    </FormControl>
+              {label}
+            </InputLabel>
+
+            <Select
+              labelId="demo-multiple-name-label"
+              id="demo-multiple-name"
+              multiple
+              value={personId}
+              onChange={handlePeopleChange}
+              onClose={() => props.getPeopleCallback(personId)}
+              input={<OutlinedInput notched label="Name" />}
+              MenuProps={MenuProps}
+            >
+              {users.map((user) => {
+                return (
+                  <MenuItem
+                    key={user._id}
+                    value={user._id}
+                    style={getStyles(user.username, personName, theme)}
+                  >
+                    {user.username}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+            {/* {errorMessage} */}
+          </FormControl>
+        </>
+      )}
     </>
-  }
-  </>
   );
 }
 

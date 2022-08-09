@@ -14,10 +14,17 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Link from "@mui/material/Link";
+import CloudinaryWidget from "../components/CloudinaryWidget";
+import InputLabel from "@mui/material/InputLabel";
+import { FormControlLabel, FormLabel } from "@mui/material";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
 function SignupPage() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
+  const [image, setImage] = useState("");
+  const [birthdate, setBirthdate] = useState(null);
 
   const navigate = useNavigate();
 
@@ -32,7 +39,8 @@ function SignupPage() {
       email: data.get("email"),
       password: data.get("password"),
       username: data.get("username"),
-      birthdate: data.get("birthdate"),
+      birthdate,
+      image,
     };
 
     console.log(requestBody);
@@ -122,7 +130,7 @@ function SignupPage() {
               helperText={errorMessage}
             />
 
-            <TextField
+            {/* <TextField
               margin="normal"
               required
               fullWidth
@@ -133,7 +141,29 @@ function SignupPage() {
               id="birthdate"
               error={error}
               helperText={errorMessage}
-            />
+            /> */}
+
+            <LocalizationProvider dateAdapter={AdapterMoment}>
+              <DatePicker
+                label="Birthdate"
+                value={birthdate}
+                disableFuture={true}
+                onChange={(newValue) => {
+                  setBirthdate(newValue);
+                }}
+                renderInput={(props) => (
+                  <TextField
+                    sx={{ mt: 2 }}
+                    fullWidth
+                    InputLabelProps={{ shrink: true }}
+                    {...props}
+                  />
+                )}
+              />
+            </LocalizationProvider>
+
+            <FormLabel>Upload Profile Picture</FormLabel>
+            <CloudinaryWidget setImage={setImage} />
 
             <p>{errorMessage}</p>
 
