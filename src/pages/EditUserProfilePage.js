@@ -10,7 +10,6 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CloudinaryWidget from "../components/CloudinaryWidget";
 import { CircularProgress, FormLabel } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -91,7 +90,6 @@ function EditUserProfilePage() {
       });
   };
 
-  const theme = createTheme();
 
   return (
     <>
@@ -100,7 +98,7 @@ function EditUserProfilePage() {
           <CircularProgress />
         </Box>
       ) : (
-        <ThemeProvider theme={theme}>
+
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
@@ -111,9 +109,6 @@ function EditUserProfilePage() {
                 alignItems: "center",
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                <LockOutlinedIcon />
-              </Avatar>
               <Typography component="h1" variant="h5">
                 Update Profile Information
               </Typography>
@@ -181,6 +176,7 @@ function EditUserProfilePage() {
               value={userDetails.birthdate}
               onChange={handleChange}
             /> */}
+            
                 <LocalizationProvider dateAdapter={AdapterMoment}>
                   <DatePicker
                     label="Birthdate"
@@ -198,11 +194,14 @@ function EditUserProfilePage() {
                   />
                 </LocalizationProvider>
 
-                <FormLabel>Change Profile Picture</FormLabel>
-                <CloudinaryWidget
-                  setImage={setImage}
-                  image={userDetails.image}
-                />
+                <Box sx={{mt:2}}>
+                  <FormLabel sx={{fontSize: 12}}>Change Profile Picture</FormLabel>
+                  <CloudinaryWidget
+                    setImage={setImage}
+                    image={userDetails.image}
+                    sx={{width:"100%"}}
+                  />
+                </Box>
 
                 <p>{errorMessage}</p>
 
@@ -212,12 +211,11 @@ function EditUserProfilePage() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Update Profile Information
+                  Save Changes
                 </Button>
               </Box>
             </Box>
           </Container>
-        </ThemeProvider>
       )}
     </>
   );

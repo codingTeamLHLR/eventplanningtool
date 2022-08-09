@@ -68,6 +68,7 @@ export default function SimpleBottomNavigation() {
             icon={<Person />}
           />
         </Tooltip>
+        
         <Menu
           anchorEl={anchorEl}
           id="account-menu"
@@ -75,7 +76,7 @@ export default function SimpleBottomNavigation() {
           onClose={handleClose}
           onClick={handleClose}
           PaperProps={{
-            elevation: 0,
+            elevation: 1,
             sx: {
               overflow: "visible",
               filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",

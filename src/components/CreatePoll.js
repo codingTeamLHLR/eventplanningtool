@@ -14,9 +14,11 @@ export default function CreatePoll(props) {
   const [options, setOptions] = React.useState([]);
 
   const handleSubmit = () => {};
+
   const handleAddOption = () => {
     setOptions();
   };
+  
   const handleRemoveOption = () => {
     setOptions();
   };

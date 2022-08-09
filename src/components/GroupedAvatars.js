@@ -46,7 +46,7 @@ export default function GroupedAvatars(props) {
     >
       {avatars.map((participant) => {
         return (
-          <Box key={participant._id} sx={{ m: -0.5 }}>
+          <Box key={participant._id} sx={{ m: 0 }}>
             {participant.image ? (
               <Avatar
                 alt={participant.username}
@@ -56,7 +56,7 @@ export default function GroupedAvatars(props) {
               <BackgroundLetterAvatars name={participant.username} />
             )}
             {props.organizersArray.includes(participant._id) ? (
-              <Typography style={{ fontSize: "11px" }}> Organizer </Typography>
+              <Typography style={{ fontSize: "11px" }}> Host </Typography>
             ) : (
               <></>
             )}
@@ -64,7 +64,7 @@ export default function GroupedAvatars(props) {
         );
       })}
 
-      {!!surplus && <Avatar sx={{ left: 4, top: -3 }}>+{surplus}</Avatar>}
+      {!!surplus && <Avatar sx={{ left: 12, top: 0 }}>+{surplus}</Avatar>}
     </AvatarGroup>
   );
 }
