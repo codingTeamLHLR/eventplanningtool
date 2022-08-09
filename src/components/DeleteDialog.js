@@ -20,9 +20,20 @@ export default function DeleteDialog(props) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
+
+        {props.type==='deleteEvent' &&
         <DialogTitle id="alert-dialog-title">
           {"Do you really want to delete this event?"}
         </DialogTitle>
+        }
+
+        {props.type==='deleteUser' &&
+        <DialogTitle id="alert-dialog-title">
+          {"Do you really want to delete your account?"}
+        </DialogTitle>
+        }
+
+
         {/* <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Let Google help apps determine location. This means sending anonymous
@@ -30,8 +41,18 @@ export default function DeleteDialog(props) {
           </DialogContentText>
         </DialogContent> */}
         <DialogActions>
-          <Button onClick={props.callBackToClose}>No</Button>
-          <Button onClick={props.callBackToDelete} autoFocus>
+          <Button 
+            variant="contained"
+            onClick={props.callBackToClose}
+          >
+          No
+          </Button>
+          <Button 
+            variant="contained"
+            color="error"
+            onClick={props.callBackToDelete} 
+            autoFocus
+          >
             Yes, delete
           </Button>
         </DialogActions>
