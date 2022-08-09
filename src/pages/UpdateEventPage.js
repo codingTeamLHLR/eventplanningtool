@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import * as React from "react";
@@ -15,11 +15,8 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
 import PeopleSelector from "../components/PeopleSelector";
 import CloudinaryWidget from "../components/CloudinaryWidget";
-import ShowImage from "../functions/ShowImage";
-import Moment from "moment";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import { timePickerValueManager } from "@mui/x-date-pickers/TimePicker/shared";
-import { CircularProgress, getNativeSelectUtilityClasses } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 
 function UpdateEventPage() {
   const { eventId } = useParams();

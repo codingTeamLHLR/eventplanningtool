@@ -1,21 +1,18 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Grow from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
-import Stack from "@mui/material/Stack";
-import { useSlotProps } from "@mui/base";
 
 export default function MenuListComposition({ anchorEl }) {
   const [open, setOpen] = React.useState(true);
   const anchorRef = React.useRef(null);
 
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
+  // const handleToggle = () => {
+  //   setOpen((prevOpen) => !prevOpen);
+  // };
 
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {

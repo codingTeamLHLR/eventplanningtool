@@ -1,22 +1,18 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { AuthContext } from "../context/auth.context";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Link from "@mui/material/Link";
 import CloudinaryWidget from "../components/CloudinaryWidget";
-import InputLabel from "@mui/material/InputLabel";
-import { CircularProgress, FormControlLabel, FormLabel } from "@mui/material";
+import { CircularProgress, FormLabel } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
@@ -51,7 +47,7 @@ function EditUserProfilePage() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [storedToken]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,7 +62,7 @@ function EditUserProfilePage() {
   const handleSignupSubmit = (event) => {
     event.preventDefault();
 
-    const data = new FormData(event.currentTarget);
+    // const data = new FormData(event.currentTarget);
 
     const requestBody = {
       // email:

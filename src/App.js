@@ -5,11 +5,8 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import CreateEventPage from "./pages/CreateEventPage";
 import EventDetailsPage from "./pages/EventDetailsPage";
-import NavBar from "./components/NavBar";
-// import IsPrivate from './components/IsPrivate';
 import IsAnon from "./components/IsAnon";
 import Nav from "./components/Nav";
-import { MenuList } from "@mui/material";
 import UpdateEventPage from "./pages/UpdateEventPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import EditUserProfilePage from "./pages/EditUserProfilePage";
@@ -17,9 +14,6 @@ import EditUserProfilePage from "./pages/EditUserProfilePage";
 function App() {
   return (
     <div className="App">
-      {/* <NavBar></NavBar> */}
-
-      {/* <MenuList/> */}
 
       <Nav />
 

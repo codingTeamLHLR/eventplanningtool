@@ -7,7 +7,6 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Moment from "moment";
 import Link from "@mui/material/Link";
-import { letterSpacing } from "@mui/system";
 import ShowImage from "../functions/ShowImage";
 
 export default function EventCard(props) {

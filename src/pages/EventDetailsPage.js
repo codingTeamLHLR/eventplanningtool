@@ -1,15 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import Avatar from "@mui/material/Avatar";
-import AvatarGroup from "@mui/material/AvatarGroup";
-import IconButton from "@mui/material/IconButton";
-import SvgIcon from "@mui/material/SvgIcon";
 import Check from "@mui/icons-material/Check";
 import Close from "@mui/icons-material/Close";
 
-import Stack from "@mui/material/Stack";
-import BackgroundLetterAvatars from "../components/BackgroundLetterAvatars";
+
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -17,15 +12,14 @@ import ShowImage from "../functions/ShowImage";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { Link, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Moment from "moment";
 import ThreadList from "../components/ThreasList";
 import PollList from "../components/PollList";
 import CircularProgress from "@mui/material/CircularProgress";
-import { maxHeight } from "@mui/system";
+
 import { CalendarMonth, Place } from "@mui/icons-material";
 import GroupedAvatars from "../components/GroupedAvatars";
-import { color } from "@cloudinary/url-gen/qualifiers/background";
 
 function EventDetailsPage() {
   const { eventId } = useParams();
@@ -58,7 +52,7 @@ function EventDetailsPage() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [eventId, storedToken]);
 
   const deleteEvent = () => {
     axios

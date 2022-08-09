@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -9,9 +9,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Moment from "moment";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import { timePickerValueManager } from "@mui/x-date-pickers/TimePicker/shared";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
@@ -43,7 +41,7 @@ function CreateEventPage() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [storedToken]);
 
   const handleCreateEventSubmit = (event) => {
     event.preventDefault();
