@@ -12,10 +12,10 @@ import ShowImage from "../functions/ShowImage";
 
 export default function EventCard(props) {
   let formatDate;
-  if(props.data.date) {
+  if (props.data.date) {
     formatDate = Moment(props.data.date).format("MMM Do YY");
   } else {
-    formatDate = "TBD"
+    formatDate = "TBD";
   }
 
   const imageUrl = ShowImage(props.data.image);

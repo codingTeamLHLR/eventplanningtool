@@ -31,8 +31,9 @@ function UpdateEventPage() {
   const [image, setImage] = useState("");
   const [organizers, setOrganizers] = useState([]);
   const [event, setEvent] = useState({});
+  const [userId, setUserId] = useState(null);
 
-  console.log("initial state of participants", participants)
+  console.log("initial state of participants", participants);
 
   const storedToken = localStorage.getItem("authToken");
 
@@ -40,13 +41,21 @@ function UpdateEventPage() {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_URL + "/events/" + eventId, {
+      .get(process.env.REACT_APP_API_URL + "/verify", {
         headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then((response) => {
+        setUserId(response.data._id);
+        return axios.get(process.env.REACT_APP_API_URL + "/events/" + eventId, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        });
       })
       .then((response) => {
         setEvent(response.data);
         setImage(response.data.image);
-        setParticipants(response.data.participants.map((element) => element._id));
+        setParticipants(
+          response.data.participants.map((element) => element._id)
+        );
         setOrganizers(response.data.organizers.map((element) => element._id));
         console.log(response.data);
       })
@@ -54,7 +63,6 @@ function UpdateEventPage() {
         console.log(err);
       });
   }, [eventId, storedToken]);
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,9 +83,9 @@ function UpdateEventPage() {
   const handleCreateEventSubmit = (e) => {
     e.preventDefault();
 
-    const data = new FormData(e.currentTarget);
+    // const data = new FormData(e.currentTarget);
 
-    console.log("participants", participants)
+    console.log("participants", participants);
 
     const requestBody = {
       name: event.name,
@@ -109,7 +117,6 @@ function UpdateEventPage() {
         console.log(errorDescription);
       });
   };
-
 
   const theme = createTheme();
 
@@ -240,7 +247,7 @@ function UpdateEventPage() {
                   <PeopleSelector
                     name="Guests"
                     type="invites"
-                    getPeopleCallback={setParticipants} 
+                    getPeopleCallback={setParticipants}
                     people={participants}
                   />
 
@@ -263,6 +270,14 @@ function UpdateEventPage() {
                     sx={{ mt: 3, mb: 2 }}
                   >
                     Save Changes
+                  </Button>
+                  <Button
+                    href={`/${eventId}`}
+                    fullWidth
+                    variant="outlined"
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    Back
                   </Button>
                   <Grid container></Grid>
                 </Box>

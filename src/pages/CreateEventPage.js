@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -12,8 +12,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Moment from "moment";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { timePickerValueManager } from "@mui/x-date-pickers/TimePicker/shared";
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
 import PeopleSelector from "../components/PeopleSelector";
 import CloudinaryWidget from "../components/CloudinaryWidget";
@@ -25,11 +25,25 @@ function CreateEventPage() {
   const [participants, setParticipants] = useState([]);
   const [image, setImage] = useState("");
   const [organizers, setOrganizers] = useState([]);
-  const [time, setTime] = useState(null)
-
-
+  const [time, setTime] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   const navigate = useNavigate();
+
+  const storedToken = localStorage.getItem("authToken");
+
+  useEffect(() => {
+    axios
+      .get(process.env.REACT_APP_API_URL + "/verify", {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then((response) => {
+        setUserId(response.data._id);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const handleCreateEventSubmit = (event) => {
     event.preventDefault();
@@ -50,8 +64,6 @@ function CreateEventPage() {
       participants,
       organizers,
     };
-
-    const storedToken = localStorage.getItem("authToken");
 
     axios
       .post(process.env.REACT_APP_API_URL + "/events", requestBody, {

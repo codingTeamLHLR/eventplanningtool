@@ -2,12 +2,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
-import AvatarGroup from '@mui/material/AvatarGroup';
-import IconButton from '@mui/material/IconButton';
-import SvgIcon from '@mui/material/SvgIcon';
-import Check from '@mui/icons-material/Check';
-import Close from '@mui/icons-material/Close';
-
+import AvatarGroup from "@mui/material/AvatarGroup";
+import IconButton from "@mui/material/IconButton";
+import SvgIcon from "@mui/material/SvgIcon";
+import Check from "@mui/icons-material/Check";
+import Close from "@mui/icons-material/Close";
 
 import Stack from "@mui/material/Stack";
 import BackgroundLetterAvatars from "../components/BackgroundLetterAvatars";
@@ -22,12 +21,11 @@ import { Link, Typography } from "@mui/material";
 import Moment from "moment";
 import ThreadList from "../components/ThreasList";
 import PollList from "../components/PollList";
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 import { maxHeight } from "@mui/system";
 import { CalendarMonth, Place } from "@mui/icons-material";
 import GroupedAvatars from "../components/GroupedAvatars";
 import { color } from "@cloudinary/url-gen/qualifiers/background";
-
 
 function EventDetailsPage() {
   const { eventId } = useParams();
@@ -35,7 +33,7 @@ function EventDetailsPage() {
   const [eventImage, setEventImage] = useState(null);
   const [formatDate, setFormatDate] = useState("");
   const [formatTime, setFormatTime] = useState("");
-  const [organizersArray, setOrganizersArray] = useState([])
+  const [organizersArray, setOrganizersArray] = useState([]);
 
   const storedToken = localStorage.getItem("authToken");
 
@@ -50,7 +48,9 @@ function EventDetailsPage() {
         setEvent(response.data);
         setFormatDate(Moment(response.data.date).format("MMM Do YY"));
         setFormatTime(Moment(response.data.date).format("h:mm A"));
-        setOrganizersArray(response.data.organizers.map(element => element._id))
+        setOrganizersArray(
+          response.data.organizers.map((element) => element._id)
+        );
         console.log(response.data);
       })
       .catch((err) => {
@@ -73,20 +73,28 @@ function EventDetailsPage() {
 
   return (
     <>
-      {!event ? 
+      {!event ? (
         <Box align="center">
           <CircularProgress />
         </Box>
-      : (
-        <Grid container rowSpacing={3} columnSpacing={1} sx={{ width: "100%", p: "5%"}}>
-            <Box width="100%" style={{
-              height: "40vw", 
-              backgroundColor: "red", 
-              backgroundImage: `url(${eventImage})`, 
-              backgroundRepeat: "no-repeat", 
-              backgroundSize: "cover", 
-              backgroundPositionY: "center"
-            }}/>
+      ) : (
+        <Grid
+          container
+          rowSpacing={3}
+          columnSpacing={1}
+          sx={{ width: "100%", p: "5%" }}
+        >
+          <Box
+            width="100%"
+            style={{
+              height: "40vw",
+              backgroundColor: "red",
+              backgroundImage: `url(${eventImage})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              backgroundPositionY: "center",
+            }}
+          />
           <Grid item xs={12}>
             <Typography
               align="center"
@@ -105,52 +113,55 @@ function EventDetailsPage() {
               component="div"
               // sx={{ mt:-5}}
               sx={{ mt: -2, p: 0.5 }}
-
             >
-             Info
+              Info
             </Typography>
           </Grid>
-          
-          <Grid item xs={6} sx={{display: "flex", flexDirection:"row", mt:-4}}>
-                  <Box sx={{pt: "0.8rem", pr: "1rem"}}>
-                    <Place />
-                  </Box>
-                  <Typography variant="h7" component="div" align="left">
-                    {event.location.street && event.location.housenumber ? (
-                        <>
-                          <p>
-                            {event.location.street}
-                            {event.location.housenumber}
-                          </p>
-                          <p>
-                            {event.location.citycode}, {event.location.city}
-                          </p>
-                          <p>{event.location.country}</p>
-                        </>
-                    ) : (
-                      <p>TBD</p>
-                    )}
-                  </Typography>
-          </Grid>
-            
-          <Grid item xs={6} sx={{display: "flex", flexDirection:"row"}} >
-            <Box sx={{pt: "0.8rem", pr: "1rem", pl:"1rem"}}>
-              <CalendarMonth/>
+
+          <Grid
+            item
+            xs={6}
+            sx={{ display: "flex", flexDirection: "row", mt: -4 }}
+          >
+            <Box sx={{ pt: "0.8rem", pr: "1rem" }}>
+              <Place />
             </Box>
-              <Typography variant="h7" component="div" align="left">
-                <p>
-                    {formatDate}
-                </p>
-                <p>
-                    {formatTime}
-                </p>
-                </Typography>
+            <Typography variant="h7" component="div" align="left">
+              {event.location.street && event.location.housenumber ? (
+                <>
+                  <p>
+                    {event.location.street}
+                    {event.location.housenumber}
+                  </p>
+                  <p>
+                    {event.location.citycode}, {event.location.city}
+                  </p>
+                  <p>{event.location.country}</p>
+                </>
+              ) : (
+                <p>TBD</p>
+              )}
+            </Typography>
           </Grid>
 
-          <Grid item xs={12} >
+          <Grid item xs={6} sx={{ display: "flex", flexDirection: "row" }}>
+            <Box sx={{ pt: "0.8rem", pr: "1rem", pl: "1rem" }}>
+              <CalendarMonth />
+            </Box>
+            <Typography variant="h7" component="div" align="left">
+              <p>{formatDate}</p>
+              <p>{formatTime}</p>
+            </Typography>
+          </Grid>
 
-          <GroupedAvatars avatars={event.participants} organizersArray={organizersArray}> align="left"</GroupedAvatars>
-
+          <Grid item xs={12}>
+            <GroupedAvatars
+              avatars={event.participants}
+              organizersArray={organizersArray}
+            >
+              {" "}
+              align="left"
+            </GroupedAvatars>
 
             {/* <Stack direction="row" spacing={2}>
                   {event.participants.map((participant) => {
@@ -172,9 +183,7 @@ function EventDetailsPage() {
                     );
                   })}
             </Stack> */}
-
           </Grid>
-
 
           {/* <Grid item xs={12}>
             <h3>Organizers</h3>
@@ -201,15 +210,23 @@ function EventDetailsPage() {
             <PollList />
           </Grid>
 
-          <Grid item xs={6} >
-            <Button variant="contained" startIcon={<Check />} sx={{width: "100%"}}>
-                Confirm
+          <Grid item xs={6}>
+            <Button
+              variant="contained"
+              startIcon={<Check />}
+              sx={{ width: "100%" }}
+            >
+              Confirm
             </Button>
           </Grid>
 
           <Grid item xs={6}>
-            <Button variant="outlined" startIcon={<Close />} sx={{width:"100%"}}>
-                Decline
+            <Button
+              variant="outlined"
+              startIcon={<Close />}
+              sx={{ width: "100%" }}
+            >
+              Decline
             </Button>
           </Grid>
 
@@ -220,23 +237,32 @@ function EventDetailsPage() {
             <p>youre part</p>
           )} */}
 
-
-          <Grid item xs={6} >
-            <Button variant="contained" sx={{width:"100%"}} startIcon={<EditIcon />}  href={`/${eventId}/update-event`}>
+          <Grid item xs={6}>
+            <Button
+              variant="contained"
+              sx={{ width: "100%" }}
+              startIcon={<EditIcon />}
+              href={`/${eventId}/update-event`}
+            >
               Edit
             </Button>
           </Grid>
-          
+
           <Grid item xs={6}>
-            <Button variant="outlined" color="error"  sx={{width:"100%"}} onClick={() => deleteEvent()} startIcon={<DeleteIcon />}>
+            <Button
+              variant="outlined"
+              color="error"
+              sx={{ width: "100%" }}
+              onClick={() => deleteEvent()}
+              startIcon={<DeleteIcon />}
+            >
               Delete
             </Button>
           </Grid>
-
         </Grid>
       )}
     </>
-  )
+  );
 }
 
 export default EventDetailsPage;

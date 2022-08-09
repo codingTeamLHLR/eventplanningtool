@@ -7,8 +7,9 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
+import { useSlotProps } from "@mui/base";
 
-export default function MenuListComposition() {
+export default function MenuListComposition({ anchorEl }) {
   const [open, setOpen] = React.useState(true);
   const anchorRef = React.useRef(null);
 
@@ -44,16 +45,17 @@ export default function MenuListComposition() {
   }, [open]);
 
   return (
-    <Stack direction="row" spacing={2}>
-      <Paper>
+    <>
+      {/* <Stack direction="row" spacing={2}> */}
+      {/* <Paper>
         <MenuList>
           <MenuItem>Profile</MenuItem>
           <MenuItem>My account</MenuItem>
           <MenuItem>Logout</MenuItem>
         </MenuList>
-      </Paper>
+      </Paper> */}
       <div>
-        <Button
+        {/* <Button
           ref={anchorRef}
           id="composition-button"
           aria-controls={open ? "composition-menu" : undefined}
@@ -61,8 +63,9 @@ export default function MenuListComposition() {
           aria-haspopup="true"
           onClick={handleToggle}
         >
-          Dashboard
-        </Button>
+          {props.children}
+        </Button> */}
+        {/* {props.children} */}
         <Popper
           open={open}
           anchorEl={anchorRef.current}
@@ -97,6 +100,7 @@ export default function MenuListComposition() {
           )}
         </Popper>
       </div>
-    </Stack>
+      {/* </Stack> */}
+    </>
   );
 }
