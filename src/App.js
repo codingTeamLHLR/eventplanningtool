@@ -12,8 +12,12 @@ import UserProfilePage from "./pages/UserProfilePage";
 import EditUserProfilePage from "./pages/EditUserProfilePage";
 import { orange, red } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { BorderBottom } from "@mui/icons-material";
 
 const theme = createTheme({
+  // root: {
+  //   background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+  // },
   palette: {
     primary: {
       main: '#423f4a',
@@ -22,6 +26,21 @@ const theme = createTheme({
       main: '#7d778f',
     },
   },
+  typography: {
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+
+  }
 });
 
 

@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Moment from "moment";
 import Link from "@mui/material/Link";
 import ShowImage from "../functions/ShowImage";
+import { Box } from "@mui/system";
 
 export default function EventCard(props) {
   let formatDate;
@@ -37,12 +38,15 @@ export default function EventCard(props) {
         alt="green iguana"
       />
       <CardContent>
+      <Box sx={{display:"flex", flexDirection: "row", justifyContent:"flex-start", alignSelf:"flex-end"}}>
+
         <Typography gutterBottom variant="h5" component="div">
           {props.data.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {formatDate}
         </Typography>
+      </Box>
       </CardContent>
       <CardActions>
         {/* <Button size="small">Share</Button> */}

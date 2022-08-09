@@ -6,41 +6,33 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function DeleteDialog() {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+export default function DeleteDialog(props) {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      {/* <Button variant="outlined" onClick={handleClickOpen}>
         Open alert dialog
-      </Button>
+      </Button> */}
+
       <Dialog
-        open={open}
-        onClose={handleClose}
+        open={props.open}
+        onClose={props.callBackToClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
+          {"Do you really want to delete this event?"}
         </DialogTitle>
-        <DialogContent>
+        {/* <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Let Google help apps determine location. This means sending anonymous
             location data to Google, even when no apps are running.
           </DialogContentText>
-        </DialogContent>
+        </DialogContent> */}
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
-            Agree
+          <Button onClick={props.callBackToClose}>No</Button>
+          <Button onClick={props.callBackToDelete} autoFocus>
+            Yes, delete
           </Button>
         </DialogActions>
       </Dialog>

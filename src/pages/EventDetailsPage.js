@@ -22,6 +22,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import { CalendarMonth, Place } from "@mui/icons-material";
 import GroupedAvatars from "../components/GroupedAvatars";
+import DeleteDialog from "../components/DeleteDialog";
 
 function EventDetailsPage() {
   const { eventId } = useParams();
@@ -30,6 +31,8 @@ function EventDetailsPage() {
   const [formatDate, setFormatDate] = useState("");
   const [formatTime, setFormatTime] = useState("");
   const [organizersArray, setOrganizersArray] = useState([]);
+
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   const storedToken = localStorage.getItem("authToken");
 
@@ -70,8 +73,13 @@ function EventDetailsPage() {
   };
 
 
+  const deleteEventHandleClickOpen = () => {
+    setOpenDeleteModal(true);
+  };
 
-
+  const deleteEventHandleClose = () => {
+    setOpenDeleteModal(false);
+  };
 
   return (
     <>
@@ -81,26 +89,29 @@ function EventDetailsPage() {
         </Box>
       ) : (
 
+<div>
+
+
+        {/* ---------- IMAGE */}
+        <Box
+          width="100%"
+          sx={{
+            height: "70vw",
+            backgroundColor: "lightgrey",
+            backgroundImage: `url(${eventImage})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPositionY: "center",
+            borderRadius: 1
+          }}
+        />
+
         <Grid
           container
           rowSpacing={3}
           sx={{ width: "100vw", p: "5%", m: 0 }}
         >
-        
-        {/* ---------- IMAGE */}
-          <Box
-            width="100%"
-            sx={{
-              height: "50vw",
-              backgroundColor: "lightgrey",
-              backgroundImage: `url(${eventImage})`,
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "cover",
-              backgroundPositionY: "center",
-              borderRadius: 1
-            }}
-          />
-          
+    
           {/* ---------- NAME */}
           <Grid item xs={12} sx ={{p:0, m:0}}>
             <Typography
@@ -235,7 +246,8 @@ function EventDetailsPage() {
                 variant="outlined"
                 color="error"
                 sx={{ width: "49%" }}
-                onClick={() => deleteEvent()}
+                // onClick={() => deleteEvent()}
+                onClick={() => deleteEventHandleClickOpen()}
                 // onClick={() => openAlertDialog()}
                 // onClick={() => <AlertDialog callbackTodeleteEvent={deleteEvent}}
                 startIcon={<DeleteIcon />}
@@ -258,8 +270,16 @@ function EventDetailsPage() {
           </Grid>
           
         </Grid>
+
+        </div>
       )}
+
+      {openDeleteModal===true &&
+      <DeleteDialog open={openDeleteModal} callBackToClose={deleteEventHandleClose} callBackToDelete={deleteEvent}/>
+      }
+
     </>
+    
   );
 }
 
