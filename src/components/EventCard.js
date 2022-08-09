@@ -27,7 +27,9 @@ export default function EventCard(props) {
   }
 
   return (
-    <Card sx={{mb: 2}}>
+    <Link underline="none" href={`./${props.data._id}`}>
+
+    <Card sx={{mb: 2}} elevation={3}>
       <CardMedia
         component="img"
         height="140"
@@ -44,12 +46,14 @@ export default function EventCard(props) {
       </CardContent>
       <CardActions>
         {/* <Button size="small">Share</Button> */}
-        <Button size="small">
+        {/* <Button size="small">
           <Link underline="hover" href={`./${props.data._id}`}>
             Learn more
           </Link>
-        </Button>
+        </Button> */}
       </CardActions>
     </Card>
+
+    </Link>
   );
 }

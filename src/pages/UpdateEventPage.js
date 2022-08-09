@@ -9,7 +9,6 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
@@ -115,7 +114,6 @@ function UpdateEventPage() {
       });
   };
 
-  const theme = createTheme();
 
   return (
     <>
@@ -127,7 +125,6 @@ function UpdateEventPage() {
         <>
           <h1>Update Event</h1>
 
-          <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
               <CssBaseline />
               <Box
@@ -280,7 +277,6 @@ function UpdateEventPage() {
                 </Box>
               </Box>
             </Container>
-          </ThemeProvider>
         </>
       )}
     </>

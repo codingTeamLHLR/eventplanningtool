@@ -10,40 +10,59 @@ import Nav from "./components/Nav";
 import UpdateEventPage from "./pages/UpdateEventPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import EditUserProfilePage from "./pages/EditUserProfilePage";
+import { orange, red } from '@mui/material/colors';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#423f4a',
+    },
+    secondary: {
+      main: '#7d778f',
+    },
+  },
+});
+
+
 
 function App() {
   return (
-    <div className="App">
+    <ThemeProvider theme={theme}>
 
-      <Nav />
+      <div className="App">
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route
-          path="/signup"
-          element={
-            <IsAnon>
-              {" "}
-              <SignupPage />{" "}
-            </IsAnon>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <IsAnon>
-              {" "}
-              <LoginPage />{" "}
-            </IsAnon>
-          }
-        />
-        <Route path="/create-event" element={<CreateEventPage />} />
-        <Route path="/:eventId/update-event" element={<UpdateEventPage />} />
-        <Route path="/:eventId" element={<EventDetailsPage />} />
-        <Route path="/userprofile" element={<UserProfilePage />} />
-        <Route path="/update-user" element={<EditUserProfilePage />} />
-      </Routes>
-    </div>
+        <Nav />
+
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/signup"
+            element={
+              <IsAnon>
+                {" "}
+                <SignupPage />{" "}
+              </IsAnon>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <IsAnon>
+                {" "}
+                <LoginPage />{" "}
+              </IsAnon>
+            }
+          />
+          <Route path="/create-event" element={<CreateEventPage />} />
+          <Route path="/:eventId/update-event" element={<UpdateEventPage />} />
+          <Route path="/:eventId" element={<EventDetailsPage />} />
+          <Route path="/userprofile" element={<UserProfilePage />} />
+          <Route path="/update-user" element={<EditUserProfilePage />} />
+        </Routes>
+      </div>
+
+    </ThemeProvider>
   );
 }
 

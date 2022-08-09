@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import Check from "@mui/icons-material/Check";
 import Close from "@mui/icons-material/Close";
+import AlertDialog from "../components/DeleteDialog";
 
 
 import * as React from "react";
@@ -17,6 +18,7 @@ import Moment from "moment";
 import ThreadList from "../components/ThreasList";
 import PollList from "../components/PollList";
 import CircularProgress from "@mui/material/CircularProgress";
+
 
 import { CalendarMonth, Place } from "@mui/icons-material";
 import GroupedAvatars from "../components/GroupedAvatars";
@@ -67,6 +69,10 @@ function EventDetailsPage() {
       });
   };
 
+
+
+
+
   return (
     <>
       {!event ? (
@@ -74,82 +80,104 @@ function EventDetailsPage() {
           <CircularProgress />
         </Box>
       ) : (
+
         <Grid
           container
           rowSpacing={3}
-          columnSpacing={1}
-          sx={{ width: "100%", p: "5%" }}
+          sx={{ width: "100vw", p: "5%", m: 0 }}
         >
+        
+        {/* ---------- IMAGE */}
           <Box
             width="100%"
-            style={{
-              height: "40vw",
+            sx={{
+              height: "50vw",
               backgroundColor: "lightgrey",
               backgroundImage: `url(${eventImage})`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               backgroundPositionY: "center",
+              borderRadius: 1
             }}
           />
-          <Grid item xs={12}>
+          
+          {/* ---------- NAME */}
+          <Grid item xs={12} sx ={{p:0, m:0}}>
             <Typography
               align="center"
-              variant="h5"
+              variant="h4"
               component="div"
               gutterBottom
+              
             >
               {event.name}
             </Typography>
           </Grid>
 
+          {/* ---------- TITLE: INFO */}
           <Grid item xs={12}>
             <Typography
               align="left"
               variant="h6"
               component="div"
-              // sx={{ mt:-5}}
-              sx={{ mt: -2, p: 0.5 }}
+              color="secondary"
             >
               Info
             </Typography>
           </Grid>
 
-          <Grid
-            item
-            xs={6}
-            sx={{ display: "flex", flexDirection: "row", mt: -4 }}
+          {/* ---------- LOCATION & DATE */}
+          <Grid item xs={12} sx={{display: "flex", flexDirection: "row"}}
           >
-            <Box sx={{ pt: "0.8rem", pr: "1rem" }}>
-              <Place />
+
+            {/* ---------- LOCATION */}
+            <Box sx={{ display: "flex", flexDirection: "row", alignItems: "flex-start" , width: "50%"}}>
+              <Box sx={{ pt: "0.8rem", pr: "1rem" }}>
+                <Place />
+              </Box>
+              <Typography variant="h7" component="div" align="left">
+                {event.location.street && event.location.housenumber ? (
+                  <>
+                    <p>
+                      {event.location.street}
+                      {event.location.housenumber}
+                    </p>
+                    <p>
+                      {event.location.citycode}, {event.location.city}
+                    </p>
+                    <p>{event.location.country}</p>
+                  </>
+                ) : (
+                  <p>TBD</p>
+                )}
+              </Typography>
             </Box>
-            <Typography variant="h7" component="div" align="left">
-              {event.location.street && event.location.housenumber ? (
-                <>
-                  <p>
-                    {event.location.street}
-                    {event.location.housenumber}
-                  </p>
-                  <p>
-                    {event.location.citycode}, {event.location.city}
-                  </p>
-                  <p>{event.location.country}</p>
-                </>
-              ) : (
-                <p>TBD</p>
-              )}
+
+            {/* ---------- DATE */}
+            <Box sx={{ display: "flex", flexDirection: "row", alignItems: "flex-start" }}>
+              <Box sx={{ pt: "0.8rem", pr: "1rem", pl: "1rem" }}>
+                <CalendarMonth />
+              </Box>
+              <Typography variant="h7" component="div" align="left">
+                <p>{formatDate}</p>
+                <p>{formatTime}</p>
+              </Typography>
+            </Box>
+          </Grid>
+
+          {/* ---------- TITLE: PEOPLE */}
+          <Grid item xs={12}>
+            <Typography
+              align="left"
+              variant="h6"
+              component="div"
+              color="secondary"
+            >
+              People
             </Typography>
           </Grid>
 
-          <Grid item xs={6} sx={{ display: "flex", flexDirection: "row" }}>
-            <Box sx={{ pt: "0.8rem", pr: "1rem", pl: "1rem" }}>
-              <CalendarMonth />
-            </Box>
-            <Typography variant="h7" component="div" align="left">
-              <p>{formatDate}</p>
-              <p>{formatTime}</p>
-            </Typography>
-          </Grid>
-
+          {/* ---------- PEOPLE */}
           <Grid item xs={12}>
             <GroupedAvatars
               avatars={event.participants}
@@ -158,46 +186,21 @@ function EventDetailsPage() {
               {" "}
               align="left"
             </GroupedAvatars>
-
-            {/* <Stack direction="row" spacing={2}>
-                  {event.participants.map((participant) => {
-                    return (
-                      <div key={participant._id}>
-                        {participant.image ? (
-                          <Avatar
-                            alt={participant.username}
-                            src={participant.image}
-                          />
-                        ) : (
-                          <BackgroundLetterAvatars name={participant.username} />
-                        )}
-                        {organizersArray.includes(participant._id)? (
-                          <Typography style={{fontSize: '12px'}} > Owner </Typography>
-                        ): (<></>)
-                        }
-                      </div>
-                    );
-                  })}
-            </Stack> */}
           </Grid>
 
-          {/* <Grid item xs={12}>
-            <h3>Organizers</h3>
-            <Stack direction="row" spacing={2}>
-              {event.organizers.map((organizer) => {
-                return (
-                  <div key={organizer._id}>
-                    {organizer.image ? (
-                      <Avatar alt={organizer.username} src={organizer.image} />
-                    ) : (
-                      <BackgroundLetterAvatars name={organizer.username} />
-                    )}
-                  </div>
-                );
-              })}
-            </Stack>
-          </Grid> */}
+          {/* ---------- TITLE: ACTIVITY */}
+          <Grid item xs={12}>
+            <Typography
+              align="left"
+              variant="h6"
+              component="div"
+              color="secondary"
+            >
+              Activity
+            </Typography>
+          </Grid>
 
+          {/* ---------- THREADS & POLLS */}
           <Grid item xs={6}>
             <ThreadList />
           </Grid>
@@ -206,37 +209,42 @@ function EventDetailsPage() {
             <PollList />
           </Grid>
 
-          <Grid item xs={6}>
+          {/* ---------- CONFIRM & DECLINE BUTTONS */}
+          <Grid item xs={12} sx={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
             <Button
               variant="contained"
               startIcon={<Check />}
-              sx={{ width: "100%" }}
+              sx={{ width: "49%" }}
             >
               Confirm
             </Button>
-          </Grid>
 
-          <Grid item xs={6}>
             <Button
               variant="outlined"
               startIcon={<Close />}
-              sx={{ width: "100%" }}
+              sx={{ width: "49%" }}
             >
               Decline
             </Button>
           </Grid>
 
-          {/* {organizersArray.includes(participant._id)? (
-            <p>youre org</p>
-          )
-          : (
-            <p>youre part</p>
-          )} */}
 
-          <Grid item xs={6}>
+          {/* ---------- EDIT & DELETE BUTTONS */}
+          <Grid item xs={12} sx={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+            <Button
+                variant="outlined"
+                color="error"
+                sx={{ width: "49%" }}
+                onClick={() => deleteEvent()}
+                // onClick={() => openAlertDialog()}
+                // onClick={() => <AlertDialog callbackTodeleteEvent={deleteEvent}}
+                startIcon={<DeleteIcon />}
+              >
+                Delete
+            </Button>
             <Button
               variant="contained"
-              sx={{ width: "100%" }}
+              sx={{ width: "49%" }}
               startIcon={<EditIcon />}
               href={`/${eventId}/update-event`}
             >
@@ -244,17 +252,11 @@ function EventDetailsPage() {
             </Button>
           </Grid>
 
-          <Grid item xs={6}>
-            <Button
-              variant="outlined"
-              color="error"
-              sx={{ width: "100%" }}
-              onClick={() => deleteEvent()}
-              startIcon={<DeleteIcon />}
-            >
-              Delete
-            </Button>
+          {/* ---------- BOTTOM SPACE */}
+          <Grid item xs={12} height={60}>
+
           </Grid>
+          
         </Grid>
       )}
     </>
