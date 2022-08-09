@@ -35,7 +35,13 @@ function HomePage() {
 
       <Link to="create-event">
         {" "}
-        <Button> Create Event</Button>
+        <Button
+          variant="contained"
+          // sx={{
+          //   background: `linear-gradient(to right, rgba(0, 224, 255, 1), rgba(0, 133, 255, 1))`,
+          // }}
+
+        > Create Event</Button>
       </Link>
 
       <Grid container sx={{ p: 2}} columnSpacing={2}>

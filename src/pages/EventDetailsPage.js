@@ -97,7 +97,8 @@ function EventDetailsPage() {
           width="100%"
           sx={{
             height: "70vw",
-            backgroundColor: "lightgrey",
+            // background: "linear-gradient(#e66465, #9198e5)",
+            background: "lightgrey",
             backgroundImage: `url(${eventImage})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
@@ -246,10 +247,7 @@ function EventDetailsPage() {
                 variant="outlined"
                 color="error"
                 sx={{ width: "49%" }}
-                // onClick={() => deleteEvent()}
                 onClick={() => deleteEventHandleClickOpen()}
-                // onClick={() => openAlertDialog()}
-                // onClick={() => <AlertDialog callbackTodeleteEvent={deleteEvent}}
                 startIcon={<DeleteIcon />}
               >
                 Delete
@@ -275,7 +273,7 @@ function EventDetailsPage() {
       )}
 
       {openDeleteModal===true &&
-      <DeleteDialog open={openDeleteModal} callBackToClose={deleteEventHandleClose} callBackToDelete={deleteEvent}/>
+      <DeleteDialog open={openDeleteModal} callBackToClose={deleteEventHandleClose} callBackToDelete={deleteEvent} type='deleteEvent'/>
       }
 
     </>

@@ -195,11 +195,11 @@ function EditUserProfilePage() {
                 </LocalizationProvider>
 
                 <Box sx={{mt:2}}>
-                  <FormLabel sx={{fontSize: 12}}>Change Profile Picture</FormLabel>
+                  {/* <FormLabel sx={{fontSize: 12}}>Change Profile Picture</FormLabel> */}
                   <CloudinaryWidget
                     setImage={setImage}
                     image={userDetails.image}
-                    sx={{width:"100%"}}
+                    
                   />
                 </Box>
 

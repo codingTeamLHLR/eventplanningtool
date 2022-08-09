@@ -2,6 +2,8 @@ import Button from "@mui/material/Button";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import Typography from "@mui/material/Typography";
 import { useState, useEffect } from "react";
+import { FormLabel } from "@mui/material";
+import Box from "@mui/material/Box";
 
 const CloudinaryWidget = (props) => {
   const [imageName, setImageName] = useState(null);
@@ -48,20 +50,23 @@ const CloudinaryWidget = (props) => {
   };
 
   return (
-    <div className="ImageUpload">
+    <Box sx={{mt: 2}}>
+      {/* <FormLabel sx={{fontSize: 12}}>Change Profile Picture</FormLabel> */}
       <Button
         variant="outlined"
+        fullWidth
         startIcon={<FileUploadIcon />}
         onClick={openWidget}
+        sx={{height: 56}}
       >
-        Upload Files
+        Upload Picture
       </Button>
       {imageName && imageFormat && (
         <Typography variant="body2" color="text.secondary">
           {imageName}.{imageFormat}
         </Typography>
       )}
-    </div>
+    </Box>
   );
 };
 

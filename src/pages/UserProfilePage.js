@@ -12,10 +12,13 @@ import { Typography } from "@mui/material";
 import Moment from "moment";
 import CircularProgress from "@mui/material/CircularProgress";
 import { CalendarMonth } from "@mui/icons-material";
+import DeleteDialog from "../components/DeleteDialog";
 
 function UserProfilePage() {
   const [userDetails, setUserDetails] = useState(null);
   const [userId, setUserId] = useState(null);
+
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   const storedToken = localStorage.getItem("authToken");
 
@@ -55,6 +58,14 @@ function UserProfilePage() {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const deleteUserHandleClickOpen = () => {
+    setOpenDeleteModal(true);
+  };
+
+  const deleteUserHandleClose = () => {
+    setOpenDeleteModal(false);
   };
 
   return (
@@ -140,7 +151,7 @@ function UserProfilePage() {
               variant="outlined"
               color="error"
               sx={{ width: "49%" }}
-              onClick={() => deleteUser()}
+              onClick={() => deleteUserHandleClickOpen()}
               startIcon={<DeleteIcon />}
             >
               Delete
@@ -148,6 +159,11 @@ function UserProfilePage() {
           </Grid>
         </Grid>
       )}
+
+      {openDeleteModal===true &&
+      <DeleteDialog open={openDeleteModal} callBackToClose={deleteUserHandleClose} callBackToDelete={deleteUser} type='deleteUser'/>
+      }
+
     </>
   );
 }
