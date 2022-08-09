@@ -72,7 +72,7 @@ function PeopleSelector(props) {
       axios
         .get(process.env.REACT_APP_API_URL + "/users", {
           headers: { Authorization: `Bearer ${storedToken}` },
-          params: { ids: props.participants._id },
+          params: { ids: props.participants },
         })
         .then((response) => {
           setUsers(response.data);
@@ -104,6 +104,7 @@ function PeopleSelector(props) {
       target: { value },
     } = event;
     setPersonId(value);
+    // setPersonName()
   };
 
   const theme = createTheme(personName);

@@ -48,6 +48,7 @@ function EventDetailsPage() {
       })
       .then((response) => {
         setEvent(response.data);
+        setEventImage(response.data.image);
         setFormatDate(Moment(response.data.date).format("MMM Do YY"));
         setFormatTime(Moment(response.data.date).format("h:mm A"));
         setOrganizersArray(response.data.organizers.map(element => element._id))
