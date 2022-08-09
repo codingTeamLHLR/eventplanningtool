@@ -90,7 +90,7 @@ function EventDetailsPage() {
             width="100%"
             style={{
               height: "40vw",
-              backgroundColor: "red",
+              backgroundColor: "lightgrey",
               backgroundImage: `url(${eventImage})`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",

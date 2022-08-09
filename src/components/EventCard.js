@@ -28,7 +28,7 @@ export default function EventCard(props) {
   }
 
   return (
-    <Card>
+    <Card sx={{mb: 2}}>
       <CardMedia
         component="img"
         height="140"

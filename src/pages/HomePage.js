@@ -34,12 +34,12 @@ function HomePage() {
         <Button> Create Event</Button>
       </Link>
 
-      <Grid container spacing={2} sx={{ p: 2, marginBottom: 10 }}>
+      <Grid container spacing={2} sx={{ p: 2}}>
         {events.length === 0 ? (
           <p>loading...</p>
         ) : (
           <>
-            <Grid item xs={12}>
+            <Grid item xs={12} >
               {events.map((element) => {
                 return <EventCard key={element._id} data={element} />;
               })}

@@ -70,6 +70,7 @@ export default function SimpleBottomNavigation() {
             icon={<Person />}
           />
         </Tooltip>
+        
         <Menu
           anchorEl={anchorEl}
           id="account-menu"
