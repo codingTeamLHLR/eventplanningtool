@@ -4,7 +4,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import Check from "@mui/icons-material/Check";
 import Close from "@mui/icons-material/Close";
 
-
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -28,6 +27,7 @@ function EventDetailsPage() {
   const [formatDate, setFormatDate] = useState("");
   const [formatTime, setFormatTime] = useState("");
   const [organizersArray, setOrganizersArray] = useState([]);
+  const [currentUserId, setCurrentUserId] = React.useState(null);
 
   const storedToken = localStorage.getItem("authToken");
 
@@ -35,8 +35,14 @@ function EventDetailsPage() {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_URL + "/events/" + eventId, {
+      .get(process.env.REACT_APP_API_URL + "/verify", {
         headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then((response) => {
+        setCurrentUserId(response.data._id);
+        return axios.get(process.env.REACT_APP_API_URL + "/events/" + eventId, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        });
       })
       .then((response) => {
         setEvent(response.data);
@@ -206,55 +212,54 @@ function EventDetailsPage() {
             <PollList />
           </Grid>
 
-          <Grid item xs={6}>
-            <Button
-              variant="contained"
-              startIcon={<Check />}
-              sx={{ width: "100%" }}
-            >
-              Confirm
-            </Button>
-          </Grid>
+          {organizersArray.includes(currentUserId) ? (
+            <>
+              <Grid item xs={6}>
+                <Button
+                  variant="contained"
+                  sx={{ width: "100%" }}
+                  startIcon={<EditIcon />}
+                  href={`/${eventId}/update-event`}
+                >
+                  Edit
+                </Button>
+              </Grid>
 
-          <Grid item xs={6}>
-            <Button
-              variant="outlined"
-              startIcon={<Close />}
-              sx={{ width: "100%" }}
-            >
-              Decline
-            </Button>
-          </Grid>
+              <Grid item xs={6}>
+                <Button
+                  variant="outlined"
+                  color="error"
+                  sx={{ width: "100%" }}
+                  onClick={() => deleteEvent()}
+                  startIcon={<DeleteIcon />}
+                >
+                  Delete
+                </Button>
+              </Grid>
+            </>
+          ) : (
+            <>
+              <Grid item xs={6}>
+                <Button
+                  variant="contained"
+                  startIcon={<Check />}
+                  sx={{ width: "100%" }}
+                >
+                  Confirm
+                </Button>
+              </Grid>
 
-          {/* {organizersArray.includes(participant._id)? (
-            <p>youre org</p>
-          )
-          : (
-            <p>youre part</p>
-          )} */}
-
-          <Grid item xs={6}>
-            <Button
-              variant="contained"
-              sx={{ width: "100%" }}
-              startIcon={<EditIcon />}
-              href={`/${eventId}/update-event`}
-            >
-              Edit
-            </Button>
-          </Grid>
-
-          <Grid item xs={6}>
-            <Button
-              variant="outlined"
-              color="error"
-              sx={{ width: "100%" }}
-              onClick={() => deleteEvent()}
-              startIcon={<DeleteIcon />}
-            >
-              Delete
-            </Button>
-          </Grid>
+              <Grid item xs={6}>
+                <Button
+                  variant="outlined"
+                  startIcon={<Close />}
+                  sx={{ width: "100%" }}
+                >
+                  Decline
+                </Button>
+              </Grid>
+            </>
+          )}
         </Grid>
       )}
     </>

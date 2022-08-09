@@ -37,16 +37,8 @@ function UpdateEventPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get(process.env.REACT_APP_API_URL + "/verify", {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
-      .then((response) => {
-        setUserId(response.data._id);
-        return axios.get(process.env.REACT_APP_API_URL + "/events/" + eventId, {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        });
-      })
+    axios.get(process.env.REACT_APP_API_URL + "/events/" + eventId, {
+          headers: { Authorization: `Bearer ${storedToken}` }})
       .then((response) => {
         setEvent(response.data);
         setImage(response.data.image);

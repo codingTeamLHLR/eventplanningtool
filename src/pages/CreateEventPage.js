@@ -24,24 +24,10 @@ function CreateEventPage() {
   const [image, setImage] = useState("");
   const [organizers, setOrganizers] = useState([]);
   const [time, setTime] = useState(null);
-  const [userId, setUserId] = useState(null);
 
   const navigate = useNavigate();
 
   const storedToken = localStorage.getItem("authToken");
-
-  useEffect(() => {
-    axios
-      .get(process.env.REACT_APP_API_URL + "/verify", {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
-      .then((response) => {
-        setUserId(response.data._id);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [storedToken]);
 
   const handleCreateEventSubmit = (event) => {
     event.preventDefault();

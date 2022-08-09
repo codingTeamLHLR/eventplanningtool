@@ -28,6 +28,7 @@ function PeopleSelector(props) {
   const [personId, setPersonId] = React.useState([]);
   const [users, setUsers] = React.useState([]);
   const [errorMessage, setErrorMessage] = React.useState(undefined);
+  const [currentUserId, setCurrentUserId] = React.useState(null);
 
   React.useEffect(() => {
     if (props.people) {
@@ -36,40 +37,33 @@ function PeopleSelector(props) {
 
     const storedToken = localStorage.getItem("authToken");
 
-    if (props.type === "invites") {
-      axios
-        .get(process.env.REACT_APP_API_URL + "/users", {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        })
-        .then((response) => {
-          console.log("api response", response.data);
-          setUsers(response.data);
-          console.log("type is invites, people are", users);
-        })
-        .catch((error) => {
-          console.log(error);
-          const errorDescription = error.response.data.message;
-          setErrorMessage(errorDescription);
-          console.log("this is error", errorDescription);
-        });
-    }
+    axios
+      .get(process.env.REACT_APP_API_URL + "/verify", {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then((response) => {
+        setCurrentUserId(response.data._id);
 
-    if (props.type === "organizers") {
-      axios
-        .get(process.env.REACT_APP_API_URL + "/users", {
-          headers: { Authorization: `Bearer ${storedToken}` },
-          params: { ids: props.participants },
-        })
-        .then((response) => {
-          setUsers(response.data);
-          console.log("type is orgnizers, people are", response.data);
-        })
-        .catch((error) => {
-          const errorDescription = error.response.data.message;
-          setErrorMessage(errorDescription);
-          console.log("this is error", errorDescription);
-        });
-    }
+        if (props.type === "invites") {
+          return axios.get(process.env.REACT_APP_API_URL + "/users", {
+            headers: { Authorization: `Bearer ${storedToken}` },
+          });
+        } else if (props.type === "organizers") {
+          return axios.get(process.env.REACT_APP_API_URL + "/users", {
+            headers: { Authorization: `Bearer ${storedToken}` },
+            params: { ids: props.participants },
+          });
+        }
+      })
+      .then((response) => {
+        setUsers(response.data);
+        console.log(`type is ${props.type}, people are`, response.data);
+      })
+      .catch((error) => {
+        const errorDescription = error.response.data.message;
+        setErrorMessage(errorDescription);
+        console.log("this is error", errorDescription);
+      });
   }, [props]);
 
   // dynamically show who is selected
@@ -125,15 +119,17 @@ function PeopleSelector(props) {
               MenuProps={MenuProps}
             >
               {users.map((user) => {
-                return (
-                  <MenuItem
-                    key={user._id}
-                    value={user._id}
-                    style={getStyles(user.username, personName, theme)}
-                  >
-                    {user.username}
-                  </MenuItem>
-                );
+                if (user._id !== currentUserId) {
+                  return (
+                    <MenuItem
+                      value={user._id}
+                      key={user._id}
+                      style={getStyles(user.username, personName, theme)}
+                    >
+                      {user.username}
+                    </MenuItem>
+                  );
+                }
               })}
             </Select>
             {errorMessage}
