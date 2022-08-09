@@ -218,11 +218,11 @@ function EventDetailsPage() {
             </Grid>
 
             {/* ---------- THREADS & POLLS */}
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <ThreadList />
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <PollList />
             </Grid>
 

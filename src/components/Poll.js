@@ -7,11 +7,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useParams } from "react-router-dom";
 
 function Poll(props) {  
-
-    const { pollId } = useParams();
 
     const [voteData, setVoteData] = useState();
     const [totalVotes, setTotalVotes] = useState(0);
@@ -28,10 +25,10 @@ function Poll(props) {
         })
         .then((response) => {
           setCurrentUserId(response.data._id);
-          return axios.get(process.env.REACT_APP_API_URL + "/polls/" + pollId, {
+          return axios.get(process.env.REACT_APP_API_URL + "/events/:eventId/polls/" + props.id, {
             headers: { Authorization: `Bearer ${storedToken}` }});
         })
-        .then((response) => response.json())
+        .then((response) => console.log(response))
         .then((data) => {
           setVoteData(data);
           let sum = 0;
@@ -40,7 +37,7 @@ function Poll(props) {
           });
           setTotalVotes(sum);
         });
-    }, [storedToken]);
+    }, [storedToken, props.id]);
 
     const submitVote = (e) => {
         if(voted === false) {
@@ -54,7 +51,7 @@ function Poll(props) {
             body: JSON.stringify(voteData),
             headers: { "Content-Type": "application/json" },
           };
-          axios.get(process.env.REACT_APP_API_URL + "/polls/" + pollId, {
+          axios.get(process.env.REACT_APP_API_URL + "/events/:eventId/polls/" + props.id, {
             headers: { Authorization: `Bearer ${storedToken}` }})
             .then((res) => res.json())
             .then((res) => console.log(res));

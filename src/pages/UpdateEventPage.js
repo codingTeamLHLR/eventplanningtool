@@ -42,7 +42,7 @@ function UpdateEventPage() {
         setEvent(response.data);
         setImage(response.data.image);
         setParticipants(
-          response.data.participants.map((element) => element._id)
+          response.data.participants.map((element) => element.user._id)
         );
         setOrganizers(response.data.organizers.map((element) => element._id));
         console.log(response.data);

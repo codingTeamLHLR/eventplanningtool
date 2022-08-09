@@ -53,7 +53,7 @@ export default function GroupedAvatars(props) {
                 src={ShowImage(participant.image)}
               />
             ) : (
-              <BackgroundLetterAvatars name={participant.username} />
+              <BackgroundLetterAvatars name={participant.user.username} />
             )}
             {props.organizersArray.includes(participant._id) ? (
               <Typography style={{ fontSize: "11px" }}> Host </Typography>
