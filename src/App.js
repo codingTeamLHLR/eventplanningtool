@@ -42,6 +42,7 @@ function App() {
         <Route path="/:eventId" element={<EventDetailsPage />} />
         <Route path="/userprofile" element={<UserProfilePage />} />
         <Route path="/update-user" element={<EditUserProfilePage />} />
+        
       </Routes>
     </div>
   );
