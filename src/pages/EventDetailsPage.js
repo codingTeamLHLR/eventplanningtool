@@ -28,7 +28,8 @@ function EventDetailsPage() {
   const [formatDate, setFormatDate] = useState("");
   const [formatTime, setFormatTime] = useState("");
   const [organizersArray, setOrganizersArray] = useState([]);
-  const [currentUserId, setCurrentUserId] = React.useState(null);
+  const [currentUserId, setCurrentUserId] = useState(null);
+  const [currentUsersStatus, setCurrentUsersStatus] = useState("pending")
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
@@ -55,12 +56,21 @@ function EventDetailsPage() {
         setFormatTime(Moment(response.data.date).format("h:mm A"));
         setOrganizersArray(
           response.data.organizers.map((element) => element._id)
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [eventId, storedToken]);
+          );
+        const userInStatusArray = response.data.participants.find(element=> element.user._id===currentUserId);
+          if (userInStatusArray.status==="accepted") {
+            setCurrentUsersStatus("accepted")
+          }
+          if (userInStatusArray.status==="declined") {
+            setCurrentUsersStatus("declined")
+          }
+        
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      }, [eventId, storedToken, currentUserId]);
+      
 
   const deleteEvent = () => {
     axios
@@ -82,6 +92,41 @@ function EventDetailsPage() {
   const deleteEventHandleClose = () => {
     setOpenDeleteModal(false);
   };
+
+
+  const statusEventHandle = (arg) => {
+    let requestBody;
+    if (arg === 'accept') {
+      requestBody = {status: "accepted"};
+    }
+    if (arg === 'decline') {
+      requestBody = {status: "declined"};
+    }
+
+    console.log("resquestBody", requestBody)
+    axios
+      .put(
+        process.env.REACT_APP_API_URL + "/events/" + eventId + "/status", 
+        requestBody,
+        {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        }
+      )
+      .then(() => {
+        if (arg === 'accept') {
+          setCurrentUsersStatus("accepted")
+
+        }
+        else {
+          setCurrentUsersStatus("declined")
+          // console.log(currentUsersStatus)
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
 
   return (
     <>
@@ -153,7 +198,7 @@ function EventDetailsPage() {
               </>
             ) : (
               <>
-                {/* ---------- CONFIRM & DECLINE BUTTONS */}
+                {/* ---------- CONFIRM & DECLINE BUTTONS  */}
                 <Grid
                   item
                   xs={12}
@@ -163,22 +208,54 @@ function EventDetailsPage() {
                     justifyContent: "space-between",
                   }}
                 >
-                  <Button
-                    variant="contained"
-                    startIcon={<Check />}
-                    sx={{ width: "49%" }}
-                  >
-                    Confirm
-                  </Button>
+                    {currentUsersStatus==="accepted"
+                    ? <>
+                        <Button
+                          variant="contained"
+                          disabled
+                          onClick={() => {statusEventHandle('accept')}}
+                          startIcon={<Check />}
+                          sx={{ width: "49%" }}
+                        >
+                          Accept
+                        </Button>
 
-                  <Button
-                    variant="outlined"
-                    startIcon={<Close />}
-                    sx={{ width: "49%" }}
-                  >
-                    Decline
-                  </Button>
+                        <Button
+                          variant="outlined"
+                          onClick={() => {statusEventHandle('decline')}}
+                          startIcon={<Close />}
+                          sx={{ width: "49%" }}
+                        >
+                          Decline
+                        </Button>
+                      </>
+                    :
+                    <>
+                        <Button
+                          variant="contained"
+                          onClick={() => {statusEventHandle('accept')}}
+                          startIcon={<Check />}
+                          sx={{ width: "49%" }}
+                        >
+                          Accept
+                        </Button>
+
+                        <Button
+                          variant="outlined"
+                          disabled
+                          onClick={() => {statusEventHandle('decline')}}
+                          startIcon={<Close />}
+                          sx={{ width: "49%" }}
+                        >
+                          Decline
+                        </Button>
+                      </>
+                    }
+
+
+
                 </Grid>
+
               </>
             )}
 
