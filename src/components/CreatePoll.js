@@ -36,7 +36,7 @@ export default function CreatePoll(props) {
       )
       .then((response) => {
         console.log("post request is", response);
-        props.handleCloseCreate();
+        props.handleClose();
         setTitle("");
         setOptionNames([]);
       })
@@ -49,7 +49,7 @@ export default function CreatePoll(props) {
   };
 
   const handleCancel = () => {
-    props.handleCloseCreate();
+    props.handleClose();
     setTitle("");
     setOptionNames([]);
   };

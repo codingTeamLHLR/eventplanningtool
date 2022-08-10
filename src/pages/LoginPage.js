@@ -32,8 +32,6 @@ function LoginPage() {
       password: data.get("password"),
     };
 
-    console.log(requestBody);
-
     axios
       .post(process.env.REACT_APP_API_URL + "/login", requestBody)
       .then((response) => {
