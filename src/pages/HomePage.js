@@ -6,9 +6,12 @@ import Box from "@mui/material/Box";
 import { Button, MenuList } from "@mui/material";
 import { Link } from "react-router-dom";
 import SortByDate from "../functions/SortByDate";
+import Calendar from "../components/Calendar";
+import ViewSwitch from "../components/ViewSwitch";
 
 function HomePage() {
   const [events, setEvents] = useState([]);
+  const [calendarView, setCalendarView] = useState(false)
 
   useEffect(() => {
     const storedToken = localStorage.getItem("authToken");
@@ -29,9 +32,15 @@ function HomePage() {
       });
   }, []);
 
+  console.log(calendarView)
+
   return (
     <>
       <h1> All Events</h1>
+
+      <ViewSwitch callBackToSetCalendarView={setCalendarView}/>
+
+
 
       <Link to="create-event">
         {" "}
@@ -44,6 +53,9 @@ function HomePage() {
         > Create Event</Button>
       </Link>
 
+
+      {!calendarView
+      ?
       <Grid container sx={{ p: 2}} columnSpacing={2}>
 
         {events.length === 0 ? (
@@ -61,6 +73,14 @@ function HomePage() {
           </>
         )}
       </Grid>
+      :
+      <Box sx={{p:2}}>
+        <Calendar data={events} />
+      </Box>
+      }
+
+      <Box height={60}></Box>
+
     </>
   );
 }
