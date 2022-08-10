@@ -44,7 +44,7 @@ function Poll({ pollId }) {
     const newVotes = currentVotes + 1
     console.log(newVotes)
 
-    const requestBody = {optionId, newVotes}
+    const requestBody = {optionId, newVotes, userId}
 
     axios
       .put(
@@ -131,7 +131,7 @@ function Poll({ pollId }) {
             <>
               {poll.owner === userId && (
                 <>
-                  {!poll.owner ? (
+                  {poll.owner ? (
                     <>
                       <Tooltip title={"change status"} placement="bottom">
                         <Button

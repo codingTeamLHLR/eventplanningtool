@@ -4,9 +4,9 @@ import Typography from "@mui/material/Typography";
 import PollCard from "./PollCard";
 import axios from "axios";
 import CreatePoll from "./CreatePoll";
-import { Card, CardActions, Grid } from "@mui/material";
+import { Card, Grid } from "@mui/material";
 
-export default function PollList() {
+export default function PollList({eventId}) {
   const [open, setOpen] = React.useState(false);
   const [polls, setPolls] = React.useState(null);
   const [rerender, setRerender] = React.useState(false);
@@ -63,9 +63,10 @@ export default function PollList() {
             </Card>
           </Grid>
           {/* {---------SORT ACTIVE FIRST ?? -------------} */}
-
           {polls.map((poll) => {
-            if (poll.participants.includes(userId)) {
+            // delete?
+            // if (poll.participants.includes(userId)) {
+              if (poll.event === eventId) {
               return (
                 <Grid item xs={12} elevation={4} key={poll._id}>
                   <PollCard pollId={poll._id} />
