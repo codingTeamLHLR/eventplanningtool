@@ -151,6 +151,7 @@ function SignupPage() {
                   <TextField
                     sx={{ mt: 2 }}
                     fullWidth
+                    required
                     InputLabelProps={{ shrink: true }}
                     {...props}
                   />

@@ -5,7 +5,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { IconButton, InputBase } from "@mui/material";
+import { Grid, IconButton, InputBase } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import ClearIcon from "@mui/icons-material/Clear";
 import axios from "axios";
@@ -104,6 +104,7 @@ export default function CreatePoll(props) {
               return (
                 <div key={index}>
                   <span>{option}</span>
+
                   <IconButton
                     sx={{ p: "10px" }}
                     aria-label="remove"

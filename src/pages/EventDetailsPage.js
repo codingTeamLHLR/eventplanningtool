@@ -286,7 +286,7 @@ function EventDetailsPage() {
 
             {/* ---------- POLLS */}
             <Grid item xs={12}>
-              <Poll />
+              <Poll eventId={event._id}/>
             </Grid>
 
             
