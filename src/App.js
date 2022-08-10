@@ -13,6 +13,7 @@ import EditUserProfilePage from "./pages/EditUserProfilePage";
 import { orange, red } from "@mui/material/colors";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { BorderBottom } from "@mui/icons-material";
+import CalendarPage from "./pages/CalendarPage";
 
 const theme = createTheme({
   // root: {
@@ -68,11 +69,13 @@ function App() {
               </IsAnon>
             }
           />
+          
           <Route path="/create-event" element={<CreateEventPage />} />
           <Route path="/:eventId/update-event" element={<UpdateEventPage />} />
           <Route path="/:eventId" element={<EventDetailsPage />} />
           <Route path="/userprofile" element={<UserProfilePage />} />
           <Route path="/update-user" element={<EditUserProfilePage />} />
+          <Route path="/calendar" element={<CalendarPage />} />
         </Routes>
       </div>
     </ThemeProvider>
