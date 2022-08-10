@@ -3,7 +3,6 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import Check from "@mui/icons-material/Check";
 import Close from "@mui/icons-material/Close";
-import AlertDialog from "../components/DeleteDialog";
 
 import * as React from "react";
 import Box from "@mui/material/Box";
@@ -15,7 +14,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Typography } from "@mui/material";
 import Moment from "moment";
 import ThreadList from "../components/ThreasList";
-import PollList from "../components/PollList";
+import Poll from "../components/Polls";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import { CalendarMonth, Place } from "@mui/icons-material";
@@ -57,7 +56,6 @@ function EventDetailsPage() {
         setOrganizersArray(
           response.data.organizers.map((element) => element._id)
         );
-        console.log(response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -98,8 +96,8 @@ function EventDetailsPage() {
             width="100%"
             sx={{
               height: "70vw",
-            // background: "linear-gradient(#e66465, #9198e5)",
-            background: "lightgrey",
+              // background: "linear-gradient(#e66465, #9198e5)",
+              background: "lightgrey",
               backgroundImage: `url(${eventImage})`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
@@ -109,6 +107,7 @@ function EventDetailsPage() {
           />
 
           <Grid container rowSpacing={3} sx={{ width: "100vw", p: "5%", m: 0 }}>
+            
             {/* ---------- NAME */}
             <Grid item xs={12} sx={{ p: 0, m: 0 }}>
               <Typography
@@ -120,6 +119,68 @@ function EventDetailsPage() {
                 {event.name}
               </Typography>
             </Grid>
+
+            {organizersArray.includes(currentUserId) ? (
+              <>
+                {/* ---------- EDIT & DELETE BUTTONS */}
+                <Grid
+                  item
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    sx={{ width: "49%" }}
+                    onClick={() => deleteEventHandleClickOpen()}
+                    startIcon={<DeleteIcon />}
+                  >
+                    Delete
+                  </Button>
+                  <Button
+                    variant="contained"
+                    sx={{ width: "49%" }}
+                    startIcon={<EditIcon />}
+                    href={`/${eventId}/update-event`}
+                  >
+                    Edit
+                  </Button>
+                </Grid>
+              </>
+            ) : (
+              <>
+                {/* ---------- CONFIRM & DECLINE BUTTONS */}
+                <Grid
+                  item
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Button
+                    variant="contained"
+                    startIcon={<Check />}
+                    sx={{ width: "49%" }}
+                  >
+                    Confirm
+                  </Button>
+
+                  <Button
+                    variant="outlined"
+                    startIcon={<Close />}
+                    sx={{ width: "49%" }}
+                  >
+                    Decline
+                  </Button>
+                </Grid>
+              </>
+            )}
 
             {/* ---------- TITLE: INFO */}
             <Grid item xs={12}>
@@ -218,76 +279,17 @@ function EventDetailsPage() {
               </Typography>
             </Grid>
 
-            {/* ---------- THREADS & POLLS */}
+            {/* ---------- THREADS */}
             <Grid item xs={12}>
               <ThreadList />
             </Grid>
 
+            {/* ---------- POLLS */}
             <Grid item xs={12}>
-              <PollList />
+              <Poll />
             </Grid>
 
-            {organizersArray.includes(currentUserId) ? (
-              <>
-                {/* ---------- EDIT & DELETE BUTTONS */}
-                <Grid
-                  item
-                  xs={12}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    sx={{ width: "49%" }}
-                    onClick={() => deleteEventHandleClickOpen()}
-                    startIcon={<DeleteIcon />}
-                  >
-                    Delete
-                  </Button>
-                  <Button
-                    variant="contained"
-                    sx={{ width: "49%" }}
-                    startIcon={<EditIcon />}
-                    href={`/${eventId}/update-event`}
-                  >
-                    Edit
-                  </Button>
-                </Grid>
-              </>
-            ) : (
-              <>
-                {/* ---------- CONFIRM & DECLINE BUTTONS */}
-                <Grid
-                  item
-                  xs={12}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Button
-                    variant="contained"
-                    startIcon={<Check />}
-                    sx={{ width: "49%" }}
-                  >
-                    Confirm
-                  </Button>
-
-                  <Button
-                    variant="outlined"
-                    startIcon={<Close />}
-                    sx={{ width: "49%" }}
-                  >
-                    Decline
-                  </Button>
-                </Grid>
-              </>
-            )}
+            
 
             {/* ---------- BOTTOM SPACE */}
             <Grid item xs={12} height={60}></Grid>
@@ -295,10 +297,14 @@ function EventDetailsPage() {
         </div>
       )}
 
-      {openDeleteModal===true &&
-      <DeleteDialog open={openDeleteModal} callBackToClose={deleteEventHandleClose} callBackToDelete={deleteEvent} type='deleteEvent'/>
-      }
-
+      {openDeleteModal === true && (
+        <DeleteDialog
+          open={openDeleteModal}
+          callBackToClose={deleteEventHandleClose}
+          callBackToDelete={deleteEvent}
+          type="deleteEvent"
+        />
+      )}
     </>
   );
 }
