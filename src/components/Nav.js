@@ -10,6 +10,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
+import { ViewDayOutlined, CalendarMonthOutlined, ManageAccountsOutlined} from "@mui/icons-material";
 
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -44,18 +45,19 @@ export default function SimpleBottomNavigation() {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
+        sx={{backgroundColor: "lightgrey"}}
       >
         <BottomNavigationAction
           component={NavLink}
           to="/"
           label="Events"
-          icon={<Event />}
+          icon={<ViewDayOutlined />}
         />
         <BottomNavigationAction
           component={NavLink}
-          to="/notifications"
-          label="Notifications"
-          icon={<Forum />}
+          to="/calendar"
+          label="Calendar"
+          icon={<CalendarMonthOutlined />}
         />
         <Tooltip title="Profile" disableHoverListener>
           <BottomNavigationAction
@@ -65,7 +67,7 @@ export default function SimpleBottomNavigation() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
             label="Profile"
-            icon={<Person />}
+            icon={<ManageAccountsOutlined />}
           />
         </Tooltip>
         
