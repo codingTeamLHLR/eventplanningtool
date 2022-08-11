@@ -22,8 +22,6 @@ function PeopleSelector(props) {
     },
   };
 
-  console.log("props", props);
-
   const [personName, setPersonName] = React.useState([]);
   const [personId, setPersonId] = React.useState([]);
   const [users, setUsers] = React.useState([]);
@@ -48,7 +46,10 @@ function PeopleSelector(props) {
           return axios.get(process.env.REACT_APP_API_URL + "/users", {
             headers: { Authorization: `Bearer ${storedToken}` },
           });
-        } else if (props.type === "organizers") {
+        } else if (
+          props.type === "organizers" ||
+          props.type === "pollParticipants"
+        ) {
           return axios.get(process.env.REACT_APP_API_URL + "/users", {
             headers: { Authorization: `Bearer ${storedToken}` },
             params: { ids: props.participants },
@@ -57,7 +58,6 @@ function PeopleSelector(props) {
       })
       .then((response) => {
         setUsers(response.data);
-        console.log(`type is ${props.type}, people are`, response.data);
       })
       .catch((error) => {
         const errorDescription = error.response.data.message;
@@ -91,6 +91,8 @@ function PeopleSelector(props) {
     label = "Organizers";
   } else if (props.type === "invites") {
     label = "Guests";
+  } else if (props.type === "pollParticipants") {
+    label = "Voters";
   }
 
   return (

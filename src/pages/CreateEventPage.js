@@ -53,7 +53,6 @@ function CreateEventPage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        console.log("post request is", response);
         navigate("/");
       })
       .catch((error) => {
@@ -118,26 +117,6 @@ function CreateEventPage() {
                   }}
                 />
               </LocalizationProvider>
-
-              {/* <TextField
-                margin="normal"
-                fullWidth
-                name="date"
-                label="Date"
-                InputLabelProps={{ shrink: true }}
-                type="date"
-                id="date"
-              />
-
-              <TextField
-                margin="normal"
-                fullWidth
-                name="time"
-                label="Time"
-                InputLabelProps={{ shrink: true }}
-                type="time"
-                id="time"
-              /> */}
 
               <TextField
                 margin="normal"

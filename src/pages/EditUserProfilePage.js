@@ -43,8 +43,8 @@ function EditUserProfilePage() {
       .then((response) => {
         setUserDetails(response.data);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
   }, [storedToken]);
 
@@ -56,33 +56,23 @@ function EditUserProfilePage() {
     }));
   };
 
-  console.log("user", userDetails);
-
   const handleSignupSubmit = (event) => {
     event.preventDefault();
 
-    // const data = new FormData(event.currentTarget);
-
     const requestBody = {
-      // email:
-      // password:
       username: userDetails.username,
       birthdate: userDetails.birthdate,
       image,
     };
-
-    console.log(requestBody);
 
     axios
       .put(process.env.REACT_APP_API_URL + "/users/" + userId, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        console.log("put request is", response);
         navigate("/");
       })
       .catch((error) => {
-        // console.log("this is error object", error);
         const errorDescription = error.response.data.errorMessage;
         setError(true);
         setErrorMessage(errorDescription);
@@ -118,34 +108,6 @@ function EditUserProfilePage() {
                 noValidate
                 sx={{ mt: 1 }}
               >
-                {/* <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              InputLabelProps={{ shrink: true }}
-              name="email"
-              autoComplete="email"
-              autoFocus
-              error={error}
-              helperText={errorMessage}
-            />
-
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              InputLabelProps={{ shrink: true }}
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              error={error}
-              helperText={errorMessage}
-            /> */}
-
                 <TextField
                   margin="normal"
                   required
@@ -161,22 +123,7 @@ function EditUserProfilePage() {
                   value={userDetails.username}
                   onChange={handleChange}
                 />
-                {/* 
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="birthdate"
-              label="Birthdate"
-              InputLabelProps={{ shrink: true }}
-              type="date"
-              id="birthdate"
-              error={error}
-              helperText={errorMessage}
-              value={userDetails.birthdate}
-              onChange={handleChange}
-            /> */}
-            
+
                 <LocalizationProvider dateAdapter={AdapterMoment}>
                   <DatePicker
                     label="Birthdate"

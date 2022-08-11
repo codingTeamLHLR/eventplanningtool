@@ -57,8 +57,8 @@ function EventDetailsPage() {
           response.data.organizers.map((element) => element._id)
         );
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
   }, [eventId, storedToken]);
 
@@ -286,7 +286,7 @@ function EventDetailsPage() {
 
             {/* ---------- POLLS */}
             <Grid item xs={12}>
-              <Poll eventId={event._id}/>
+              <Poll eventId={event._id} participants={event.participants.map((element) => element.user._id)}/>
             </Grid>
 
             

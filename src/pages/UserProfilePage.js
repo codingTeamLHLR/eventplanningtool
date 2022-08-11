@@ -38,12 +38,9 @@ function UserProfilePage() {
           }
         );
       })
-      .then((response) => {
-        setUserDetails(response.data);
-        console.log(userDetails)
-      })
-      .catch((err) => {
-        console.log(err);
+      .then((response) => setUserDetails(response.data))
+      .catch((error) => {
+        console.log(error);
       });
   }, [storedToken]);
 

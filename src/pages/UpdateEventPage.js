@@ -29,8 +29,6 @@ function UpdateEventPage() {
   const [event, setEvent] = useState({});
   const [userId, setUserId] = useState(null);
 
-  console.log("initial state of participants", participants);
-
   const storedToken = localStorage.getItem("authToken");
 
   const navigate = useNavigate();
@@ -45,10 +43,9 @@ function UpdateEventPage() {
           response.data.participants.map((element) => element.user._id)
         );
         setOrganizers(response.data.organizers.map((element) => element._id));
-        console.log(response.data);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
   }, [eventId, storedToken]);
 
@@ -71,10 +68,6 @@ function UpdateEventPage() {
   const handleCreateEventSubmit = (e) => {
     e.preventDefault();
 
-    // const data = new FormData(e.currentTarget);
-
-    console.log("participants", participants);
-
     const requestBody = {
       name: event.name,
       date: event.date,
@@ -95,7 +88,6 @@ function UpdateEventPage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        console.log("put request is", response);
         navigate(`/${eventId}`);
       })
       .catch((error) => {

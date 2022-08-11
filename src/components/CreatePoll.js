@@ -10,6 +10,7 @@ import AddIcon from "@mui/icons-material/Add";
 import ClearIcon from "@mui/icons-material/Clear";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import PeopleSelector from "./PeopleSelector";
 
 export default function CreatePoll(props) {
   const { eventId } = useParams();
@@ -17,14 +18,18 @@ export default function CreatePoll(props) {
   const [errorMessage, setErrorMessage] = React.useState(undefined);
   const [optionNames, setOptionNames] = React.useState([]);
   const [title, setTitle] = React.useState("");
+  const [description, setDescription] = React.useState("");
   const [optionInput, setOptionInput] = React.useState("");
+  const [voters, setVoters] = React.useState([]);
 
   const storedToken = localStorage.getItem("authToken");
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const requestBody = { title, optionNames, eventId };
+    const participants = voters;
+
+    const requestBody = { title, description, optionNames, participants, eventId };
 
     axios
       .post(
@@ -35,10 +40,11 @@ export default function CreatePoll(props) {
         }
       )
       .then((response) => {
-        console.log("post request is", response);
         props.handleClose();
         setTitle("");
+        setDescription("");
         setOptionNames([]);
+        console.log(response)
       })
       .catch((error) => {
         const errorDescription = error.response.data.errorMessage;
@@ -51,6 +57,7 @@ export default function CreatePoll(props) {
   const handleCancel = () => {
     props.handleClose();
     setTitle("");
+    setDescription("");
     setOptionNames([]);
   };
 
@@ -64,7 +71,7 @@ export default function CreatePoll(props) {
           margin="dense"
           id="title"
           label="Title"
-          type="title"
+          type="string"
           fullWidth
           variant="outlined"
           InputLabelProps={{ shrink: true }}
@@ -74,6 +81,30 @@ export default function CreatePoll(props) {
           value={title}
           onChange={(event) => setTitle(event.target.value)}
         />
+
+        <TextField
+          autoFocus
+          margin="dense"
+          id="description"
+          label="Description"
+          type="string"
+          fullWidth
+          variant="outlined"
+          InputLabelProps={{ shrink: true }}
+          name="description"
+          error={error}
+          helperText={errorMessage}
+          value={description}
+          onChange={(event) => setDescription(event.target.value)}
+        />
+
+        <PeopleSelector
+          name="PollParticipants"
+          type="pollParticipants"
+          getPeopleCallback={setVoters}
+          participants={props.participants}
+        />
+
         <InputBase
           autoFocus
           required

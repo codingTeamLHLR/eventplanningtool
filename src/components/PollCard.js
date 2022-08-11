@@ -5,15 +5,19 @@ import {
   CardContent,
   IconButton,
   Tooltip,
+  Typography,
 } from "@mui/material";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-function Poll({ pollId }) {
+import PollChart from "./PollChart";
+
+export default function Poll({ pollId }) {
   const [rerender, setRerender] = useState(false);
   const [poll, setPoll] = useState(null);
   const [userId, setUserId] = useState(null);
+  // const [voted, setVoted] = useState(false);
 
   const storedToken = localStorage.getItem("authToken");
 
@@ -34,17 +38,19 @@ function Poll({ pollId }) {
       .then((response) => {
         setPoll(response.data);
         setRerender(false);
+        console.log(
+          response.data.participants.find((element) => element.user === userId)
+        );
+        // setVoted(
+        //   response.data.participants.find((element) => element.user === userId).voted);
       });
-  }, [storedToken, pollId, rerender]);
+  }, [storedToken, pollId, rerender, userId]);
 
-
-  
   const handleVote = (optionId, currentVotes) => {
-    console.log(optionId)
-    const newVotes = currentVotes + 1
-    console.log(newVotes)
+    const newVotes = currentVotes + 1;
+    const voted= true;
 
-    const requestBody = {optionId, newVotes, userId}
+    const requestBody = { optionId, newVotes, voted };
 
     axios
       .put(
@@ -54,16 +60,13 @@ function Poll({ pollId }) {
           headers: { Authorization: `Bearer ${storedToken}` },
         }
       )
-      .then(() => {
+      .then((response) => {
         setRerender(true);
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
-
-
 
   const changeStatus = () => {
     let requestBody;
@@ -106,6 +109,7 @@ function Poll({ pollId }) {
       });
   };
 
+  //SHOW TOTAL VOTES ??? + num participants? ---- show participants?
   return (
     <>
       {!poll ? (
@@ -113,19 +117,34 @@ function Poll({ pollId }) {
       ) : (
         <Card>
           <CardContent>
-            <>
-              <h3>{poll.title}</h3>
-              {poll.options.map((option) => {
-                return (
-                  <div key={option._id}>
-                <p>{option.name} - votes: {option.votes}</p>
-                <Button onClick={() => handleVote(option._id, option.votes)}>
-                  vote
-                  </Button>
-                </div>
-                )
-              })}
-            </>
+            <Typography variant="h6">{poll.title}</Typography>
+            <Typography variant="p">{poll.description}</Typography>
+
+            {console.log(poll.participants.find((element) => element.user === userId).voted)}
+            {!poll.participants.find((element) => element.user === userId).voted && 
+              <>
+                {poll.options.map((option) => {
+                  return (
+                    <div key={option._id}>
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        onClick={() => handleVote(option._id, option.votes)}
+                      >
+                        {option.name}
+                      </Button>
+                    </div>
+                  );
+                })}
+              </>
+              }
+              {poll.status === "closed" && <p>poll closed</p>}             
+              {poll.participants.find((element) => element.user === userId).vote && <p>already voted</p>}
+          
+
+            <PollChart pollOptions={poll.options} />
+
+
           </CardContent>
           <CardActions>
             <>
@@ -172,4 +191,3 @@ function Poll({ pollId }) {
     </>
   );
 }
-export default Poll;
