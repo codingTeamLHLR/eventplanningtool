@@ -15,6 +15,7 @@ import { styled } from '@mui/material/styles';
 import { Avatar } from "@mui/material";
 import badgeAccepted from "../images/badge-accepted.png"
 import badgeDeclined from "../images/badge-declined.png"
+import defaultEventPicture from "../images/default-event-picture.jpg"
 
 
 export default function EventCard(props) {
@@ -37,7 +38,7 @@ export default function EventCard(props) {
     eventImage = imageUrl;
   } else {
     eventImage =
-      "https://www.tagesspiegel.de/images/feiern-unter-freiem-himmel-sind-parks-die-neuen-clubs/26047962/1-format6001.jpg";
+      defaultEventPicture;
   }
 
   // const SmallAvatar = styled(Avatar)(({ theme }) => ({

@@ -73,6 +73,58 @@ function UserProfilePage() {
           <CircularProgress />
         </Box>
       ) : (
+        <>
+
+<Box sx={{color:"text.primary", display: "flex", justifyContent: "center", alignItems:"center", m:"10%", pb:"20px", borderBottom: "1px solid #f7aa0f"}}>
+
+        <Box
+            width="30vw"
+            sx={{
+              height: "30vw",
+              // background: "linear-gradient(#e66465, #9198e5)",
+              background: "lightgrey",
+              backgroundImage: `url(${ShowImage(userDetails.image)})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              backgroundPositionY: "center",
+              borderRadius: "50%",
+              mr: "20px"
+            }}
+          />
+            <Typography
+              align="center"
+              variant="h6"
+              component="div"
+              gutterBottom
+            >
+              {userDetails.username}
+            </Typography>
+
+        </Box>
+
+        <Box>
+
+        <Button
+              variant="contained"
+              sx={{ width: "49%" }}
+              startIcon={<EditIcon />}
+              href={`/update-user`}
+            >
+              Edit Details
+            </Button>
+            <Button
+              variant="outlined"
+              color="error"
+              sx={{ width: "49%" }}
+              onClick={() => deleteUserHandleClickOpen()}
+              startIcon={<DeleteIcon />}
+            >
+              Delete
+          </Button>
+
+        </Box>
+
+
         <Grid
           container
           rowSpacing={3}
@@ -80,39 +132,14 @@ function UserProfilePage() {
           justifyContent="center"
           sx={{ width: "100vw", p: "5%", m: 0, color:"text.primary" }}
         >
-          {/* ---------- IMAGE */}
-          <Grid
-            item
-            xs={12}
 
-          >
 
-            <Box
-              width="10%"
-              sx={{
-              backgroundImage: `url(${ShowImage(userDetails.image)})`,
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "cover",
-              backgroundPositionY: "center",
-              borderRadius: "50%",
-            }}>
 
-            </Box>
-          </Grid>
+
 
           
 
-          {/* ---------- NAME */}
-          <Grid item xs={8} sx={{ p: 0, m: 0 }}>
-            <Typography
-              align="center"
-              variant="h4"
-              component="div"
-              gutterBottom
-            >
-              {userDetails.username}
-            </Typography>
-          </Grid>
+
 
           <Grid
             item
@@ -143,7 +170,15 @@ function UserProfilePage() {
               Delete
             </Button>
           </Grid>
+
+
+
+
         </Grid>
+
+
+</>
+
       )}
 
       {openDeleteModal === true && (
