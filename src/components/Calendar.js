@@ -2,7 +2,6 @@ import * as React from "react";
 import Paper from "@mui/material/Paper";
 import { ViewState } from "@devexpress/dx-react-scheduler";
 import {
-<<<<<<< HEAD
   Scheduler,
   MonthView,
   Toolbar,
@@ -12,18 +11,6 @@ import {
 } from "@devexpress/dx-react-scheduler-material-ui";
 import Moment from "moment";
 import { useNavigate } from "react-router-dom";
-=======
-    Scheduler,
-    MonthView,
-    Toolbar,
-    DateNavigator,
-    Appointments,
-    TodayButton,
-} from '@devexpress/dx-react-scheduler-material-ui';
-import Moment from 'moment';
-import { useNavigate } from 'react-router-dom';
-import { Box } from '@mui/system';
->>>>>>> 3abcf6601eb686e9931477b72bbd20ff780e9675
 
 function Calendar(props) {
   function addHours(hours, date) {
