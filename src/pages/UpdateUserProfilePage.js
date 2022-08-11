@@ -2,18 +2,15 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import CloudinaryWidget from "../components/CloudinaryWidget";
-import { CircularProgress, FormLabel } from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { CircularProgress } from "@mui/material";
+
 
 function UpdateUserProfilePage() {
   const [error, setError] = useState(false);
@@ -42,6 +39,7 @@ function UpdateUserProfilePage() {
       })
       .then((response) => {
         setUserDetails(response.data);
+        setImage(response.data.image)
       })
       .catch((error) => {
         console.log(error);
@@ -69,7 +67,7 @@ function UpdateUserProfilePage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        navigate("/");
+        navigate("/userprofile");
       })
       .catch((error) => {
         const errorDescription = error.response.data.errorMessage;
@@ -109,7 +107,6 @@ function UpdateUserProfilePage() {
               >
                 <TextField
                   margin="normal"
-                  required
                   fullWidth
                   name="username"
                   label="Username"
@@ -142,6 +139,16 @@ function UpdateUserProfilePage() {
                 >
                   Save Changes
                 </Button>
+
+                <Button
+                    href={"/userprofile"}
+                    fullWidth
+                    variant="outlined"
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    Back
+                  </Button>
+
               </Box>
             </Box>
           </Container>

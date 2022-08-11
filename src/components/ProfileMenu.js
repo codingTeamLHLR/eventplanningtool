@@ -1,10 +1,5 @@
-
-import ClickAwayListener from "@mui/material/ClickAwayListener";
-import Grow from "@mui/material/Grow";
-import Paper from "@mui/material/Paper";
-import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 import { Button, ListItemIcon, Menu } from "@mui/material";
 import { NavLink } from "react-router-dom";

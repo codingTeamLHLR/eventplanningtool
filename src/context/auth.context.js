@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
 
-const AuthContext = React.createContext();
+const AuthContext = createContext();
 
 function AuthProviderWrapper(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,7 +15,7 @@ function AuthProviderWrapper(props) {
     localStorage.setItem("authToken", token);
   };
 
-  const authenticateUser = () => {
+  const authenticateUser = (redirect) => {
     const storedToken = localStorage.getItem("authToken");
 
     if (storedToken) {
@@ -30,7 +29,12 @@ function AuthProviderWrapper(props) {
           setIsLoggedIn(true);
           setIsLoading(false);
         })
+        .then(() => {
+          if(redirect) { 
+            navigate(redirect);
+          }})
         .catch((error) => {
+          console.log(error)
           setIsLoggedIn(false);
           setUser(null);
           setIsLoading(false);
@@ -46,7 +50,6 @@ function AuthProviderWrapper(props) {
     localStorage.removeItem("authToken");
   };
 
-  // const navigate = useNavigate();
 
   const logOutUser = () => {
     removeToken();

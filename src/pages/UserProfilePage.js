@@ -13,6 +13,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import DeleteDialog from "../components/DeleteDialog";
 import IconButton from '@mui/material/IconButton';
 import { SettingsOutlined } from "@mui/icons-material";
+import OrganizerEventListPage from "../components/OrganizerEventList";
 
 function UserProfilePage() {
   const [userDetails, setUserDetails] = useState(null);
@@ -150,17 +151,10 @@ function UserProfilePage() {
       )}
 
       <Grid item xs={12}>
-        <Typography
-          align="left"
-          variant="h6"
-          color="secondary"
-          component="div"
-          // sx={{ mt:-5}}
-          sx={{ mt: -2, p: 0.5 }}
-        >
-          Events you are hosting
-        </Typography>
+        <OrganizerEventListPage/>
       </Grid>
+
+      
     </>
   );
 }

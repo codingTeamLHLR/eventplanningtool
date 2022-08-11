@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 
 import Avatar from "@mui/material/Avatar";
@@ -16,13 +15,12 @@ import Link from "@mui/material/Link";
 
 function LoginPage() {
   const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(undefined);
-
-  const navigate = useNavigate();
+  const [errorMessageEmail, setErrorMessageEmail] = useState(undefined);
+  const [errorMessagePassword, setErrorMessagePassword] = useState(undefined);
 
   const { storeToken, authenticateUser } = useContext(AuthContext);
 
-  const handleSignupSubmit = (event) => {
+  const handleLoginSubmit = (event) => {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
@@ -36,89 +34,85 @@ function LoginPage() {
       .post(process.env.REACT_APP_API_URL + "/login", requestBody)
       .then((response) => {
         storeToken(response.data.authToken);
-        authenticateUser();
-        navigate("/events");
+        authenticateUser("/events");
       })
       .catch((error) => {
-        const errorDescription = error.response.data.errorMessage;
         setError(true);
-        setErrorMessage(errorDescription);
-        console.log("this is error", errorDescription);
+        setErrorMessageEmail(error.response.data.errorMessageEmail);
+        setErrorMessagePassword(error.response.data.errorMessagePassword);
+        console.log(error);
       });
   };
 
-
   return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Log In
+        </Typography>
         <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
+          component="form"
+          onSubmit={handleLoginSubmit}
+          noValidate
+          sx={{ mt: 1 }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Log In
-          </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSignupSubmit}
-            noValidate
-            sx={{ mt: 1 }}
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            InputLabelProps={{ shrink: true }}
+            name="email"
+            autoComplete="email"
+            autoFocus
+            error={error}
+            helperText={errorMessageEmail}
+          />
+
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            InputLabelProps={{ shrink: true }}
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            error={error}
+            helperText={errorMessagePassword}
+          />
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
           >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              InputLabelProps={{ shrink: true }}
-              name="email"
-              autoComplete="email"
-              autoFocus
-              error={error}
-              helperText={errorMessage}
-            />
-
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              InputLabelProps={{ shrink: true }}
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              error={error}
-              helperText={errorMessage}
-            />
-
-            <p>{errorMessage}</p>
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Log In
-            </Button>
-            <Grid container>
-              <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"Don't have an account yet? Sign Up"}
-                </Link>
-              </Grid>
+            Log In
+          </Button>
+          <Grid container>
+            <Grid item>
+              <Link href="/signup" variant="body2">
+                {"Don't have an account yet? Sign Up"}
+              </Link>
             </Grid>
-          </Box>
+          </Grid>
         </Box>
-      </Container>
+      </Box>
+    </Container>
   );
 }
 
