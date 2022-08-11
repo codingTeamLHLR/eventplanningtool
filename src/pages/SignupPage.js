@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
+import CloudinaryWidget from "../components/CloudinaryWidget";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -13,11 +13,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
-import CloudinaryWidget from "../components/CloudinaryWidget";
-
 import { FormLabel } from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+
 
 function SignupPage() {
   const [error, setError] = useState(false);
@@ -25,8 +22,6 @@ function SignupPage() {
   const [errorMessagePassword, setErrorMessagePassword] = useState(undefined);
   const [errorMessageUsername, setErrorMessageUsername] = useState(undefined);
   const [image, setImage] = useState("");
-
-  const navigate = useNavigate();
 
   const { storeToken, authenticateUser } = useContext(AuthContext);
 
@@ -46,8 +41,7 @@ function SignupPage() {
       .post(process.env.REACT_APP_API_URL + "/signup", requestBody)
       .then((response) => {
         storeToken(response.data.authToken);
-        authenticateUser();
-        navigate("/events");
+        authenticateUser("/events");
       })
       .catch((error) => {
         setError(true);

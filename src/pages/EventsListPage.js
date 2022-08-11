@@ -10,7 +10,7 @@ import Calendar from "../components/Calendar";
 import ViewSwitch from "../components/ViewSwitch";
 import nightlights from "../images/test.png"
 
-function HomePage() {
+export default function EventListPage() {
   const [events, setEvents] = useState([]);
   const [calendarView, setCalendarView] = useState(false)
 
@@ -104,5 +104,3 @@ function HomePage() {
     </>
   );
 }
-
-export default HomePage;

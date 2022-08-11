@@ -2,7 +2,6 @@ import Button from "@mui/material/Button";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import Typography from "@mui/material/Typography";
 import { useState, useEffect } from "react";
-import { FormLabel } from "@mui/material";
 import Box from "@mui/material/Box";
 
 const CloudinaryWidget = (props) => {
@@ -51,7 +50,6 @@ const CloudinaryWidget = (props) => {
 
   return (
     <Box sx={{mt: 2}}>
-      {/* <FormLabel sx={{fontSize: 12}}>Change Profile Picture</FormLabel> */}
       <Button
         variant="outlined"
         fullWidth
