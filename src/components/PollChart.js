@@ -35,9 +35,7 @@ export default function PollChart({pollOptions}) {
                 'rgb(255, 205, 86)',
                 'rgb(201, 203, 207)'
               ],
-              borderWidth: 1, 
-              barThickness: 60, 
-              
+              borderWidth: 1,   
           }
         ];
         return data;
@@ -57,6 +55,7 @@ export default function PollChart({pollOptions}) {
               display: false
             },
         }, 
+
         }}
       />
     </>
