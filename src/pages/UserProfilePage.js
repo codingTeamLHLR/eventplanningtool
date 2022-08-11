@@ -13,7 +13,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import DeleteDialog from "../components/DeleteDialog";
 import IconButton from "@mui/material/IconButton";
 import { SettingsOutlined } from "@mui/icons-material";
-import OrganizerEventListPage from "../components/OrganizerEventList";
+import OrganizerEventList from "../components/OrganizerEventList";
 
 function UserProfilePage() {
   const [userDetails, setUserDetails] = useState(null);
@@ -68,88 +68,104 @@ function UserProfilePage() {
   return (
     <>
       {!userDetails ? (
-        <></>
+        <> </>
       ) : (
         <>
-          <Grid
-            container
-            rowSpacing={3}
-            align="center"
-            justifyContent="center"
-            sx={{ width: "100vw", p: "5%", m: 0, color: "text.primary" }}
-          >
-            {/* ---------- IMAGE */}
-            <Grid
-              item
-              width="30vw"
-              sx={{
-                height: "30vw",
-                backgroundColor: "lightgrey",
-                backgroundImage: `url(${ShowImage(userDetails.image)})`,
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
-                backgroundPositionY: "center",
-                borderRadius: "50%",
-              }}
-            ></Grid>
 
-            {/* ---------- NAME */}
-            <Grid item xs={12} sx={{ p: 0, m: 0 }}>
-              <Typography
-                align="center"
-                variant="h4"
-                component="div"
-                gutterBottom
-              >
-                {userDetails.username}
-              </Typography>
-            </Grid>
+                <Box sx={{color:"text.primary", display: "flex", justifyContent: "center", alignItems:"center", m:"5%"}}>
 
-            <Grid
-              item
-              xs={12}
-              elevation={1}
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              {/* <Grid item xs={12} elevation={1} sx={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", position: "fixed", bottom: 100 }}> */}
-              <Button
-                variant="contained"
-                sx={{ width: "49%" }}
-                startIcon={<EditIcon />}
-                href={`/update-user`}
-              >
-                Edit Details
-              </Button>
-              <Button
-                variant="outlined"
-                color="error"
-                sx={{ width: "49%" }}
-                onClick={() => deleteUserHandleClickOpen()}
-                startIcon={<DeleteIcon />}
-              >
-                Delete
-              </Button>
-            </Grid>
-          </Grid>
+                  <Box
+                    width="30vw"
+                    sx={{
+                      height: "30vw",
+                      // background: "linear-gradient(#e66465, #9198e5)",
+                      background: "lightgrey",
+                      backgroundImage: `url(${ShowImage(userDetails.image)})`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: "cover",
+                      backgroundPositionY: "center",
+                      borderRadius: "50%",
+                      mr: "20px"
+                    }}
+                  />
+                  <Typography
+                    align="center"
+                    variant="h6"
+                    component="div"
+                    gutterBottom
+                  >
+                    {userDetails.username}
+                  </Typography>
 
-          {openDeleteModal === true && (
-            <DeleteDialog
-              open={openDeleteModal}
-              callBackToClose={deleteUserHandleClose}
-              callBackToDelete={deleteUser}
-              type="deleteUser"
-            />
-          )}
+                </Box>
 
-          <Grid item xs={12}>
-            <OrganizerEventListPage />
-          </Grid>
+                <Box sx={{display: "flex", justifyContent:"space-between", m:"5%", pb:"20px", borderBottom: "1px solid #f7aa0f"}}>
+
+                  <Button
+                      variant="outlined"
+                      color="error"
+                      sx={{ width: "49%" }}
+                      onClick={() => deleteUserHandleClickOpen()}
+                      startIcon={<DeleteIcon />}
+                    >
+                      Delete
+                  </Button>
+
+                  <Button
+                        variant="contained"
+                        sx={{ width: "49%" }}
+                        startIcon={<EditIcon />}
+                        href={`/update-user`}
+                      >
+                        Edit
+                  </Button>
+
+                </Box>
+
+                <Box sx={{ml:"5%", mr:"5%"}}>
+                    <Typography
+                            align="left"
+                            variant="h6"
+                            component="div"
+                            color="secondary"
+                            sx={{mb: -5}}
+                          >
+                            Your Events
+                      </Typography>
+                </Box>
+
+                <Grid
+                    container
+                    rowSpacing={3}
+                    align="center"
+                    justifyContent="center"
+                    sx={{ width: "100vw", p: "5%", m: 0, color:"text.primary" }}
+                  >
+
+
+      
+              </Grid>
+
         </>
+
+
       )}
+
+            {openDeleteModal === true && (
+              <DeleteDialog
+                open={openDeleteModal}
+                callBackToClose={deleteUserHandleClose}
+                callBackToDelete={deleteUser}
+                type="deleteUser"
+              />
+            )}
+
+
+        <Grid item xs={12}>
+          <OrganizerEventList/>
+        </Grid>
+
+      
     </>
   );
 }

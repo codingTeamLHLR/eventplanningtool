@@ -34,6 +34,7 @@ function CreateEventPage() {
 
     const data = new FormData(event.currentTarget);
 
+
     const requestBody = {
       name: data.get("name"),
       date: time,
@@ -62,29 +63,15 @@ function CreateEventPage() {
         setErrorMessage(errorDescription);
         console.log(errorDescription);
       });
-  };
+    };
+    
+    return (
+      <>
+      <Typography component="h1" variant="h5" sx={{color: "text.primary", mt:"20px"}}>Create Event</Typography>
 
-  return (
-    <>
-      <Typography variant="h2" sx={{ color: "text.primary" }}>
-        Create Event
-      </Typography>
+      <Typography sx={{color:"text.primary", fontSize:"12px", mt: 2 }}>{errorMessage}</Typography>  
 
-      <Typography sx={{ color: "text.primary", fontSize: "12px", mt: 2 }}>
-        {errorMessage}
-      </Typography>
-
-      <Container maxWidth="xs" sx={{ backgroundColor: "none" }}>
-        {/* <CssBaseline /> */}
-        <Box
-          sx={{
-            marginTop: 0,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            marginBottom: 10,
-          }}
-        >
+        <Container maxWidth="xs" sx={{backgroundColor: "none"}}>
           <Box
             component="form"
             onSubmit={handleCreateEventSubmit}
@@ -213,7 +200,7 @@ function CreateEventPage() {
             </Button>
             <Grid container></Grid>
           </Box>
-        </Box>
+        
       </Container>
     </>
   );

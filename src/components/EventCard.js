@@ -15,6 +15,7 @@ import { styled } from '@mui/material/styles';
 import { Avatar } from "@mui/material";
 import badgeAccepted from "../images/badge-accepted.png"
 import badgeDeclined from "../images/badge-declined.png"
+import defaultEventPicture from "../images/default-event-picture.jpg"
 
 
 export default function EventCard(props) {
@@ -26,7 +27,7 @@ export default function EventCard(props) {
   if (props.data.date) {
     formatDate = Moment(props.data.date).format("MMM Do YY");
   } else {
-    formatDate = "TBD";
+    formatDate = "Date tbd.";
   }
 
   const imageUrl = ShowImage(props.data.image);
@@ -35,7 +36,7 @@ export default function EventCard(props) {
     eventImage = imageUrl;
   } else {
     eventImage =
-      "https://www.tagesspiegel.de/images/feiern-unter-freiem-himmel-sind-parks-die-neuen-clubs/26047962/1-format6001.jpg";
+      defaultEventPicture;
   }
 
   // const SmallAvatar = styled(Avatar)(({ theme }) => ({
@@ -70,54 +71,60 @@ export default function EventCard(props) {
   return (
     <Link underline="none" href={`./${props.data._id}`}>
 
-    <Card sx={{mb: 2, display: "flex", flexDirection: "row", backgroundColor:"transparent", color:"primary", borderRadius: 0}} elevation={3} >
+    <Card  sx={{maxHeight: "110px", mb: 2, display: "flex", flexDirection: "row", backgroundColor:"transparent", color:"primary", borderRadius: 0}} elevation={3} >
       <CardMedia
         component="img"
-        height="100"
-        sx ={{width: "45%", borderRadius: "5px"}}
+        sx ={{width: "58%", borderRadius: "5px"}}
         image={eventImage}
         alt="green iguana"
       />
       <CardContent sx={{backgroundColor: "none"}}>
       <Box sx={{display:"flex", flexDirection: "column"}}>
 
+        <Typography variant="body2" align="left" sx={{color:"#f7aa0f", fontSize: "13px"}}>
+          {formatDate}
+        </Typography>
+
         <Typography gutterBottom variant="h6" component="div" align="left">
           {props.data.name}
         </Typography>
 
-        <Typography variant="body2" align="left">
-          {formatDate}
+        <Typography sx={{fontSize: "11px", mt: -1}}> 
+          <Box sx={{display: "flex"}}>
+            by &nbsp; {props.data.organizers.map( (element, index) => {
+              return(
+                <>
+                  {index>0 &&  <span> and &nbsp; </span>}
+                  <span>{element.username} &nbsp; </span>
+                </>
+              )
+            })}
+          </Box>
         </Typography>
+        
 
-        <Typography sx={{fontSize: "11px"}}>
+
+        <Typography sx={{fontSize: "11px", mt: 1}}>
 
         {currentUsersStatus==='accepted' &&
-        <Box sx={{display: "flex"}}>
-          <span>you have accepted</span>
-          <StatusIcon src={badgeAccepted} sx={{ml: 1}}/>
-        </Box>
+          <Box sx={{display: "flex"}}>
+            <span>you have accepted</span>
+            <StatusIcon src={badgeAccepted} sx={{ml: 1}}/>
+          </Box>
 
         }
 
         {currentUsersStatus==='declined' &&
-        <Box sx={{display: "flex"}}>
-          <span>you have declined</span>
-          <StatusIcon src={badgeDeclined} sx={{ml: 1}}/>
-        </Box>
+          <Box sx={{display: "flex"}}>
+            <span>you have declined</span>
+            <StatusIcon src={badgeDeclined} sx={{ml: 1}}/>
+          </Box>
         }
         </Typography>
 
 
-        {/* <Typography variant="body2" align="left">
-          you have accepted
 
-        </Typography> */}
 
-          {/* invited by {props.data.organizers.map( (element) => {
-            return(
-              <span>element.</span>
-            )
-          })} */}
       </Box>
       </CardContent>
       {/* <CardActions>

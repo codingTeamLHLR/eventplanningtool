@@ -28,12 +28,17 @@ import {
 } from "@mui/material";
 import ProfileMenu from "./ProfileMenu";
 
-export default function SimpleBottomNavigation() {
+export default function SimpleBottomNavigation(props) {
   const [value, setValue] = React.useState(0);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
+  console.log("navprops", props)
+
   return (
+
+
+
     <Box sx={{ width: "100vw", position: "fixed", bottom: 0, zIndex: 1 }}>
       <BottomNavigation
         showLabels
@@ -60,7 +65,7 @@ export default function SimpleBottomNavigation() {
             // aria-controls={open ? "account-menu" : undefined}
             aria-haspopup="true"
             // aria-expanded={open ? "true" : undefined}
-            label="Profile"
+            label="Account"
             icon={<ManageAccountsOutlined sx={{ color: "#b5b5ba" }} />}
           />
         </Tooltip>
@@ -68,5 +73,6 @@ export default function SimpleBottomNavigation() {
         <ProfileMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
       </BottomNavigation>
     </Box>
+
   );
 }

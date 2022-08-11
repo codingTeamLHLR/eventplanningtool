@@ -84,14 +84,15 @@ function UpdateUserProfilePage() {
         <></>
       ) : (
 
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
+          <Container maxWidth="xs" sx={{width: "90vw", color: "text.primary", width:"100%"}}>
             <Box
               sx={{
                 marginTop: 8,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                
+
               }}
             >
               <Typography component="h1" variant="h5">
@@ -101,7 +102,7 @@ function UpdateUserProfilePage() {
                 component="form"
                 onSubmit={handleSignupSubmit}
                 noValidate
-                sx={{ mt: 1 }}
+                sx={{ mt: 1, width:"100%" }}
               >
                 <TextField
                   margin="normal"
@@ -113,9 +114,10 @@ function UpdateUserProfilePage() {
                   id="username"
                   autoComplete="username"
                   error={error}
-                  helperText={errorMessage}
                   value={userDetails.username}
                   onChange={handleChange}
+                  sx={{backgroundColor: "#252a42", borderRadius: "10px", mt:1}}
+
                 />
 
                 <Box sx={{mt:2}}>
@@ -141,7 +143,6 @@ function UpdateUserProfilePage() {
                 <Button
                     href={"/userprofile"}
                     fullWidth
-                    variant="outlined"
                     sx={{ mt: 3, mb: 2 }}
                   >
                     Back
