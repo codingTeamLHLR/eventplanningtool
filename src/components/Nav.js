@@ -22,29 +22,20 @@ import {
   MenuItem,
   Tooltip,
 } from "@mui/material";
+import ProfileMenu from "./ProfileMenu";
 
 export default function SimpleBottomNavigation() {
   const [value, setValue] = React.useState(0);
-
-  const { isLoggedIn, logOutUser } = useContext(AuthContext);
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+
 
   return (
     <Box sx={{ width: "100vw", position: "fixed", bottom: 0, zIndex: 1 }}>
       <BottomNavigation
         showLabels
         value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
+        onChange={(newValue) => setValue(newValue)}
         sx={{backgroundColor: "lightgrey"}}
       >
         <BottomNavigationAction
@@ -62,91 +53,17 @@ export default function SimpleBottomNavigation() {
         <Tooltip title="Profile" disableHoverListener>
           <BottomNavigationAction
             component={IconButton}
-            onClick={handleClick}
-            aria-controls={open ? "account-menu" : undefined}
+            onClick={(event) => setAnchorEl(event.currentTarget)}
+            // aria-controls={open ? "account-menu" : undefined}
             aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
+            // aria-expanded={open ? "true" : undefined}
             label="Profile"
             icon={<ManageAccountsOutlined />}
           />
         </Tooltip>
         
-        <Menu
-          anchorEl={anchorEl}
-          id="account-menu"
-          open={open}
-          onClose={handleClose}
-          onClick={handleClose}
-          PaperProps={{
-            elevation: 1,
-            sx: {
-              overflow: "visible",
-              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-              mt: 1.5,
-              "& .MuiAvatar-root": {
-                width: 32,
-                height: 32,
-                ml: -0.5,
-                mr: 1,
-              },
-              "&:before": {
-                content: '""',
-                display: "block",
-                position: "absolute",
-                bottom: -10,
-                right: 14,
-                width: 10,
-                height: 10,
-                bgcolor: "background.paper",
-                transform: "translateY(-50%) rotate(45deg)",
-                zIndex: 0,
-              },
-            },
-          }}
-          transformOrigin={{ horizontal: "right", vertical: "bottom" }}
-          anchorOrigin={{ horizontal: "right", vertical: "top" }}
-        >
-          <div>
-            {!isLoggedIn && (
-              <>
-                <MenuItem component={NavLink} to="/signup">
-                  <ListItemIcon>
-                    <PersonAddIcon fontSize="small" />
-                  </ListItemIcon>
-                  Sign Up
-                </MenuItem>
-
-                <MenuItem component={NavLink} to="/login">
-                  <ListItemIcon>
-                    <LoginIcon fontSize="small" />
-                  </ListItemIcon>
-                  Log In
-                </MenuItem>
-              </>
-            )}
-            {isLoggedIn && (
-              <>
-                <MenuItem component={NavLink} to="/userprofile">
-                  <ListItemIcon>
-                    <AccountCircleIcon fontSize="small" />
-                  </ListItemIcon>
-                  Profile
-                </MenuItem>
-
-                <MenuItem
-                  component={Button}
-                  sx={{ textTransform: "none" }}
-                  onClick={logOutUser}
-                >
-                  <ListItemIcon>
-                    <LogoutIcon fontSize="small" />
-                  </ListItemIcon>
-                  Logout
-                </MenuItem>
-              </>
-            )}
-          </div>
-        </Menu>
+        <ProfileMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl}/>
+        
       </BottomNavigation>
     </Box>
   );

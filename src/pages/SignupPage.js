@@ -21,9 +21,10 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
 function SignupPage() {
   const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(undefined);
+  const [errorMessageEmail, setErrorMessageEmail] = useState(undefined);
+  const [errorMessagePassword, setErrorMessagePassword] = useState(undefined);
+  const [errorMessageUsername, setErrorMessageUsername] = useState(undefined);
   const [image, setImage] = useState("");
-  const [birthdate, setBirthdate] = useState(null);
 
   const navigate = useNavigate();
 
@@ -38,7 +39,6 @@ function SignupPage() {
       email: data.get("email"),
       password: data.get("password"),
       username: data.get("username"),
-      birthdate,
       image,
     };
 
@@ -50,10 +50,11 @@ function SignupPage() {
         navigate("/");
       })
       .catch((error) => {
-        const errorDescription = error.response.data.errorMessage;
         setError(true);
-        setErrorMessage(errorDescription);
-        console.log("this is error", errorDescription);
+        setErrorMessageUsername(error.response.data.errorMessageUsername);
+        setErrorMessageEmail(error.response.data.errorMessageEmail);
+        setErrorMessagePassword(error.response.data.errorMessagePassword);
+        console.log(error);
       });
   };
 
@@ -91,7 +92,7 @@ function SignupPage() {
               autoComplete="email"
               autoFocus
               error={error}
-              helperText={errorMessage}
+              helperText={errorMessageEmail}
             />
 
             <TextField
@@ -105,7 +106,7 @@ function SignupPage() {
               id="password"
               autoComplete="current-password"
               error={error}
-              helperText={errorMessage}
+              helperText={errorMessagePassword}
             />
 
             <TextField
@@ -119,46 +120,11 @@ function SignupPage() {
               id="username"
               autoComplete="username"
               error={error}
-              helperText={errorMessage}
+              helperText={errorMessageUsername}
             />
-
-            {/* <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="birthdate"
-              label="Birthdate"
-              InputLabelProps={{ shrink: true }}
-              type="date"
-              id="birthdate"
-              error={error}
-              helperText={errorMessage}
-            /> */}
-
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DatePicker
-                label="Birthdate"
-                value={birthdate}
-                disableFuture={true}
-                onChange={(newValue) => {
-                  setBirthdate(newValue);
-                }}
-                renderInput={(props) => (
-                  <TextField
-                    sx={{ mt: 2 }}
-                    fullWidth
-                    required
-                    InputLabelProps={{ shrink: true }}
-                    {...props}
-                  />
-                )}
-              />
-            </LocalizationProvider>
 
             <FormLabel>Upload Profile Picture</FormLabel>
             <CloudinaryWidget setImage={setImage} />
-
-            <p>{errorMessage}</p>
 
             <Button
               type="submit"

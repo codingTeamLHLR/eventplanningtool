@@ -15,7 +15,7 @@ import { CircularProgress, FormLabel } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
-function EditUserProfilePage() {
+function UpdateUserProfilePage() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [image, setImage] = useState("");
@@ -61,7 +61,6 @@ function EditUserProfilePage() {
 
     const requestBody = {
       username: userDetails.username,
-      birthdate: userDetails.birthdate,
       image,
     };
 
@@ -124,23 +123,6 @@ function EditUserProfilePage() {
                   onChange={handleChange}
                 />
 
-                <LocalizationProvider dateAdapter={AdapterMoment}>
-                  <DatePicker
-                    label="Birthdate"
-                    value={userDetails.birthdate}
-                    onChange={handleChange}
-                    disableFuture={true}
-                    renderInput={(props) => (
-                      <TextField
-                        sx={{ mt: 1 }}
-                        fullWidth
-                        InputLabelProps={{ shrink: true }}
-                        {...props}
-                      />
-                    )}
-                  />
-                </LocalizationProvider>
-
                 <Box sx={{mt:2}}>
                   {/* <FormLabel sx={{fontSize: 12}}>Change Profile Picture</FormLabel> */}
                   <CloudinaryWidget
@@ -168,4 +150,4 @@ function EditUserProfilePage() {
   );
 }
 
-export default EditUserProfilePage;
+export default UpdateUserProfilePage;

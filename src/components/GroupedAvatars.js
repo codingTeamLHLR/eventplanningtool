@@ -32,8 +32,6 @@ const SmallAvatar = styled(Avatar)(({ theme }) => ({
 
 export default function GroupedAvatars(props) {
 
-    console.log(props.avatars)
-
   return (
     // <AvatarGroup sx={{backgroundColor: "red", display: 'flex'}}>
 
@@ -41,11 +39,11 @@ export default function GroupedAvatars(props) {
 
     {props.avatars.map((participant) => {
             return (
-              <>
+              <div key={participant._id}>
 
               {participant.status==="accepted" &&
 
-              <Box key={participant._id} sx={{ m: 0.5, display:"flex", flexDirection: "column" }}>
+              <Box sx={{ m: 0.5, display:"flex", flexDirection: "column" }}>
                 <StyledBadge
                   overlap="circular"
                   anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
@@ -74,7 +72,7 @@ export default function GroupedAvatars(props) {
 
               {participant.status==="declined" &&
 
-              <Box key={participant._id} sx={{ m: 0.5, display:"flex", flexDirection: "column" }}>
+              <Box sx={{ m: 0.5, display:"flex", flexDirection: "column" }}>
                 <StyledBadge
                   overlap="circular"
                   anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
@@ -97,7 +95,7 @@ export default function GroupedAvatars(props) {
               
               {participant.status==="pending" &&
 
-              <Box key={participant._id} sx={{ m: 0.5, display:"flex", flexDirection: "column" }}>
+              <Box sx={{ m: 0.5, display:"flex", flexDirection: "column" }}>
 
                   {participant.image ? (
                     <Avatar
@@ -109,7 +107,7 @@ export default function GroupedAvatars(props) {
                   )}
               </Box>
               }
-              </>
+              </div>
 
             );
           })}

@@ -13,7 +13,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Typography } from "@mui/material";
 import Moment from "moment";
-import ThreadList from "../components/ThreasList";
 import Poll from "../components/Polls";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -57,7 +56,10 @@ function EventDetailsPage() {
         setOrganizersArray(
           response.data.organizers.map((element) => element._id)
           );
-        const userInStatusArray = response.data.participants.find(element=> element.user._id===currentUserId);
+          
+          return response.data.participants.find(element=> element.user._id===currentUserId);
+        })
+        .then((userInStatusArray) => {
           if (userInStatusArray.status==="accepted") {
             setCurrentUsersStatus("accepted")
           }
@@ -354,11 +356,6 @@ function EventDetailsPage() {
               >
                 Activity
               </Typography>
-            </Grid>
-
-            {/* ---------- THREADS */}
-            <Grid item xs={12}>
-              <ThreadList />
             </Grid>
 
             {/* ---------- POLLS */}

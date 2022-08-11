@@ -9,16 +9,13 @@ import IsAnon from "./components/IsAnon";
 import Nav from "./components/Nav";
 import UpdateEventPage from "./pages/UpdateEventPage";
 import UserProfilePage from "./pages/UserProfilePage";
-import EditUserProfilePage from "./pages/EditUserProfilePage";
-import { orange, red } from "@mui/material/colors";
+import UpdateUserProfilePage from "./pages/UpdateUserProfilePage";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { BorderBottom } from "@mui/icons-material";
 import CalendarPage from "./pages/CalendarPage";
+import IsPrivate from "./components/IsPrivate";
 
 const theme = createTheme({
-  // root: {
-  //   background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-  // },
+
   palette: {
     primary: {
       main: "#423f4a",
@@ -69,13 +66,59 @@ function App() {
               </IsAnon>
             }
           />
-          
-          <Route path="/create-event" element={<CreateEventPage />} />
-          <Route path="/:eventId/update-event" element={<UpdateEventPage />} />
-          <Route path="/:eventId" element={<EventDetailsPage />} />
-          <Route path="/userprofile" element={<UserProfilePage />} />
-          <Route path="/update-user" element={<EditUserProfilePage />} />
-          <Route path="/calendar" element={<CalendarPage />} />
+
+          <Route
+            path="/calendar"
+            element={
+              <IsPrivate>
+                <CalendarPage />
+              </IsPrivate>
+            }
+          />
+          <Route
+            path="/create-event"
+            element={
+              <IsPrivate>
+                {" "}
+                <CreateEventPage />{" "}
+              </IsPrivate>
+            }
+          />
+          <Route
+            path="/:eventId/update-event"
+            element={
+              <IsPrivate>
+                {" "}
+                <UpdateEventPage />{" "}
+              </IsPrivate>
+            }
+          />
+          <Route
+            path="/:eventId"
+            element={
+              <IsPrivate>
+                {" "}
+                <EventDetailsPage />{" "}
+              </IsPrivate>
+            }
+          />
+          <Route
+            path="/userprofile"
+            element={
+              <IsPrivate>
+                <UserProfilePage />
+              </IsPrivate>
+            }
+          />
+          <Route
+            path="/update-user"
+            element={
+              <IsPrivate>
+                {" "}
+                <UpdateUserProfilePage />{" "}
+              </IsPrivate>
+            }
+          />
         </Routes>
       </div>
     </ThemeProvider>

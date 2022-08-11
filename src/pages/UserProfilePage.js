@@ -9,15 +9,12 @@ import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Typography } from "@mui/material";
-import Moment from "moment";
 import CircularProgress from "@mui/material/CircularProgress";
-import { CalendarMonth } from "@mui/icons-material";
 import DeleteDialog from "../components/DeleteDialog";
 
 function UserProfilePage() {
   const [userDetails, setUserDetails] = useState(null);
   const [userId, setUserId] = useState(null);
-
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   const storedToken = localStorage.getItem("authToken");
@@ -76,12 +73,12 @@ function UserProfilePage() {
           container
           rowSpacing={3}
           align="center"
-          justifyContent= "center"
+          justifyContent="center"
           sx={{ width: "100vw", p: "5%", m: 0 }}
         >
-        
-        {/* ---------- IMAGE */}
-          <Grid item
+          {/* ---------- IMAGE */}
+          <Grid
+            item
             width="30vw"
             sx={{
               height: "30vw",
@@ -90,59 +87,40 @@ function UserProfilePage() {
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               backgroundPositionY: "center",
-              borderRadius: "50%"
-            }}>
-          </Grid>
-          
+              borderRadius: "50%",
+            }}
+          ></Grid>
+
           {/* ---------- NAME */}
-          <Grid item xs={12} sx ={{p:0, m:0}}>
+          <Grid item xs={12} sx={{ p: 0, m: 0 }}>
             <Typography
               align="center"
               variant="h4"
               component="div"
               gutterBottom
-              
             >
               {userDetails.username}
             </Typography>
           </Grid>
 
-          {/* ---------- TITLE: INFO */}
-          <Grid item xs={12}>
-            <Typography
-              align="left"
-              variant="h6"
-              color="secondary"
-              component="div"
-              // sx={{ mt:-5}}
-              sx={{ mt: -2, p: 0.5 }}
-            >
-              Info
-            </Typography>
-          </Grid>
-
-          {/* ---------- BIRTHDAY */}
-          <Grid item xs={12} sx={{ display: "flex", flexDirection: "row" }}>
-            <Box sx={{ pt: "0.8rem", pr: "1rem", pl: "1rem" }}>
-              <CalendarMonth />
-            </Box>
-            <Typography variant="h7" component="div" align="left">
-              <p>Birthdate:</p>
-              <p>{Moment(userDetails.birthdate).format("MMM Do YY")}</p>
-            </Typography>
-          </Grid>
-
-          {/* add location, add friends */}
-
-          <Grid item xs={12} elevation={1} sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-          {/* <Grid item xs={12} elevation={1} sx={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", position: "fixed", bottom: 100 }}> */}
+          <Grid
+            item
+            xs={12}
+            elevation={1}
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            {/* <Grid item xs={12} elevation={1} sx={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", position: "fixed", bottom: 100 }}> */}
             <Button
-                variant="contained"
-                sx={{ width: "49%" }}
-                startIcon={<EditIcon />}
-                href={`/update-user`}
-              >
-                Edit Details
+              variant="contained"
+              sx={{ width: "49%" }}
+              startIcon={<EditIcon />}
+              href={`/update-user`}
+            >
+              Edit Details
             </Button>
             <Button
               variant="outlined"
@@ -157,10 +135,27 @@ function UserProfilePage() {
         </Grid>
       )}
 
-      {openDeleteModal===true &&
-      <DeleteDialog open={openDeleteModal} callBackToClose={deleteUserHandleClose} callBackToDelete={deleteUser} type='deleteUser'/>
-      }
+      {openDeleteModal === true && (
+        <DeleteDialog
+          open={openDeleteModal}
+          callBackToClose={deleteUserHandleClose}
+          callBackToDelete={deleteUser}
+          type="deleteUser"
+        />
+      )}
 
+      <Grid item xs={12}>
+        <Typography
+          align="left"
+          variant="h6"
+          color="secondary"
+          component="div"
+          // sx={{ mt:-5}}
+          sx={{ mt: -2, p: 0.5 }}
+        >
+          Events you are hosting
+        </Typography>
+      </Grid>
     </>
   );
 }

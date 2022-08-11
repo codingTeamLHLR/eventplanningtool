@@ -83,7 +83,6 @@ function CreateEventPage() {
               onSubmit={handleCreateEventSubmit}
               noValidate
               sx={{ mt: 1 }}
-              enctype="multipart/form-data"
             >
               <TextField
                 margin="normal"
