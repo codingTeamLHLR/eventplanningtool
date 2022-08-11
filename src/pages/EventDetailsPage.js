@@ -158,7 +158,6 @@ function EventDetailsPage() {
                 align="center"
                 variant="h4"
                 component="div"
-                align="left"
               >
                 {event.name}
               </Typography>
