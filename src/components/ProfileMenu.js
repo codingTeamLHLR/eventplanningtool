@@ -11,7 +11,8 @@ import { NavLink } from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import PersonOutlineOutlined from "@mui/icons-material/AccountCircle";
+import { SettingsOutlined } from "@mui/icons-material";
 
 export default function ProfileMenu({anchorEl, setAnchorEl}) {
 
@@ -28,27 +29,11 @@ export default function ProfileMenu({anchorEl, setAnchorEl}) {
           PaperProps={{
             elevation: 1,
             sx: {
+              backgroundColor: "#252a42",
               overflow: "visible",
               filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-              mt: 1.5,
-              "& .MuiAvatar-root": {
-                width: 32,
-                height: 32,
-                ml: -0.5,
-                mr: 1,
-              },
-              "&:before": {
-                content: '""',
-                display: "block",
-                position: "absolute",
-                bottom: -10,
-                right: 14,
-                width: 10,
-                height: 10,
-                bgcolor: "background.paper",
-                transform: "translateY(-50%) rotate(45deg)",
-                zIndex: 0,
-              },
+              mt: -2,
+              width: "140px",
             },
           }}
           transformOrigin={{ horizontal: "right", vertical: "bottom" }}
@@ -59,14 +44,14 @@ export default function ProfileMenu({anchorEl, setAnchorEl}) {
               <>
                 <MenuItem component={NavLink} to="/signup">
                   <ListItemIcon>
-                    <PersonAddIcon fontSize="small" />
+                    <PersonAddIcon fontSize="small" sx={{ color: "#e4e6f0" }} />
                   </ListItemIcon>
                   Sign Up
                 </MenuItem>
 
                 <MenuItem component={NavLink} to="/login">
                   <ListItemIcon>
-                    <LoginIcon fontSize="small" />
+                    <LoginIcon fontSize="small" sx={{ color: "#e4e6f0" }}/>
                   </ListItemIcon>
                   Log In
                 </MenuItem>
@@ -76,9 +61,16 @@ export default function ProfileMenu({anchorEl, setAnchorEl}) {
               <>
                 <MenuItem component={NavLink} to="/userprofile">
                   <ListItemIcon>
-                    <AccountCircleIcon fontSize="small" />
+                    <SettingsOutlined fontSize="small" sx={{ color: "#e4e6f0" }}/>
                   </ListItemIcon>
-                  Profile
+                  Settings
+                </MenuItem>
+
+                <MenuItem component={NavLink} to="/userprofile">
+                  <ListItemIcon>
+                    <PersonOutlineOutlined fontSize="small" sx={{ color: "#e4e6f0" }}/>
+                  </ListItemIcon>
+                  My Events
                 </MenuItem>
 
                 <MenuItem
@@ -87,7 +79,7 @@ export default function ProfileMenu({anchorEl, setAnchorEl}) {
                   onClick={logOutUser}
                 >
                   <ListItemIcon>
-                    <LogoutIcon fontSize="small" />
+                    <LogoutIcon fontSize="small" sx={{ color: "#e4e6f0" }}/>
                   </ListItemIcon>
                   Logout
                 </MenuItem>

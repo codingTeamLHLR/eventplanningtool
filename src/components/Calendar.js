@@ -60,8 +60,12 @@ function Calendar (props) {
             onClick={openEventDetails}
             style={{
                 ...style,
-                backgroundColor: '#FFC107',
-                borderRadius: '20%',
+                backgroundColor: '#595e78',
+                borderRadius: '5%',
+                fontSize: "13px",
+                color: "#74f2a2",
+                border: "none",
+                // opacity: 0.5
             }}
             >
             {children}
@@ -80,23 +84,23 @@ function Calendar (props) {
 
     return(
         
-            <Paper>
+            <Paper sx={{background: "none", border: "1px solid white"}}>
+            {/* <Paper sx={{backgroundColor: "#252a42"}}> */}
                 <Scheduler
                 data={schedulerData}
+                
+                
                 // height={300} // scroll?
                 >
-                <ViewState
-                    // defaultCurrentDate={currentDate}
-                    // currentDate={nextDate}
-                />
-                <MonthView />
-                <Toolbar />
-                <DateNavigator />
-                <TodayButton />
-                {/* <Toolbar />
-                <DateNavigator/> */}
-                {/* <TodayButton /> */}
-                <Appointments data appointmentComponent={Appointment}/>
+                    <ViewState 
+                        // defaultCurrentDate={currentDate}
+                        // currentDate={nextDate}
+                    />
+                    <MonthView />
+                    <Toolbar sx={{backgroundColor: "red"}}/>
+                    <DateNavigator openButtonComponent="none" />
+                    <TodayButton />
+                    <Appointments data appointmentComponent={Appointment} />
                 </Scheduler>
             </Paper>
 )

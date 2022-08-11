@@ -11,6 +11,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import DeleteDialog from "../components/DeleteDialog";
+import IconButton from '@mui/material/IconButton';
+import { SettingsOutlined } from "@mui/icons-material";
 
 function UserProfilePage() {
   const [userDetails, setUserDetails] = useState(null);
@@ -64,6 +66,7 @@ function UserProfilePage() {
 
   return (
     <>
+
       {!userDetails ? (
         <Box align="center">
           <CircularProgress />
@@ -74,7 +77,7 @@ function UserProfilePage() {
           rowSpacing={3}
           align="center"
           justifyContent="center"
-          sx={{ width: "100vw", p: "5%", m: 0 }}
+          sx={{ width: "100vw", p: "5%", m: 0, color:"text.primary" }}
         >
           {/* ---------- IMAGE */}
           <Grid
@@ -90,6 +93,8 @@ function UserProfilePage() {
               borderRadius: "50%",
             }}
           ></Grid>
+
+          
 
           {/* ---------- NAME */}
           <Grid item xs={12} sx={{ p: 0, m: 0 }}>
