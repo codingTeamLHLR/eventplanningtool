@@ -6,23 +6,19 @@ import {
   OutlinedInput,
   MenuItem,
 } from "@mui/material";
-import { createTheme } from "@mui/material/styles";
 import axios from "axios";
 
 function PeopleSelector(props) {
-  // Styling for the Selector
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
+
   const MenuProps = {
     PaperProps: {
       style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
+        maxHeight: 48 * 4.5 + 8,
+        backgroundColor: "#252a42", 
       },
     },
   };
 
-  const [personName, setPersonName] = React.useState([]);
   const [personId, setPersonId] = React.useState([]);
   const [users, setUsers] = React.useState([]);
   const [errorMessage, setErrorMessage] = React.useState(undefined);
@@ -66,15 +62,7 @@ function PeopleSelector(props) {
       });
   }, [props]);
 
-  // dynamically show who is selected
-  function getStyles(name, personName, theme) {
-    return {
-      fontWeight:
-        personName.indexOf(name) === -1
-          ? theme.typography.fontWeightRegular
-          : theme.typography.fontWeightMedium,
-    };
-  }
+
 
   const handlePeopleChange = (event) => {
     const {
@@ -84,7 +72,6 @@ function PeopleSelector(props) {
     // setPersonName()
   };
 
-  const theme = createTheme(personName);
 
   let label;
   if (props.type === "organizers") {
@@ -99,7 +86,7 @@ function PeopleSelector(props) {
     <>
       {users.length > 0 &&
         <>
-          <FormControl sx={{ width: "100%", mt: 2, mb: 1}}>
+          <FormControl sx={{ width:360, mt: 2, mb: 1, backgroundColor: "#252a42", borderRadius: "10px"}}>
             <InputLabel
               id="demo-multiple-name-label"
               shrink
@@ -116,7 +103,6 @@ function PeopleSelector(props) {
               onClose={() => props.getPeopleCallback(personId)}
               input={<OutlinedInput notched label="Name" />}
               MenuProps={MenuProps}
-              // sx={{backgroundColor: "#252a42", borderRadius: "10px"}}
             >
               {users.map((user) => {
                 if (user._id !== currentUserId) {
@@ -124,8 +110,6 @@ function PeopleSelector(props) {
                     <MenuItem
                       value={user._id}
                       key={user._id}
-                      // sx={{backgroundColor: "#252a42"}}
-                      style={getStyles(user.username, personName, theme)}
                     >
                       {user.username}
                     </MenuItem>

@@ -20,8 +20,6 @@ import defaultEventPicture from "../images/default-event-picture.jpg"
 
 export default function EventCard(props) {
 
-  console.log(props)
-
   const [currentUserId, setCurrentUserId] = useState(null);
   const [currentUsersStatus, setCurrentUsersStatus] = useState("pending")
 
@@ -69,9 +67,6 @@ export default function EventCard(props) {
       height: 15,
       // border: `1px solid ${theme.palette.background.paper}`,
     }));
-
-
-console.log(currentUsersStatus)
 
   return (
     <Link underline="none" href={`./${props.data._id}`}>
