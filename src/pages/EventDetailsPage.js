@@ -28,7 +28,7 @@ function EventDetailsPage() {
   const [formatTime, setFormatTime] = useState("");
   const [organizersArray, setOrganizersArray] = useState([]);
   const [currentUserId, setCurrentUserId] = useState(null);
-  const [currentUsersStatus, setCurrentUsersStatus] = useState("pending")
+  const [currentUsersStatus, setCurrentUsersStatus] = useState("pending");
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
@@ -55,23 +55,23 @@ function EventDetailsPage() {
         setFormatTime(Moment(response.data.date).format("h:mm A"));
         setOrganizersArray(
           response.data.organizers.map((element) => element._id)
-          );
-          return response.data.participants.find(element=> element.user._id===currentUserId);
-        })
-        .then((userInStatusArray) => {
-          if (userInStatusArray.status==="accepted") {
-            setCurrentUsersStatus("accepted")
-          }
-          if (userInStatusArray.status==="declined") {
-            setCurrentUsersStatus("declined")
-          }
-        
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      }, [eventId, storedToken, currentUserId]);
-      
+        );
+        return response.data.participants.find(
+          (element) => element.user._id === currentUserId
+        );
+      })
+      .then((userInStatusArray) => {
+        if (userInStatusArray.status === "accepted") {
+          setCurrentUsersStatus("accepted");
+        }
+        if (userInStatusArray.status === "declined") {
+          setCurrentUsersStatus("declined");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [eventId, storedToken, currentUserId]);
 
   const deleteEvent = () => {
     axios
@@ -94,47 +94,41 @@ function EventDetailsPage() {
     setOpenDeleteModal(false);
   };
 
-
   const statusEventHandle = (arg) => {
     let requestBody;
-    if (arg === 'accept') {
-      requestBody = {status: "accepted"};
+    if (arg === "accept") {
+      requestBody = { status: "accepted" };
     }
-    if (arg === 'decline') {
-      requestBody = {status: "declined"};
+    if (arg === "decline") {
+      requestBody = { status: "declined" };
     }
 
-    console.log("resquestBody", requestBody)
+    console.log("resquestBody", requestBody);
     axios
       .put(
-        process.env.REACT_APP_API_URL + "/events/" + eventId + "/status", 
+        process.env.REACT_APP_API_URL + "/events/" + eventId + "/status",
         requestBody,
         {
           headers: { Authorization: `Bearer ${storedToken}` },
         }
       )
       .then(() => {
-        if (arg === 'accept') {
-          setCurrentUsersStatus("accepted")
-
-        }
-        else {
-          setCurrentUsersStatus("declined")
+        if (arg === "accept") {
+          setCurrentUsersStatus("accepted");
+        } else {
+          setCurrentUsersStatus("declined");
           // console.log(currentUsersStatus)
         }
       })
       .catch((error) => {
         console.log(error);
       });
-  }
-
+  };
 
   return (
     <>
       {!event ? (
-        <Box align="center">
-          <CircularProgress />
-        </Box>
+        <></>
       ) : (
         <div>
           {/* ---------- IMAGE */}
@@ -151,22 +145,19 @@ function EventDetailsPage() {
             }}
           />
 
-          <Grid container rowSpacing={3} sx={{ width: "100vw", p: "5%", pt:0, m: 0, color:"text.primary" }}>
-            
+          <Grid
+            container
+            rowSpacing={3}
+            sx={{ width: "100vw", p: "5%", pt: 0, m: 0, color: "text.primary" }}
+          >
             {/* ---------- NAME */}
             <Grid item xs={12}>
-              <Typography
-                align="center"
-                variant="h4"
-                component="div"
-              >
+              <Typography align="center" variant="h4" component="div">
                 {event.name}
               </Typography>
             </Grid>
 
-
-
-            {!organizersArray.includes(currentUserId) &&
+            {!organizersArray.includes(currentUserId) && (
               <>
                 {/* ---------- CONFIRM & DECLINE BUTTONS  */}
                 <Grid
@@ -178,54 +169,58 @@ function EventDetailsPage() {
                     justifyContent: "space-between",
                   }}
                 >
-                    {currentUsersStatus==="accepted"
-                    ? <>
-                        <Button
-                          variant="contained"
-                          onClick={() => {statusEventHandle('accept')}}
-                          startIcon={<Check />}
-                          sx={{ width: "49%" , opacity: "0.5"}}
-                        >
-                          Accept
-                        </Button>
-
-                        <Button
-                          variant="outlined"
-                          onClick={() => {statusEventHandle('decline')}}
-                          startIcon={<Close />}
-                          sx={{ width: "49%" }}
-                        >
-                          Decline
-                        </Button>
-                      </>
-                    :
+                  {currentUsersStatus === "accepted" ? (
                     <>
-                        <Button
-                          variant="contained"
-                          onClick={() => {statusEventHandle('accept')}}
-                          startIcon={<Check />}
-                          sx={{ width: "49%" }}
-                        >
-                          Accept
-                        </Button>
+                      <Button
+                        variant="contained"
+                        onClick={() => {
+                          statusEventHandle("accept");
+                        }}
+                        startIcon={<Check />}
+                        sx={{ width: "49%", opacity: "0.5" }}
+                      >
+                        Accept
+                      </Button>
 
-                        <Button
-                          variant="outlined"
-                          onClick={() => {statusEventHandle('decline')}}
-                          startIcon={<Close />}
-                          sx={{ width: "49%", opacity: "0.5" }}
-                        >
-                          Decline
-                        </Button>
-                      </>
-                    }
+                      <Button
+                        variant="outlined"
+                        onClick={() => {
+                          statusEventHandle("decline");
+                        }}
+                        startIcon={<Close />}
+                        sx={{ width: "49%" }}
+                      >
+                        Decline
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button
+                        variant="contained"
+                        onClick={() => {
+                          statusEventHandle("accept");
+                        }}
+                        startIcon={<Check />}
+                        sx={{ width: "49%" }}
+                      >
+                        Accept
+                      </Button>
 
-
-
+                      <Button
+                        variant="outlined"
+                        onClick={() => {
+                          statusEventHandle("decline");
+                        }}
+                        startIcon={<Close />}
+                        sx={{ width: "49%", opacity: "0.5" }}
+                      >
+                        Decline
+                      </Button>
+                    </>
+                  )}
                 </Grid>
-
               </>
-            }
+            )}
 
             {/* ---------- TITLE: INFO */}
             <Grid item xs={12}>
@@ -234,15 +229,23 @@ function EventDetailsPage() {
                 variant="h6"
                 component="div"
                 color="secondary"
-                sx={{mb: -2}}
+                sx={{ mb: -2 }}
               >
                 Info
               </Typography>
             </Grid>
 
             {/* ---------- LOCATION & DATE */}
-            <Grid item xs={12} sx={{ display: "flex", flexDirection: "row", fontSize: 12, lineHeight: 0.8}}>
-
+            <Grid
+              item
+              xs={12}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                fontSize: 12,
+                lineHeight: 0.8,
+              }}
+            >
               {/* ---------- LOCATION */}
               <Box
                 sx={{
@@ -258,7 +261,7 @@ function EventDetailsPage() {
                 <Typography variant="h7" component="div" align="left">
                   {event.location.street && event.location.housenumber ? (
                     <>
-                      <p> 
+                      <p>
                         <span>{event.location.street} </span>
                         <span>{event.location.housenumber} </span>
                       </p>
@@ -298,7 +301,7 @@ function EventDetailsPage() {
                 variant="h6"
                 component="div"
                 color="secondary"
-                sx={{mb: -2}}
+                sx={{ mb: -2 }}
               >
                 People
               </Typography>
@@ -322,7 +325,7 @@ function EventDetailsPage() {
                 variant="h6"
                 component="div"
                 color="secondary"
-                sx={{mb: -2}}
+                sx={{ mb: -2 }}
               >
                 Polls
               </Typography>
@@ -330,13 +333,15 @@ function EventDetailsPage() {
 
             {/* ---------- POLLS */}
             <Grid item xs={12}>
-              <Poll eventId={event._id} participants={event.participants.map((element) => element.user._id)}/>
+              <Poll
+                eventId={event._id}
+                participants={event.participants.map(
+                  (element) => element.user._id
+                )}
+              />
             </Grid>
 
-
-
-
-            {organizersArray.includes(currentUserId) &&
+            {organizersArray.includes(currentUserId) && (
               <>
                 {/* ---------- EDIT & DELETE BUTTONS */}
                 <Grid
@@ -347,7 +352,7 @@ function EventDetailsPage() {
                     flexDirection: "row",
                     justifyContent: "space-between",
                     borderTop: "1px solid #f7aa0f",
-                    mt: 3
+                    mt: 3,
                   }}
                 >
                   <Button
@@ -369,9 +374,7 @@ function EventDetailsPage() {
                   </Button>
                 </Grid>
               </>
-            }
-
-            
+            )}
 
             {/* ---------- BOTTOM SPACE */}
             <Grid item xs={12} height={60}></Grid>

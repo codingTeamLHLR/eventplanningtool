@@ -53,8 +53,7 @@ function SignupPage() {
   };
 
   return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
+      <Container maxWidth="xs" sx={{backgroundColor: "none", color:"text.primary"}}>
         <Box
           sx={{
             marginTop: 8,
@@ -86,7 +85,7 @@ function SignupPage() {
               autoComplete="email"
               autoFocus
               error={error}
-              helperText={errorMessageEmail}
+              sx={{backgroundColor: "#252a42", borderRadius: "10px", mt:1}}
             />
 
             <TextField
@@ -100,7 +99,7 @@ function SignupPage() {
               id="password"
               autoComplete="current-password"
               error={error}
-              helperText={errorMessagePassword}
+              sx={{backgroundColor: "#252a42", borderRadius: "10px", mt:1}}
             />
 
             <TextField
@@ -114,10 +113,9 @@ function SignupPage() {
               id="username"
               autoComplete="username"
               error={error}
-              helperText={errorMessageUsername}
+              sx={{backgroundColor: "#252a42", borderRadius: "10px", mt:1, mb: 0}}
             />
 
-            <FormLabel>Upload Profile Picture</FormLabel>
             <CloudinaryWidget setImage={setImage} />
 
             <Button

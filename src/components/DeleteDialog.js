@@ -19,6 +19,9 @@ export default function DeleteDialog(props) {
         onClose={props.callBackToClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        PaperProps={{
+          sx: {backgroundColor: "#252a42"}
+        }}
       >
 
         {props.type==='deleteEvent' &&

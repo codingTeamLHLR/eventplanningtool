@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import { Button, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Typography } from "@mui/material";
 import SortByDate from "../functions/SortByDate";
 
 export default function OrganizerEventListPage() {
@@ -28,11 +27,11 @@ export default function OrganizerEventListPage() {
         const organizerEvents = [];
 
         response.data.forEach((event) => {
-          if (event.organizers.includes(userId)) {
+          if (event.organizers.find(element => element._id ===userId)) {
             organizerEvents.push(event);
           }
         });
-
+        console.log(organizerEvents);
         setEvents(SortByDate(organizerEvents));
       })
       .catch((error) => {
@@ -42,29 +41,17 @@ export default function OrganizerEventListPage() {
 
   return (
     <>
-      <Typography
-        align="left"
-        variant="h6"
-        color="secondary"
-        component="div"
-        sx={{ mt: 2, p: 0.5 }}
-      >
-        Events you are hosting
-      </Typography>
-
-      <Button
-        variant="contained"
-        color="primary"
-        component={Link}
-        to="/events/create-event"
-        sx={{ mt: 2 }}
-      >
-        Create Event
-      </Button>
 
       <Grid container sx={{ p: 2 }} columnSpacing={2}>
         {events.length === 0 ? (
-          <p>no events yet</p>
+                <Typography
+                align="left"
+                variant="p"
+                color="primary"
+                sx={{ mt: 2, p: 0.5 }}
+              >
+                No Events to show here 
+              </Typography>
         ) : (
           <>
             {events.map((element) => {

@@ -27,7 +27,7 @@ function CalendarPage() {
     }, []);
 
 return(
-    <Box sx={{p:2}}>
+    <Box sx={{p:"5%"}}>
         <Calendar data={events} />
     </Box>
 )

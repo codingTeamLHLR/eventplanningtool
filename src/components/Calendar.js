@@ -11,6 +11,7 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 import Moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import { Box } from '@mui/system';
 
 
 function Calendar (props) {
@@ -83,24 +84,57 @@ function Calendar (props) {
 
 
     return(
+
+        <>
+
         
             <Paper sx={{background: "none", border: "1px solid white"}}>
                 <Scheduler
                 data={schedulerData}
                 // height={300} // scroll?
+
                 >
                     <ViewState 
                         // defaultCurrentDate={currentDate}
                         // currentDate={nextDate}
                     />
                     <MonthView />
-                    <Toolbar/>
-                    <DateNavigator openButtonComponent="none" />
+                    <Toolbar />
+                    <DateNavigator openButtonComponent="false" />
                     <TodayButton />
                     <Appointments data appointmentComponent={Appointment} />
                 </Scheduler>
             </Paper>
+
+
+
+        </>
 )
 }
 
 export default Calendar;
+
+{/* <Box sx={{
+    display:"flex",
+    flexDirection:"row",
+    zIndex: 999,
+    border: "1px solid white", 
+    m: "5%", 
+    mt: "88px",
+    mborderRadius: "10px", 
+    width: "100px", 
+    height:"100px", 
+    position:"absolute", 
+    top:0, 
+    left:0,
+    width: "89%",
+    height:"30px" }}>
+    <Box sx={{bgcolor:"#110d26", width: "14.07%", border:"0.5px solid white"}}>  Sun </Box>
+    <Box sx={{bgcolor:"#110d26", width: "14.07%", border:"0.5px solid white"}}>  Sun </Box>
+    <Box sx={{bgcolor:"#110d26", width: "14.07%", border:"0.5px solid white"}}>  Sun </Box>
+    <Box sx={{bgcolor:"#110d26", width: "14.07%", border:"0.5px solid white"}}>  Sun </Box>
+    <Box sx={{bgcolor:"#110d26", width: "14.07%", border:"0.5px solid white"}}>  Sun </Box>
+    <Box sx={{bgcolor:"#110d26", width: "14.07%", border:"0.5px solid white"}}>  Sun </Box>
+    <Box sx={{bgcolor:"#110d26", width: "14.07%", border:"0.5px solid white"}}>  Sun </Box>
+
+</Box> */}

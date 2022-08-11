@@ -97,9 +97,7 @@ function PeopleSelector(props) {
 
   return (
     <>
-      {users.length === 0 ? (
-        <p>loading.. </p>
-      ) : (
+      {users.length > 0 &&
         <>
           <FormControl sx={{ width: "100%", mt: 2, mb: 1}}>
             <InputLabel
@@ -138,7 +136,7 @@ function PeopleSelector(props) {
             {errorMessage}
           </FormControl>
         </>
-      )}
+      }
     </>
   );
 }

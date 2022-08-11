@@ -44,7 +44,6 @@ const CloudinaryWidget = (props) => {
 
   const openWidget = (event) => {
     event.preventDefault();
-
     widget.open();
   };
 
@@ -55,7 +54,7 @@ const CloudinaryWidget = (props) => {
         fullWidth
         startIcon={<FileUploadIcon />}
         onClick={openWidget}
-        sx={{height: 56}}
+        sx={{height: 56, borderRadius: "10px"}}
       >
         Upload Picture
       </Button>

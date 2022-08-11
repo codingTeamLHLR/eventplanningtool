@@ -67,12 +67,11 @@ function CreateEventPage() {
     
     return (
       <>
-      <Typography variant="h2" sx={{color: "text.primary"}}>Create Event</Typography>
+      <Typography component="h1" variant="h5" sx={{color: "text.primary", mt:"20px"}}>Create Event</Typography>
 
       <Typography sx={{color:"text.primary", fontSize:"12px", mt: 2 }}>{errorMessage}</Typography>  
 
         <Container maxWidth="xs" sx={{backgroundColor: "none"}}>
-          {/* <CssBaseline /> */}
           <Box
             sx={{
               marginTop: 0,

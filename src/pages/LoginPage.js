@@ -45,14 +45,15 @@ function LoginPage() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
+    <Container  maxWidth="xs" sx={{backgroundColor: "none", color:"text.primary"}}>
       <Box
         sx={{
           marginTop: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          backgroundColor: "transparent",
+          color: "text.primary"
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
@@ -78,7 +79,7 @@ function LoginPage() {
             autoComplete="email"
             autoFocus
             error={error}
-            helperText={errorMessageEmail}
+            sx={{backgroundColor: "#252a42", borderRadius: "10px", mt:1}}
           />
 
           <TextField
@@ -92,7 +93,7 @@ function LoginPage() {
             id="password"
             autoComplete="current-password"
             error={error}
-            helperText={errorMessagePassword}
+            sx={{backgroundColor: "#252a42", borderRadius: "10px", mt:1}}
           />
 
           <Button

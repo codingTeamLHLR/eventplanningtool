@@ -29,7 +29,7 @@ export default function EventCard(props) {
   if (props.data.date) {
     formatDate = Moment(props.data.date).format("MMM Do YY");
   } else {
-    formatDate = "TBD";
+    formatDate = "Date tbd.";
   }
 
   const imageUrl = ShowImage(props.data.image);

@@ -34,8 +34,10 @@ function UpdateEventPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(process.env.REACT_APP_API_URL + "/events/" + eventId, {
-          headers: { Authorization: `Bearer ${storedToken}` }})
+    axios
+      .get(process.env.REACT_APP_API_URL + "/events/" + eventId, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
       .then((response) => {
         setEvent(response.data);
         setImage(response.data.image);
@@ -98,169 +100,166 @@ function UpdateEventPage() {
       });
   };
 
-
   return (
     <>
       {!event || !event.location ? (
-        <Box align="center">
-          <CircularProgress />
-        </Box>
+        <></>
       ) : (
         <>
           <h1>Update Event</h1>
 
-            <Container component="main" maxWidth="xs">
-              <CssBaseline />
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+              sx={{
+                marginTop: 0,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                marginBottom: 10,
+              }}
+            >
               <Box
-                sx={{
-                  marginTop: 0,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  marginBottom: 10,
-                }}
+                component="form"
+                onSubmit={handleCreateEventSubmit}
+                noValidate
+                sx={{ mt: 1 }}
+                enctype="multipart/form-data"
               >
-                <Box
-                  component="form"
-                  onSubmit={handleCreateEventSubmit}
-                  noValidate
-                  sx={{ mt: 1 }}
-                  enctype="multipart/form-data"
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="name"
+                  label="Event Name"
+                  InputLabelProps={{ shrink: true }}
+                  name="name"
+                  autoComplete="name"
+                  autoFocus
+                  error={error}
+                  helperText={errorMessage}
+                  value={event.name}
+                  onChange={handleChange}
+                />
+
+                <LocalizationProvider dateAdapter={AdapterMoment}>
+                  <DateTimePicker
+                    renderInput={(props) => (
+                      <TextField
+                        sx={{ mt: 1 }}
+                        fullWidth
+                        InputLabelProps={{ shrink: true }}
+                        {...props}
+                      />
+                    )}
+                    disablePast={true}
+                    label="Date and Time"
+                    value={event.date}
+                    onChange={(newValue) => {
+                      setEvent((prevState) => ({
+                        ...prevState,
+                        date: newValue,
+                      }));
+                    }}
+                  />
+                </LocalizationProvider>
+
+                <TextField
+                  margin="normal"
+                  fullWidth
+                  name="street"
+                  label="Street"
+                  InputLabelProps={{ shrink: true }}
+                  id="street"
+                  value={event.location.street}
+                  onChange={handleNestedChange}
+                />
+
+                <TextField
+                  margin="normal"
+                  fullWidth
+                  name="housenumber"
+                  label="Housenumber"
+                  InputLabelProps={{ shrink: true }}
+                  type="number"
+                  id="housenumber"
+                  value={event.location.housenumber}
+                  onChange={handleNestedChange}
+                />
+
+                <TextField
+                  margin="normal"
+                  fullWidth
+                  name="citycode"
+                  label="Citycode"
+                  InputLabelProps={{ shrink: true }}
+                  type="number"
+                  id="citycode"
+                  value={event.location.citycode}
+                  onChange={handleNestedChange}
+                />
+
+                <TextField
+                  margin="normal"
+                  fullWidth
+                  name="city"
+                  label="City"
+                  InputLabelProps={{ shrink: true }}
+                  id="city"
+                  value={event.location.city}
+                  onChange={handleNestedChange}
+                />
+
+                <TextField
+                  margin="normal"
+                  fullWidth
+                  name="country"
+                  label="Country"
+                  InputLabelProps={{ shrink: true }}
+                  id="country"
+                  value={event.location.country}
+                  onChange={handleNestedChange}
+                />
+
+                <PeopleSelector
+                  name="Guests"
+                  type="invites"
+                  getPeopleCallback={setParticipants}
+                  people={participants}
+                />
+
+                <PeopleSelector
+                  name="Organizers"
+                  type="organizers"
+                  getPeopleCallback={setOrganizers}
+                  participants={participants}
+                  people={organizers}
+                />
+
+                <CloudinaryWidget setImage={setImage} image={event.image} />
+
+                <p>{errorMessage}</p>
+
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
                 >
-                  <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="name"
-                    label="Event Name"
-                    InputLabelProps={{ shrink: true }}
-                    name="name"
-                    autoComplete="name"
-                    autoFocus
-                    error={error}
-                    helperText={errorMessage}
-                    value={event.name}
-                    onChange={handleChange}
-                  />
-
-                  <LocalizationProvider dateAdapter={AdapterMoment}>
-                    <DateTimePicker
-                      renderInput={(props) => (
-                        <TextField
-                          sx={{ mt: 1 }}
-                          fullWidth
-                          InputLabelProps={{ shrink: true }}
-                          {...props}
-                        />
-                      )}
-                      disablePast={true}
-                      label="Date and Time"
-                      value={event.date}
-                      onChange={(newValue) => {
-                        setEvent((prevState) => ({
-                          ...prevState,
-                          date: newValue,
-                        }));
-                      }}
-                    />
-                  </LocalizationProvider>
-
-                  <TextField
-                    margin="normal"
-                    fullWidth
-                    name="street"
-                    label="Street"
-                    InputLabelProps={{ shrink: true }}
-                    id="street"
-                    value={event.location.street}
-                    onChange={handleNestedChange}
-                  />
-
-                  <TextField
-                    margin="normal"
-                    fullWidth
-                    name="housenumber"
-                    label="Housenumber"
-                    InputLabelProps={{ shrink: true }}
-                    type="number"
-                    id="housenumber"
-                    value={event.location.housenumber}
-                    onChange={handleNestedChange}
-                  />
-
-                  <TextField
-                    margin="normal"
-                    fullWidth
-                    name="citycode"
-                    label="Citycode"
-                    InputLabelProps={{ shrink: true }}
-                    type="number"
-                    id="citycode"
-                    value={event.location.citycode}
-                    onChange={handleNestedChange}
-                  />
-
-                  <TextField
-                    margin="normal"
-                    fullWidth
-                    name="city"
-                    label="City"
-                    InputLabelProps={{ shrink: true }}
-                    id="city"
-                    value={event.location.city}
-                    onChange={handleNestedChange}
-                  />
-
-                  <TextField
-                    margin="normal"
-                    fullWidth
-                    name="country"
-                    label="Country"
-                    InputLabelProps={{ shrink: true }}
-                    id="country"
-                    value={event.location.country}
-                    onChange={handleNestedChange}
-                  />
-
-                  <PeopleSelector
-                    name="Guests"
-                    type="invites"
-                    getPeopleCallback={setParticipants}
-                    people={participants}
-                  />
-
-                  <PeopleSelector
-                    name="Organizers"
-                    type="organizers"
-                    getPeopleCallback={setOrganizers}
-                    participants={participants}
-                    people={organizers}
-                  />
-
-                  <CloudinaryWidget setImage={setImage} image={event.image} />
-
-                  <p>{errorMessage}</p>
-
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                  >
-                    Save Changes
-                  </Button>
-                  <Button
-                    href={`/${eventId}`}
-                    fullWidth
-                    variant="outlined"
-                    sx={{ mt: 3, mb: 2 }}
-                  >
-                    Back
-                  </Button>
-                  <Grid container></Grid>
-                </Box>
+                  Save Changes
+                </Button>
+                <Button
+                  href={`/${eventId}`}
+                  fullWidth
+                  variant="outlined"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Back
+                </Button>
+                <Grid container></Grid>
               </Box>
-            </Container>
+            </Box>
+          </Container>
         </>
       )}
     </>
