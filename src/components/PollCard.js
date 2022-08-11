@@ -17,7 +17,7 @@ export default function Poll({ pollId }) {
   const [rerender, setRerender] = useState(false);
   const [poll, setPoll] = useState(null);
   const [userId, setUserId] = useState(null);
-  // const [voted, setVoted] = useState(false);
+  const [voted, setVoted] = useState(null);
 
   const storedToken = localStorage.getItem("authToken");
 
@@ -38,19 +38,21 @@ export default function Poll({ pollId }) {
       .then((response) => {
         setPoll(response.data);
         setRerender(false);
-        console.log(
+        setVoted(
           response.data.participants.find((element) => element.user === userId)
+            .voted
         );
-        // setVoted(
-        //   response.data.participants.find((element) => element.user === userId).voted);
+      })
+      .then()
+      .catch((error) => {
+        console.log(error);
       });
-  }, [storedToken, pollId, rerender, userId]);
+  }, [storedToken, pollId, rerender, userId, voted]);
 
   const handleVote = (optionId, currentVotes) => {
     const newVotes = currentVotes + 1;
-    const voted= true;
 
-    const requestBody = { optionId, newVotes, voted };
+    const requestBody = { optionId, newVotes, voted: true };
 
     axios
       .put(
@@ -120,8 +122,7 @@ export default function Poll({ pollId }) {
             <Typography variant="h6">{poll.title}</Typography>
             <Typography variant="p">{poll.description}</Typography>
 
-            {console.log(poll.participants.find((element) => element.user === userId).voted)}
-            {!poll.participants.find((element) => element.user === userId).voted && 
+            {!voted && poll.status === "active" && (
               <>
                 {poll.options.map((option) => {
                   return (
@@ -129,7 +130,10 @@ export default function Poll({ pollId }) {
                       <Button
                         variant="outlined"
                         size="small"
-                        onClick={() => handleVote(option._id, option.votes)}
+                        onClick={() => {
+                          setVoted(true);
+                          handleVote(option._id, option.votes);
+                        }}
                       >
                         {option.name}
                       </Button>
@@ -137,14 +141,11 @@ export default function Poll({ pollId }) {
                   );
                 })}
               </>
-              }
-              {poll.status === "closed" && <p>poll closed</p>}             
-              {poll.participants.find((element) => element.user === userId).vote && <p>already voted</p>}
-          
+            )}
+            {voted && <p>already voted</p>}
+            {poll.status === "closed" && <p>poll closed</p>}
 
             <PollChart pollOptions={poll.options} />
-
-
           </CardContent>
           <CardActions>
             <>
