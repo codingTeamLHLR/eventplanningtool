@@ -28,6 +28,9 @@ const theme = createTheme({
     secondary: {
       main: "#f2c66f",
     },
+    tertiary: {
+      main: "#f2c66f",
+    },
     text: {
       primary: "#e4e6f0",
       secondary: "#f2c66f",

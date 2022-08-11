@@ -56,7 +56,6 @@ function EventDetailsPage() {
         setOrganizersArray(
           response.data.organizers.map((element) => element._id)
           );
-          
           return response.data.participants.find(element=> element.user._id===currentUserId);
         })
         .then((userInStatusArray) => {
@@ -183,10 +182,9 @@ function EventDetailsPage() {
                     ? <>
                         <Button
                           variant="contained"
-                          disabled
                           onClick={() => {statusEventHandle('accept')}}
                           startIcon={<Check />}
-                          sx={{ width: "49%" }}
+                          sx={{ width: "49%" , opacity: "0.5"}}
                         >
                           Accept
                         </Button>
@@ -213,10 +211,9 @@ function EventDetailsPage() {
 
                         <Button
                           variant="outlined"
-                          disabled
                           onClick={() => {statusEventHandle('decline')}}
                           startIcon={<Close />}
-                          sx={{ width: "49%" }}
+                          sx={{ width: "49%", opacity: "0.5" }}
                         >
                           Decline
                         </Button>

@@ -10,25 +10,11 @@ import badgeAccepted from "../images/badge-accepted.png"
 import badgeDeclined from "../images/badge-declined.png"
 
 
-
-const StyledBadge = styled(Badge)(({ theme }) => ({
-  // '& .MuiBadge-badge': {
-  //   backgroundColor: '#44b700',
-  //   color: '#44b700',
-  //   boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-
-  // },
-
-}));
-
-const SmallAvatar = styled(Avatar)(({ theme }) => ({
+const StatusIcon = styled(Avatar)(({ theme }) => ({
   width: 15,
   height: 15,
-  border: `2px solid ${theme.palette.background.paper}`,
+  // border: `1px solid ${theme.palette.background.paper}`,
 }));
-
-
-
 
 export default function GroupedAvatars(props) {
 
@@ -44,12 +30,12 @@ export default function GroupedAvatars(props) {
               {participant.status==="accepted" &&
 
               <Box sx={{ m: 0.5, display:"flex", flexDirection: "column" }}>
-                <StyledBadge
+                <Badge
                   overlap="circular"
-                  anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                  anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
 
                   badgeContent={
-                  <SmallAvatar alt="Remy Sharp" src={badgeAccepted} />
+                  <StatusIcon src={badgeAccepted} />
                   }
                 >
                   {participant.image ? (
@@ -61,7 +47,7 @@ export default function GroupedAvatars(props) {
                     <BackgroundLetterAvatars name={participant.user.username} />
                   )}
 
-                </StyledBadge>
+                </Badge>
                   {props.organizersArray.includes(participant.user._id) ? (
                     <Typography style={{ fontSize: "11px" }}> Host </Typography>
                   ) : (
@@ -73,12 +59,12 @@ export default function GroupedAvatars(props) {
               {participant.status==="declined" &&
 
               <Box sx={{ m: 0.5, display:"flex", flexDirection: "column" }}>
-                <StyledBadge
+                <Badge
                   overlap="circular"
-                  anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                  anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
 
                   badgeContent={
-                  <SmallAvatar alt="Remy Sharp" src={badgeDeclined} />
+                  <StatusIcon src={badgeDeclined} />
                   }
                 >
                   {participant.image ? (
@@ -89,7 +75,7 @@ export default function GroupedAvatars(props) {
                   ) : (
                     <BackgroundLetterAvatars name={participant.user.username} />
                   )}
-                </StyledBadge>
+                </Badge>
               </Box>
               }
               
