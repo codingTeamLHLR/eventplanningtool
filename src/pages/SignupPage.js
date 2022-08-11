@@ -47,7 +47,7 @@ function SignupPage() {
       .then((response) => {
         storeToken(response.data.authToken);
         authenticateUser();
-        navigate("/");
+        navigate("/events");
       })
       .catch((error) => {
         setError(true);

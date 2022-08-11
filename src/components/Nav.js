@@ -10,7 +10,11 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
-import { ViewDayOutlined, CalendarMonthOutlined, ManageAccountsOutlined} from "@mui/icons-material";
+import {
+  ViewDayOutlined,
+  CalendarMonthOutlined,
+  ManageAccountsOutlined,
+} from "@mui/icons-material";
 
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -29,26 +33,25 @@ export default function SimpleBottomNavigation() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-
   return (
     <Box sx={{ width: "100vw", position: "fixed", bottom: 0, zIndex: 1 }}>
       <BottomNavigation
         showLabels
         value={value}
         onChange={(newValue) => setValue(newValue)}
-        sx={{backgroundColor: "lightgrey"}}
+        sx={{ height: "70px", backgroundColor: "#252a42", boxShadow: 3 }}
       >
         <BottomNavigationAction
           component={NavLink}
-          to="/"
+          to="/events"
           label="Events"
-          icon={<ViewDayOutlined />}
+          icon={<ViewDayOutlined sx={{ color: "#e4e6f0" }} />}
         />
         <BottomNavigationAction
           component={NavLink}
           to="/calendar"
           label="Calendar"
-          icon={<CalendarMonthOutlined />}
+          icon={<CalendarMonthOutlined sx={{ color: "#e4e6f0" }} />}
         />
         <Tooltip title="Profile" disableHoverListener>
           <BottomNavigationAction
@@ -58,12 +61,11 @@ export default function SimpleBottomNavigation() {
             aria-haspopup="true"
             // aria-expanded={open ? "true" : undefined}
             label="Profile"
-            icon={<ManageAccountsOutlined />}
+            icon={<ManageAccountsOutlined sx={{ color: "#b5b5ba" }} />}
           />
         </Tooltip>
-        
-        <ProfileMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl}/>
-        
+
+        <ProfileMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
       </BottomNavigation>
     </Box>
   );

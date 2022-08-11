@@ -46,14 +46,9 @@ export default function PollList(props) {
 
   return (
     <>
-      <Typography gutterBottom variant="h5" component="div">
-        Polls
-      </Typography>
-
       <Grid container spacing={3}>
         <Grid item xs={12} elevation={4}>
-          <Card>
-            <Button variant="text" onClick={handleClickOpen}>
+            <Button variant="outlined" fullwidth onClick={handleClickOpen} >
               Start new poll
             </Button>
             <CreatePoll
@@ -61,7 +56,6 @@ export default function PollList(props) {
               handleClose={handleClose}
               participants={props.participants}
             />
-          </Card>
         </Grid>
         <>
           {!polls ? (

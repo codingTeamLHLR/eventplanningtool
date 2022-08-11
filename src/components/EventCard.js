@@ -30,21 +30,22 @@ export default function EventCard(props) {
   return (
     <Link underline="none" href={`./${props.data._id}`}>
 
-    <Card sx={{mb: 2}} elevation={3} >
+    <Card sx={{mb: 2, display: "flex", flexDirection: "row", backgroundColor:"transparent", color:"primary", borderRadius: 0}} elevation={3} >
       <CardMedia
         component="img"
-        height="140"
+        height="100"
+        sx ={{width: "45%", borderRadius: "5px"}}
         image={eventImage}
         alt="green iguana"
       />
-      <CardContent>
+      <CardContent sx={{backgroundColor: "none"}}>
       <Box sx={{display:"flex", flexDirection: "column"}}>
 
-        <Typography gutterBottom variant="h5" component="div" align="left">
+        <Typography gutterBottom variant="h6" component="div" align="left">
           {props.data.name}
         </Typography>
 
-        <Typography variant="body2" color="text.secondary" align="left">
+        <Typography variant="body2" align="left">
           {formatDate}
         </Typography>
 

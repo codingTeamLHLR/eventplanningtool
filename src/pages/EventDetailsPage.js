@@ -80,7 +80,7 @@ function EventDetailsPage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then(() => {
-        navigate("/");
+        navigate("/events");
       })
       .catch((error) => {
         console.log(error);
@@ -149,56 +149,25 @@ function EventDetailsPage() {
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               backgroundPositionY: "center",
-              borderRadius: 1,
             }}
           />
 
-          <Grid container rowSpacing={3} sx={{ width: "100vw", p: "5%", m: 0 }}>
+          <Grid container rowSpacing={3} sx={{ width: "100vw", p: "5%", pt:0, m: 0, color:"text.primary" }}>
             
             {/* ---------- NAME */}
-            <Grid item xs={12} sx={{ p: 0, m: 0 }}>
+            <Grid item xs={12}>
               <Typography
                 align="center"
                 variant="h4"
                 component="div"
-                gutterBottom
               >
                 {event.name}
               </Typography>
             </Grid>
 
-            {organizersArray.includes(currentUserId) ? (
-              <>
-                {/* ---------- EDIT & DELETE BUTTONS */}
-                <Grid
-                  item
-                  xs={12}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    sx={{ width: "49%" }}
-                    onClick={() => deleteEventHandleClickOpen()}
-                    startIcon={<DeleteIcon />}
-                  >
-                    Delete
-                  </Button>
-                  <Button
-                    variant="contained"
-                    sx={{ width: "49%" }}
-                    startIcon={<EditIcon />}
-                    href={`/${eventId}/update-event`}
-                  >
-                    Edit
-                  </Button>
-                </Grid>
-              </>
-            ) : (
+
+
+            {!organizersArray.includes(currentUserId) &&
               <>
                 {/* ---------- CONFIRM & DECLINE BUTTONS  */}
                 <Grid
@@ -259,7 +228,7 @@ function EventDetailsPage() {
                 </Grid>
 
               </>
-            )}
+            }
 
             {/* ---------- TITLE: INFO */}
             <Grid item xs={12}>
@@ -268,13 +237,15 @@ function EventDetailsPage() {
                 variant="h6"
                 component="div"
                 color="secondary"
+                sx={{mb: -2}}
               >
                 Info
               </Typography>
             </Grid>
 
             {/* ---------- LOCATION & DATE */}
-            <Grid item xs={12} sx={{ display: "flex", flexDirection: "row" }}>
+            <Grid item xs={12} sx={{ display: "flex", flexDirection: "row", fontSize: 12, lineHeight: 0.8}}>
+
               {/* ---------- LOCATION */}
               <Box
                 sx={{
@@ -284,15 +255,15 @@ function EventDetailsPage() {
                   width: "50%",
                 }}
               >
-                <Box sx={{ pt: "0.8rem", pr: "1rem" }}>
+                <Box sx={{ pt: "0.2rem", pr: "1rem" }}>
                   <Place />
                 </Box>
                 <Typography variant="h7" component="div" align="left">
                   {event.location.street && event.location.housenumber ? (
                     <>
-                      <p>
-                        {event.location.street}
-                        {event.location.housenumber}
+                      <p> 
+                        <span>{event.location.street} </span>
+                        <span>{event.location.housenumber} </span>
                       </p>
                       <p>
                         {event.location.citycode}, {event.location.city}
@@ -313,7 +284,7 @@ function EventDetailsPage() {
                   alignItems: "flex-start",
                 }}
               >
-                <Box sx={{ pt: "0.8rem", pr: "1rem", pl: "1rem" }}>
+                <Box sx={{ pt: "0.2rem", pr: "1rem", pl: "1rem" }}>
                   <CalendarMonth />
                 </Box>
                 <Typography variant="h7" component="div" align="left">
@@ -330,6 +301,7 @@ function EventDetailsPage() {
                 variant="h6"
                 component="div"
                 color="secondary"
+                sx={{mb: -2}}
               >
                 People
               </Typography>
@@ -353,8 +325,9 @@ function EventDetailsPage() {
                 variant="h6"
                 component="div"
                 color="secondary"
+                sx={{mb: -2}}
               >
-                Activity
+                Polls
               </Typography>
             </Grid>
 
@@ -362,6 +335,44 @@ function EventDetailsPage() {
             <Grid item xs={12}>
               <Poll eventId={event._id} participants={event.participants.map((element) => element.user._id)}/>
             </Grid>
+
+
+
+
+            {organizersArray.includes(currentUserId) &&
+              <>
+                {/* ---------- EDIT & DELETE BUTTONS */}
+                <Grid
+                  item
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    borderTop: "1px solid #f7aa0f",
+                    mt: 3
+                  }}
+                >
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    sx={{ width: "49%" }}
+                    onClick={() => deleteEventHandleClickOpen()}
+                    startIcon={<DeleteIcon />}
+                  >
+                    Delete
+                  </Button>
+                  <Button
+                    variant="contained"
+                    sx={{ width: "49%" }}
+                    startIcon={<EditIcon />}
+                    href={`/${eventId}/update-event`}
+                  >
+                    Edit
+                  </Button>
+                </Grid>
+              </>
+            }
 
             
 

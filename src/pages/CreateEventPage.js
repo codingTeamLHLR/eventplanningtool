@@ -14,6 +14,7 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
 import PeopleSelector from "../components/PeopleSelector";
 import CloudinaryWidget from "../components/CloudinaryWidget";
+import { Typography } from "@mui/material";
 
 function CreateEventPage() {
   const [error, setError] = useState(false);
@@ -53,7 +54,7 @@ function CreateEventPage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        navigate("/");
+        navigate("/events");
       })
       .catch((error) => {
         const errorDescription = error.response.data.errorMessage;
@@ -61,14 +62,16 @@ function CreateEventPage() {
         setErrorMessage(errorDescription);
         console.log(errorDescription);
       });
-  };
+    };
+    
+    return (
+      <>
+      <Typography variant="h2" sx={{color: "text.primary"}}>Create Event</Typography>
 
-  return (
-    <>
-      <h1>Create Event</h1>
+      <Typography sx={{color:"text.primary", fontSize:"12px", mt: 2 }}>{errorMessage}</Typography>  
 
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
+        <Container maxWidth="xs" sx={{backgroundColor: "none"}}>
+          {/* <CssBaseline /> */}
           <Box
             sx={{
               marginTop: 0,
@@ -95,14 +98,15 @@ function CreateEventPage() {
                 autoComplete="name"
                 autoFocus
                 error={error}
-                helperText={errorMessage}
+                // helperText={errorMessage}
+                sx={{backgroundColor: "#252a42", borderRadius: "10px", mt:1}}
               />
 
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DateTimePicker
                   renderInput={(props) => (
                     <TextField
-                      sx={{ mt: 1 }}
+                      sx={{backgroundColor: "#252a42", borderRadius: "10px", mt:1}}
                       fullWidth
                       InputLabelProps={{ shrink: true }}
                       {...props}
@@ -124,6 +128,7 @@ function CreateEventPage() {
                 label="Street"
                 InputLabelProps={{ shrink: true }}
                 id="street"
+                sx={{backgroundColor: "#252a42", borderRadius: "10px"}}
               />
 
               <TextField
@@ -134,6 +139,7 @@ function CreateEventPage() {
                 InputLabelProps={{ shrink: true }}
                 type="number"
                 id="housenumber"
+                sx={{backgroundColor: "#252a42", borderRadius: "10px"}}
               />
 
               <TextField
@@ -144,6 +150,8 @@ function CreateEventPage() {
                 InputLabelProps={{ shrink: true }}
                 type="number"
                 id="citycode"
+                sx={{backgroundColor: "#252a42", borderRadius: "10px"}}
+
               />
 
               <TextField
@@ -153,6 +161,7 @@ function CreateEventPage() {
                 label="City"
                 InputLabelProps={{ shrink: true }}
                 id="city"
+                sx={{backgroundColor: "#252a42", borderRadius: "10px"}}
               />
 
               <TextField
@@ -162,6 +171,7 @@ function CreateEventPage() {
                 label="Country"
                 InputLabelProps={{ shrink: true }}
                 id="country"
+                sx={{backgroundColor: "#252a42", borderRadius: "10px"}}
               />
 
               <PeopleSelector
@@ -179,7 +189,6 @@ function CreateEventPage() {
 
               <CloudinaryWidget setImage={setImage} />
 
-              <p>{errorMessage}</p>
 
               <Button
                 type="submit"

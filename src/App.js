@@ -13,15 +13,24 @@ import UpdateUserProfilePage from "./pages/UpdateUserProfilePage";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CalendarPage from "./pages/CalendarPage";
 import IsPrivate from "./components/IsPrivate";
+import EventsListPage from "./pages/EventsListPage";
 
 const theme = createTheme({
-
   palette: {
     primary: {
-      main: "#423f4a",
+      // main: "#f79525",
+      // main: "#fcbf47",
+      main: "#f7aa0f",
+      // main: "#ff702e",
+      // main: "#e8f0c2",
+      // main: "#fafa8e",
     },
     secondary: {
-      main: "#7d778f",
+      main: "#f2c66f",
+    },
+    text: {
+      primary: "#e4e6f0",
+      secondary: "#f2c66f",
     },
   },
   typography: {
@@ -72,6 +81,14 @@ function App() {
             element={
               <IsPrivate>
                 <CalendarPage />
+              </IsPrivate>
+            }
+          />
+          <Route
+            path="/events"
+            element={
+              <IsPrivate>
+                <EventsListPage />
               </IsPrivate>
             }
           />

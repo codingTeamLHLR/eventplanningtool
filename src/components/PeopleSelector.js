@@ -101,11 +101,10 @@ function PeopleSelector(props) {
         <p>loading.. </p>
       ) : (
         <>
-          <FormControl sx={{ width: "100%", mt: 2, mb: 1 }}>
+          <FormControl sx={{ width: "100%", mt: 2, mb: 1}}>
             <InputLabel
               id="demo-multiple-name-label"
               shrink
-              style={{ backgroundColor: "white" }}
             >
               {label}
             </InputLabel>
@@ -119,6 +118,7 @@ function PeopleSelector(props) {
               onClose={() => props.getPeopleCallback(personId)}
               input={<OutlinedInput notched label="Name" />}
               MenuProps={MenuProps}
+              // sx={{backgroundColor: "#252a42", borderRadius: "10px"}}
             >
               {users.map((user) => {
                 if (user._id !== currentUserId) {
@@ -126,6 +126,7 @@ function PeopleSelector(props) {
                     <MenuItem
                       value={user._id}
                       key={user._id}
+                      // sx={{backgroundColor: "#252a42"}}
                       style={getStyles(user.username, personName, theme)}
                     >
                       {user.username}
