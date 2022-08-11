@@ -66,7 +66,6 @@ function Calendar (props) {
                 fontSize: "13px",
                 color: "#74f2a2",
                 border: "none",
-                // opacity: 0.5
             }}
             >
             {children}
@@ -114,27 +113,3 @@ function Calendar (props) {
 
 export default Calendar;
 
-{/* <Box sx={{
-    display:"flex",
-    flexDirection:"row",
-    zIndex: 999,
-    border: "1px solid white", 
-    m: "5%", 
-    mt: "88px",
-    mborderRadius: "10px", 
-    width: "100px", 
-    height:"100px", 
-    position:"absolute", 
-    top:0, 
-    left:0,
-    width: "89%",
-    height:"30px" }}>
-    <Box sx={{bgcolor:"#110d26", width: "14.07%", border:"0.5px solid white"}}>  Sun </Box>
-    <Box sx={{bgcolor:"#110d26", width: "14.07%", border:"0.5px solid white"}}>  Sun </Box>
-    <Box sx={{bgcolor:"#110d26", width: "14.07%", border:"0.5px solid white"}}>  Sun </Box>
-    <Box sx={{bgcolor:"#110d26", width: "14.07%", border:"0.5px solid white"}}>  Sun </Box>
-    <Box sx={{bgcolor:"#110d26", width: "14.07%", border:"0.5px solid white"}}>  Sun </Box>
-    <Box sx={{bgcolor:"#110d26", width: "14.07%", border:"0.5px solid white"}}>  Sun </Box>
-    <Box sx={{bgcolor:"#110d26", width: "14.07%", border:"0.5px solid white"}}>  Sun </Box>
-
-</Box> */}

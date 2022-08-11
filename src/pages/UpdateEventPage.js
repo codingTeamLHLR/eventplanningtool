@@ -16,6 +16,7 @@ import PeopleSelector from "../components/PeopleSelector";
 import CloudinaryWidget from "../components/CloudinaryWidget";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { CircularProgress } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 function UpdateEventPage() {
   const { eventId } = useParams();
@@ -106,10 +107,10 @@ function UpdateEventPage() {
         <></>
       ) : (
         <>
-          <h1>Update Event</h1>
+        <Typography component="h1" variant="h5" sx={{color: "text.primary", mt:"20px"}}>Update Event</Typography>
 
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
+          <Container component="main" maxWidth="xs" sx={{color: "text.primary", mt:"20px"}}>
+
             <Box
               sx={{
                 marginTop: 0,
@@ -137,7 +138,7 @@ function UpdateEventPage() {
                   autoComplete="name"
                   autoFocus
                   error={error}
-                  helperText={errorMessage}
+                  sx={{ backgroundColor: "#252a42", borderRadius: "10px", mt: 1 }}
                   value={event.name}
                   onChange={handleChange}
                 />
@@ -146,12 +147,20 @@ function UpdateEventPage() {
                   <DateTimePicker
                     renderInput={(props) => (
                       <TextField
-                        sx={{ mt: 1 }}
-                        fullWidth
-                        InputLabelProps={{ shrink: true }}
-                        {...props}
-                      />
+                      sx={{
+                      backgroundColor: "#252a42",
+                      borderRadius: "10px",
+                      mt: 2,
+                      mb: 1
+                    }}
+                    fullWidth
+                    InputLabelProps={{ shrink: true }}
+                    {...props}
+                  />
                     )}
+                    PaperProps={{
+                    sx: { backgroundColor: "#252a42" },
+                    }}
                     disablePast={true}
                     label="Date and Time"
                     value={event.date}
@@ -173,6 +182,7 @@ function UpdateEventPage() {
                   id="street"
                   value={event.location.street}
                   onChange={handleNestedChange}
+                  sx={{ backgroundColor: "#252a42", borderRadius: "10px" }}
                 />
 
                 <TextField
@@ -185,6 +195,7 @@ function UpdateEventPage() {
                   id="housenumber"
                   value={event.location.housenumber}
                   onChange={handleNestedChange}
+                  sx={{ backgroundColor: "#252a42", borderRadius: "10px" }}
                 />
 
                 <TextField
@@ -197,6 +208,7 @@ function UpdateEventPage() {
                   id="citycode"
                   value={event.location.citycode}
                   onChange={handleNestedChange}
+                  sx={{ backgroundColor: "#252a42", borderRadius: "10px" }}
                 />
 
                 <TextField
@@ -208,6 +220,7 @@ function UpdateEventPage() {
                   id="city"
                   value={event.location.city}
                   onChange={handleNestedChange}
+                  sx={{ backgroundColor: "#252a42", borderRadius: "10px" }}
                 />
 
                 <TextField
@@ -219,6 +232,7 @@ function UpdateEventPage() {
                   id="country"
                   value={event.location.country}
                   onChange={handleNestedChange}
+                  sx={{ backgroundColor: "#252a42", borderRadius: "10px" }}
                 />
 
                 <PeopleSelector
@@ -251,8 +265,7 @@ function UpdateEventPage() {
                 <Button
                   href={`/${eventId}`}
                   fullWidth
-                  variant="outlined"
-                  sx={{ mt: 3, mb: 2 }}
+                  sx={{ mt: 3, mb: 2, textDecoration: "underline" }}
                 >
                   Back
                 </Button>
