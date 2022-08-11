@@ -21,18 +21,13 @@ function HomePage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        // console.log('Object of all events:', response.data);
-        // console.log("api response", response.data)
-        // console.log("sorted", SortByDate(response.data))
         setEvents(SortByDate(response.data));
 
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
   }, []);
-
-  console.log(calendarView)
 
   return (
     <>

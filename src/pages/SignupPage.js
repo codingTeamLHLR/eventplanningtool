@@ -42,18 +42,14 @@ function SignupPage() {
       image,
     };
 
-    console.log(requestBody);
-
     axios
       .post(process.env.REACT_APP_API_URL + "/signup", requestBody)
       .then((response) => {
-        // console.log('JWT token', response.data.authToken );
         storeToken(response.data.authToken);
         authenticateUser();
         navigate("/");
       })
       .catch((error) => {
-        // console.log("this is error object", error);
         const errorDescription = error.response.data.errorMessage;
         setError(true);
         setErrorMessage(errorDescription);

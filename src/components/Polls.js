@@ -1,4 +1,4 @@
-import * as React from "react";
+import {useState, useEffect} from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import PollCard from "./PollCard";
@@ -6,15 +6,15 @@ import axios from "axios";
 import CreatePoll from "./CreatePoll";
 import { Card, Grid } from "@mui/material";
 
-export default function PollList({eventId}) {
-  const [open, setOpen] = React.useState(false);
-  const [polls, setPolls] = React.useState(null);
-  const [rerender, setRerender] = React.useState(false);
-  const [userId, setUserId] = React.useState(null);
+export default function PollList(props) {
+  const [open, setOpen] = useState(false);
+  const [polls, setPolls] = useState(null);
+  const [rerender, setRerender] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   const storedToken = localStorage.getItem("authToken");
 
-  React.useEffect(() => {
+  useEffect(() => {
     axios
       .get(process.env.REACT_APP_API_URL + "/verify", {
         headers: { Authorization: `Bearer ${storedToken}` },
@@ -50,33 +50,41 @@ export default function PollList({eventId}) {
         Polls
       </Typography>
 
-      {!polls ? (
-        <p>no active polls</p>
-      ) : (
-        <Grid container spacing={3}>
-          <Grid item xs={12} elevation={4}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} elevation={4}>
           <Card>
             <Button variant="text" onClick={handleClickOpen}>
               Start new poll
             </Button>
-            <CreatePoll open={open} handleClose={handleClose} />
-            </Card>
-          </Grid>
-          {/* {---------SORT ACTIVE FIRST ?? -------------} */}
-          {polls.map((poll) => {
-            // delete?
-            // if (poll.participants.includes(userId)) {
-              if (poll.event === eventId) {
-              return (
-                <Grid item xs={12} elevation={4} key={poll._id}>
-                  <PollCard pollId={poll._id} />
-                </Grid>
-              );
-            }
-            return <></>;
-          })}
+            <CreatePoll
+              open={open}
+              handleClose={handleClose}
+              participants={props.participants}
+            />
+          </Card>
         </Grid>
-      )}
+        <>
+          {!polls ? (
+            <Grid item xs={12} elevation={4}>
+              <Card>
+                <h3>no active polls</h3>
+              </Card>
+            </Grid>
+          ) : (
+            <>
+              {polls.map((poll) => {
+                if (poll.event === props.eventId) {
+                  return (
+                    <Grid item xs={12} elevation={4} key={poll._id}>
+                      <PollCard pollId={poll._id} />
+                    </Grid>
+                  );
+                }
+              })}
+            </>
+          )}
+        </>
+      </Grid>
     </>
   );
 }

@@ -363,7 +363,7 @@ function EventDetailsPage() {
 
             {/* ---------- POLLS */}
             <Grid item xs={12}>
-              <Poll eventId={event._id}/>
+              <Poll eventId={event._id} participants={event.participants.map((element) => element.user._id)}/>
             </Grid>
 
             
