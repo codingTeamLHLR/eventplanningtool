@@ -45,19 +45,20 @@ export default function SimpleBottomNavigation() {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
-        sx={{backgroundColor: "lightgrey"}}
+        
+        sx={{height: "70px", backgroundColor: "#252a42", boxShadow: 3}}
       >
         <BottomNavigationAction
           component={NavLink}
-          to="/"
+          to="/events"
           label="Events"
-          icon={<ViewDayOutlined />}
+          icon={<ViewDayOutlined sx={{ color: "#e4e6f0" }}/>}
         />
         <BottomNavigationAction
           component={NavLink}
           to="/calendar"
           label="Calendar"
-          icon={<CalendarMonthOutlined />}
+          icon={<CalendarMonthOutlined sx={{ color: "#e4e6f0" }}/>}
         />
         <Tooltip title="Profile" disableHoverListener>
           <BottomNavigationAction
@@ -67,7 +68,7 @@ export default function SimpleBottomNavigation() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
             label="Profile"
-            icon={<ManageAccountsOutlined />}
+            icon={<ManageAccountsOutlined sx={{ color: "#b5b5ba" }} />}
           />
         </Tooltip>
         

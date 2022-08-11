@@ -115,7 +115,7 @@ export default function Poll({ pollId }) {
       {!poll ? (
         <></>
       ) : (
-        <Card>
+        <Card sx={{background: "#252a42"}}>
           <CardContent>
             <Typography variant="h6">{poll.title}</Typography>
             <Typography variant="p">{poll.description}</Typography>
@@ -144,7 +144,6 @@ export default function Poll({ pollId }) {
 
             <PollChart pollOptions={poll.options} />
 
-
           </CardContent>
           <CardActions>
             <>
@@ -158,6 +157,7 @@ export default function Poll({ pollId }) {
                           size="small"
                           color={poll.status === "active" ? "success" : "error"}
                           onClick={changeStatus}
+                          sx={{height: "22px"}}
                         >
                           {poll.status}
                         </Button>

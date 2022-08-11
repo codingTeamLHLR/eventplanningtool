@@ -14,6 +14,7 @@ import { orange, red } from "@mui/material/colors";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { BorderBottom } from "@mui/icons-material";
 import CalendarPage from "./pages/CalendarPage";
+import EventsListPage from "./pages/EventsListPage"
 
 const theme = createTheme({
   // root: {
@@ -21,11 +22,20 @@ const theme = createTheme({
   // },
   palette: {
     primary: {
-      main: "#423f4a",
+      // main: "#f79525",
+      // main: "#fcbf47",
+      main: "#f7aa0f",
+      // main: "#ff702e",
+      // main: "#e8f0c2",
+      // main: "#fafa8e",
     },
     secondary: {
-      main: "#7d778f",
+      main: "#f2c66f",
     },
+    text:{
+      primary: "#e4e6f0",
+      secondary: "#f2c66f",
+    }
   },
   typography: {
     fontFamily: [
@@ -41,6 +51,7 @@ const theme = createTheme({
       '"Segoe UI Symbol"',
     ].join(","),
   },
+
 });
 
 function App() {
@@ -70,7 +81,9 @@ function App() {
             }
           />
           
-          <Route path="/create-event" element={<CreateEventPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/events" element={<EventsListPage />} />
+          <Route path="/events/create-event" element={<CreateEventPage />} />
           <Route path="/:eventId/update-event" element={<UpdateEventPage />} />
           <Route path="/:eventId" element={<EventDetailsPage />} />
           <Route path="/userprofile" element={<UserProfilePage />} />
