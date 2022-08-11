@@ -83,22 +83,27 @@ function UserProfilePage() {
           {/* ---------- IMAGE */}
           <Grid
             item
-            width="30vw"
-            sx={{
-              height: "30vw",
-              backgroundColor: "lightgrey",
+            xs={12}
+
+          >
+
+            <Box
+              width="10%"
+              sx={{
               backgroundImage: `url(${ShowImage(userDetails.image)})`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
               backgroundPositionY: "center",
               borderRadius: "50%",
-            }}
-          ></Grid>
+            }}>
+
+            </Box>
+          </Grid>
 
           
 
           {/* ---------- NAME */}
-          <Grid item xs={12} sx={{ p: 0, m: 0 }}>
+          <Grid item xs={8} sx={{ p: 0, m: 0 }}>
             <Typography
               align="center"
               variant="h4"

@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import PersonOutlineOutlined from "@mui/icons-material/AccountCircle";
+import PermIdentityOutlined from "@mui/icons-material/PermIdentityOutlined";
 import { SettingsOutlined } from "@mui/icons-material";
 
 export default function ProfileMenu({anchorEl, setAnchorEl}) {
@@ -54,18 +54,18 @@ export default function ProfileMenu({anchorEl, setAnchorEl}) {
             )}
             {isLoggedIn && (
               <>
-                <MenuItem component={NavLink} to="/userprofile">
+                {/* <MenuItem component={NavLink} to="/userprofile">
                   <ListItemIcon>
                     <SettingsOutlined fontSize="small" sx={{ color: "#e4e6f0" }}/>
                   </ListItemIcon>
                   Settings
-                </MenuItem>
+                </MenuItem> */}
 
                 <MenuItem component={NavLink} to="/userprofile">
                   <ListItemIcon>
-                    <PersonOutlineOutlined fontSize="small" sx={{ color: "#e4e6f0" }}/>
+                    <PermIdentityOutlined fontSize="small" sx={{ color: "#e4e6f0" }}/>
                   </ListItemIcon>
-                  My Events
+                  Profile
                 </MenuItem>
 
                 <MenuItem

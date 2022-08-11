@@ -15,6 +15,7 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import PeopleSelector from "../components/PeopleSelector";
 import CloudinaryWidget from "../components/CloudinaryWidget";
 import { Typography } from "@mui/material";
+import defaultEventPicture from "../images/default-event-picture.jpeg"
 
 function CreateEventPage() {
   const [error, setError] = useState(false);
@@ -33,6 +34,10 @@ function CreateEventPage() {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
+
+    if (image==="") {
+      setImage(defaultEventPicture)
+    }
 
     const requestBody = {
       name: data.get("name"),

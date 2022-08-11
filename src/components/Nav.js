@@ -60,7 +60,7 @@ export default function SimpleBottomNavigation() {
             // aria-controls={open ? "account-menu" : undefined}
             aria-haspopup="true"
             // aria-expanded={open ? "true" : undefined}
-            label="Profile"
+            label="Account"
             icon={<ManageAccountsOutlined sx={{ color: "#b5b5ba" }} />}
           />
         </Tooltip>

@@ -85,11 +85,8 @@ function Calendar (props) {
     return(
         
             <Paper sx={{background: "none", border: "1px solid white"}}>
-            {/* <Paper sx={{backgroundColor: "#252a42"}}> */}
                 <Scheduler
                 data={schedulerData}
-                
-                
                 // height={300} // scroll?
                 >
                     <ViewState 
@@ -97,7 +94,7 @@ function Calendar (props) {
                         // currentDate={nextDate}
                     />
                     <MonthView />
-                    <Toolbar sx={{backgroundColor: "red"}}/>
+                    <Toolbar/>
                     <DateNavigator openButtonComponent="none" />
                     <TodayButton />
                     <Appointments data appointmentComponent={Appointment} />
