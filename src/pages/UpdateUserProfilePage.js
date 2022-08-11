@@ -81,9 +81,7 @@ function UpdateUserProfilePage() {
   return (
     <>
       {!userDetails ? (
-        <Box align="center">
-          <CircularProgress />
-        </Box>
+        <></>
       ) : (
 
           <Container component="main" maxWidth="xs">
