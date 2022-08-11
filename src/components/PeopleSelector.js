@@ -74,19 +74,23 @@ function PeopleSelector(props) {
 
 
   let label;
+  let styles;
   if (props.type === "organizers") {
     label = "Organizers";
+    styles = {width:360, mt: 2, mb: 1, backgroundColor: "#252a42", borderRadius: "10px"}
   } else if (props.type === "invites") {
     label = "Guests";
+    styles = {width:360, mt: 2, mb: 1, backgroundColor: "#252a42", borderRadius: "10px"}
   } else if (props.type === "pollParticipants") {
     label = "Voters";
+    styles = {width:280, mt: 1, mb: 1, backgroundColor: "#252a42", borderRadius: "10px"}
   }
 
   return (
     <>
       {users.length > 0 &&
-        <>
-          <FormControl sx={{ width:360, mt: 2, mb: 1, backgroundColor: "#252a42", borderRadius: "10px"}}>
+        <> 
+        <FormControl sx={styles}>
             <InputLabel
               id="demo-multiple-name-label"
               shrink

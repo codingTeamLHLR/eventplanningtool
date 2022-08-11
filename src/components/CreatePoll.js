@@ -5,7 +5,13 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Grid, IconButton, InputBase } from "@mui/material";
+import {
+  Box,
+  Grid,
+  IconButton,
+  InputAdornment,
+  InputBase,
+} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import ClearIcon from "@mui/icons-material/Clear";
 import axios from "axios";
@@ -29,7 +35,13 @@ export default function CreatePoll(props) {
 
     const participants = voters;
 
-    const requestBody = { title, description, optionNames, participants, eventId };
+    const requestBody = {
+      title,
+      description,
+      optionNames,
+      participants,
+      eventId,
+    };
 
     axios
       .post(
@@ -44,7 +56,7 @@ export default function CreatePoll(props) {
         setTitle("");
         setDescription("");
         setOptionNames([]);
-        console.log(response)
+        console.log(response);
       })
       .catch((error) => {
         const errorDescription = error.response.data.errorMessage;
@@ -63,11 +75,12 @@ export default function CreatePoll(props) {
 
   return (
     <Dialog open={props.open} onClose={props.handleClose}>
-      <DialogTitle>Start Poll</DialogTitle>
-      <DialogContent>
+      <DialogTitle sx={{ backgroundColor: "#110d26" }}>Start Poll</DialogTitle>
+      <DialogContent sx={{ backgroundColor: "#110d26" }}>
         <TextField
           autoFocus
           required
+          sx={{ backgroundColor: "#252a42", borderRadius: "10px" }}
           margin="dense"
           id="title"
           label="Title"
@@ -84,6 +97,7 @@ export default function CreatePoll(props) {
 
         <TextField
           autoFocus
+          sx={{ backgroundColor: "#252a42", borderRadius: "10px" }}
           margin="dense"
           id="description"
           label="Description"
@@ -92,8 +106,6 @@ export default function CreatePoll(props) {
           variant="outlined"
           InputLabelProps={{ shrink: true }}
           name="description"
-          error={error}
-          helperText={errorMessage}
           value={description}
           onChange={(event) => setDescription(event.target.value)}
         />
@@ -105,57 +117,69 @@ export default function CreatePoll(props) {
           participants={props.participants}
         />
 
-        <InputBase
+        <TextField
           autoFocus
-          required
-          sx={{ ml: 1, flex: 1 }}
-          placeholder="Add Option"
-          inputProps={{ "aria-label": "Add Option" }}
-          name="newOption"
+          sx={{ backgroundColor: "#252a42", borderRadius: "10px" }}
+          margin="dense"
+          id="options"
+          label="Option"
+          type="string"
+          fullWidth
+          variant="outlined"
+          InputLabelProps={{ shrink: true }}
+          name="options"
           value={optionInput}
           onChange={(event) => {
             setOptionInput(event.target.value);
           }}
-        />
-        <IconButton
-          sx={{ p: "10px" }}
-          aria-label="add"
-          onClick={() => {
-            if (optionInput.length !== 0) {
-              setOptionNames((prevState) => [...prevState, optionInput]);
-              setOptionInput("");
-            }
-          }}
-        >
-          <AddIcon />
-        </IconButton>
-        <DialogContent>
-          {optionNames.length > 0 &&
-            optionNames.map((option, index) => {
-              return (
-                <div key={index}>
-                  <span>{option}</span>
-
-                  <IconButton
-                    sx={{ p: "10px" }}
-                    aria-label="remove"
-                    value={option}
-                    onClick={() =>
-                      setOptionNames((prevState) =>
-                        prevState.filter((element) => element !== option)
-                      )
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="start">
+                <Button
+                  sx={{ p: "10px" }}
+                  aria-label="add"
+                  onClick={() => {
+                    if (optionInput.length !== 0) {
+                      setOptionNames((prevState) => [
+                        ...prevState,
+                        optionInput,
+                      ]);
+                      setOptionInput("");
                     }
-                  >
-                    <ClearIcon />
-                  </IconButton>
-                </div>
-              );
-            })}
-        </DialogContent>
+                  }}
+                >
+                  Add
+                </Button>
+              </InputAdornment>
+            ),
+          }}
+        />
+
+        {optionNames.length > 0 &&
+          optionNames.map((option, index) => {
+            return (
+              <div key={index}>
+                <Button
+                  sx={{ p: "10px" }}
+                  aria-label="remove"
+                  value={option}
+                  onClick={() =>
+                    setOptionNames((prevState) =>
+                      prevState.filter((element) => element !== option)
+                    )
+                  }
+                >
+                  X
+                </Button>
+
+                <span>{option}</span>
+              </div>
+            );
+          })}
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleSubmit}>Create</Button>
+      <DialogActions sx={{ backgroundColor: "#110d26" }}>
         <Button onClick={handleCancel}>Cancel</Button>
+        <Button onClick={handleSubmit}>Create</Button>
       </DialogActions>
     </Dialog>
   );
