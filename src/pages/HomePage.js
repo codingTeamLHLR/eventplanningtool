@@ -1,7 +1,8 @@
 
 import Box from "@mui/material/Box";
 // import nightlights from "./../images/nightlights.jpg"
-import nightlights from "../images/test.png"
+// import nightlights from "../images/test.png"
+import nightlights from "../images/default-event-picture2.jpeg";
 import badgeAccepted from "../images/badge-accepted.png"
 import { Typography } from "@mui/material";
 
@@ -27,7 +28,7 @@ function HomePage() {
             component="img"
             src={nightlights}
             sx={{
-              maxHeight: "100vh",
+              eight: "100%",
               backgroundPositionY: "center",
               overflow: "hidden",
             }}

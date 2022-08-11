@@ -6,7 +6,9 @@ import Box from "@mui/material/Box";
 import { Button, CircularProgress, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import SortByDate from "../functions/SortByDate";
-import nightlights from "../images/test.png";
+// import nightlights from "../images/default-event-picture3.jpg";
+// import nightlights from "../images/default-event-picture3.jpg";
+import nightlights from "../images/default-event-picture.jpg"
 
 export default function EventListPage() {
   const [events, setEvents] = useState([]);
@@ -48,7 +50,7 @@ export default function EventListPage() {
           src={nightlights}
           sx={{
             width: "100vw",
-            // height: "100vh",
+            height: "60vw",
             background: "lightgrey",
             backgroundImage:
               "https://media.istockphoto.com/id/1134266228/de/foto/tropenbar-athmocphere-hintergrund-mit-gelber-girlanden-bokeh-nacht-lebenskonzept.webp?s=612x612&w=is&k=20&c=UJtPIdzZ9q_5XUzdw_1sKDdf2_TgCto0u2Im_b1vxOE=",

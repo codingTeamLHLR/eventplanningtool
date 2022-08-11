@@ -200,7 +200,7 @@ function CreateEventPage() {
             </Button>
             <Grid container></Grid>
           </Box>
-        </Box>
+        
       </Container>
     </>
   );
