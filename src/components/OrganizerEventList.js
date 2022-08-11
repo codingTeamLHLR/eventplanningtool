@@ -56,7 +56,7 @@ export default function OrganizerEventListPage() {
         variant="contained"
         color="primary"
         component={Link}
-        to="/create-event"
+        to="/events/create-event"
         sx={{ mt: 2 }}
       >
         Create Event

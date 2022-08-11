@@ -3,6 +3,8 @@ import {
   Card,
   CardActions,
   CardContent,
+  CardHeader,
+  Grid,
   IconButton,
   Tooltip,
   Typography,
@@ -117,77 +119,85 @@ export default function Poll({ pollId }) {
       {!poll ? (
         <></>
       ) : (
-        <Card sx={{background: "#252a42"}}>
-          <CardContent>
-            <Typography variant="h6">{poll.title}</Typography>
-            <Typography variant="p">{poll.description}</Typography>
-
-            {!voted && poll.status === "active" && (
+        <Card sx={{ background: "#252a42" }}>
+          <CardHeader
+            titleTypographyProps={{align: "left"}}
+            subheaderTypographyProps={{align: "left"}}
+            title={poll.title}
+            subheader={poll.description}
+            action=
+            {
               <>
-                {poll.options.map((option) => {
-                  return (
-                    <div key={option._id}>
+                {poll.owner === userId && (
+                  <>
+                    {poll.owner ? (
+                      <>
+                        <Tooltip title={"change status"} placement="bottom">
+                          <Button
+                            variant="outlined"
+                            size="small"
+                            color={
+                              poll.status === "active" ? "success" : "error"
+                            }
+                            onClick={changeStatus}
+                            sx={{ height: "22px", mr: "20px"}}
+                          >
+                            {poll.status}
+                          </Button>
+                        </Tooltip>
+                        <Tooltip title="delete poll" placement="bottom">
+                          <IconButton
+                            color="primary"
+                            aria-label="delete"
+                            onClick={deletePoll}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </Tooltip>
+                      </>
+                    ) : (
                       <Button
-                        variant="outlined"
+                        variant="text"
                         size="small"
-                        onClick={() => {
-                          setVoted(true);
-                          handleVote(option._id, option.votes);
-                        }}
+                        color={poll.status === "active" ? "success" : "error"}
+                        sx={{ height: "22px", cursor: "default" }}
                       >
-                        {option.name}
+                        {poll.status}
                       </Button>
-                    </div>
-                  );
-                })}
+                    )}
+                  </>
+                )}
               </>
-            )}
-            {voted && <p>already voted</p>}
-            {poll.status === "closed" && <p>poll closed</p>}
+            }
+          />
 
-            <PollChart pollOptions={poll.options} />
-          </CardContent>
-          <CardActions>
+          <CardContent>
             <>
-              {poll.owner === userId && (
-                <>
-                  {poll.owner ? (
-                    <>
-                      <Tooltip title={"change status"} placement="bottom">
+              {!voted && poll.status === "active" && (
+                <Grid container xs={12} spacing={1} sx={{mb: "10px"}}>
+                  {poll.options.map((option) => {
+                    return (
+                      <Grid item key={option._id}>
                         <Button
                           variant="outlined"
-                          size="small"
-                          color={poll.status === "active" ? "success" : "error"}
-                          onClick={changeStatus}
                           sx={{height: "22px"}}
+                          size="small"
+                          onClick={() => {
+                            setVoted(true);
+                            handleVote(option._id, option.votes);
+                          }}
                         >
-                          {poll.status}
+                          {option.name}
                         </Button>
-                      </Tooltip>
-                      <Tooltip title="delete poll" placement="bottom">
-                        <IconButton
-                          color="primary"
-                          aria-label="delete"
-                          onClick={deletePoll}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </Tooltip>
-                    </>
-                  ) : (
-                    <Button
-                      variant="text"
-                      size="small"
-                      color={poll.status === "active" ? "success" : "error"}
-                      sx={{ cursor: "default" }}
-                    >
-                      {poll.status}
-                    </Button>
-                  )}
-                </>
+                      </Grid>
+                    );
+                  })}
+                </Grid>
               )}
+
+              <PollChart pollOptions={poll.options} />
             </>
-          </CardActions>
+          </CardContent>
         </Card>
       )}
     </>
