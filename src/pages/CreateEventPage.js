@@ -62,146 +62,159 @@ function CreateEventPage() {
         setErrorMessage(errorDescription);
         console.log(errorDescription);
       });
-    };
-    
-    return (
-      <>
-      <Typography variant="h2" sx={{color: "text.primary"}}>Create Event</Typography>
+  };
 
-      <Typography sx={{color:"text.primary", fontSize:"12px", mt: 2 }}>{errorMessage}</Typography>  
+  return (
+    <>
+      <Typography variant="h2" sx={{ color: "text.primary" }}>
+        Create Event
+      </Typography>
 
-        <Container maxWidth="xs" sx={{backgroundColor: "none"}}>
-          {/* <CssBaseline /> */}
+      <Typography sx={{ color: "text.primary", fontSize: "12px", mt: 2 }}>
+        {errorMessage}
+      </Typography>
+
+      <Container maxWidth="xs" sx={{ backgroundColor: "none" }}>
+        {/* <CssBaseline /> */}
+        <Box
+          sx={{
+            marginTop: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginBottom: 10,
+          }}
+        >
           <Box
-            sx={{
-              marginTop: 0,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              marginBottom: 10,
-            }}
+            component="form"
+            onSubmit={handleCreateEventSubmit}
+            noValidate
+            sx={{ mt: 1 }}
           >
-            <Box
-              component="form"
-              onSubmit={handleCreateEventSubmit}
-              noValidate
-              sx={{ mt: 1 }}
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="name"
+              label="Event Name"
+              InputLabelProps={{ shrink: true }}
+              name="name"
+              autoComplete="name"
+              autoFocus
+              error={error}
+              // helperText={errorMessage}
+              sx={{ backgroundColor: "#252a42", borderRadius: "10px", mt: 1 }}
+            />
+
+            <LocalizationProvider dateAdapter={AdapterMoment}>
+              <DateTimePicker
+
+                renderInput={(props) => (
+                  <TextField
+                    sx={{
+                      backgroundColor: "#252a42",
+                      borderRadius: "10px",
+                      mt: 2,
+                      mb: 1
+                    }}
+                    fullWidth
+                    InputLabelProps={{ shrink: true }}
+                    {...props}
+                  />
+                )}
+                PaperProps={{
+                  sx: { backgroundColor: "#252a42" },
+                }}
+                disablePast={true}
+
+                // PopperProps={}
+                label="Date and Time"
+                value={time}
+                onChange={(newValue) => {
+                  setTime(newValue);
+                }}
+              />
+            </LocalizationProvider>
+
+            <TextField
+              margin="normal"
+              fullWidth
+              name="street"
+              label="Street"
+              InputLabelProps={{ shrink: true }}
+              id="street"
+              sx={{ backgroundColor: "#252a42", borderRadius: "10px" }}
+            />
+
+            <TextField
+              margin="normal"
+              fullWidth
+              name="housenumber"
+              label="Housenumber"
+              InputLabelProps={{ shrink: true }}
+              type="number"
+              id="housenumber"
+              sx={{ backgroundColor: "#252a42", borderRadius: "10px" }}
+            />
+
+            <TextField
+              margin="normal"
+              fullWidth
+              name="citycode"
+              label="Citycode"
+              InputLabelProps={{ shrink: true }}
+              type="number"
+              id="citycode"
+              sx={{ backgroundColor: "#252a42", borderRadius: "10px" }}
+            />
+
+            <TextField
+              margin="normal"
+              fullWidth
+              name="city"
+              label="City"
+              InputLabelProps={{ shrink: true }}
+              id="city"
+              sx={{ backgroundColor: "#252a42", borderRadius: "10px" }}
+            />
+
+            <TextField
+              margin="normal"
+              fullWidth
+              name="country"
+              label="Country"
+              InputLabelProps={{ shrink: true }}
+              id="country"
+              sx={{ backgroundColor: "#252a42", borderRadius: "10px" }}
+            />
+
+            <PeopleSelector
+              name="Guests"
+              type="invites"
+              getPeopleCallback={setParticipants}
+            />
+
+            <PeopleSelector
+              name="Organizers"
+              type="organizers"
+              getPeopleCallback={setOrganizers}
+              participants={participants}
+            />
+
+            <CloudinaryWidget setImage={setImage} />
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
             >
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="name"
-                label="Event Name"
-                InputLabelProps={{ shrink: true }}
-                name="name"
-                autoComplete="name"
-                autoFocus
-                error={error}
-                // helperText={errorMessage}
-                sx={{backgroundColor: "#252a42", borderRadius: "10px", mt:1}}
-              />
-
-              <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DateTimePicker
-                  renderInput={(props) => (
-                    <TextField
-                      sx={{backgroundColor: "#252a42", borderRadius: "10px", mt:1}}
-                      fullWidth
-                      InputLabelProps={{ shrink: true }}
-                      {...props}
-                    />
-                  )}
-                  disablePast={true}
-                  label="Date and Time"
-                  value={time}
-                  onChange={(newValue) => {
-                    setTime(newValue);
-                  }}
-                />
-              </LocalizationProvider>
-
-              <TextField
-                margin="normal"
-                fullWidth
-                name="street"
-                label="Street"
-                InputLabelProps={{ shrink: true }}
-                id="street"
-                sx={{backgroundColor: "#252a42", borderRadius: "10px"}}
-              />
-
-              <TextField
-                margin="normal"
-                fullWidth
-                name="housenumber"
-                label="Housenumber"
-                InputLabelProps={{ shrink: true }}
-                type="number"
-                id="housenumber"
-                sx={{backgroundColor: "#252a42", borderRadius: "10px"}}
-              />
-
-              <TextField
-                margin="normal"
-                fullWidth
-                name="citycode"
-                label="Citycode"
-                InputLabelProps={{ shrink: true }}
-                type="number"
-                id="citycode"
-                sx={{backgroundColor: "#252a42", borderRadius: "10px"}}
-
-              />
-
-              <TextField
-                margin="normal"
-                fullWidth
-                name="city"
-                label="City"
-                InputLabelProps={{ shrink: true }}
-                id="city"
-                sx={{backgroundColor: "#252a42", borderRadius: "10px"}}
-              />
-
-              <TextField
-                margin="normal"
-                fullWidth
-                name="country"
-                label="Country"
-                InputLabelProps={{ shrink: true }}
-                id="country"
-                sx={{backgroundColor: "#252a42", borderRadius: "10px"}}
-              />
-
-              <PeopleSelector
-                name="Guests"
-                type="invites"
-                getPeopleCallback={setParticipants}
-              />
-
-              <PeopleSelector
-                name="Organizers"
-                type="organizers"
-                getPeopleCallback={setOrganizers}
-                participants={participants}
-              />
-
-              <CloudinaryWidget setImage={setImage} />
-
-
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Create
-              </Button>
-              <Grid container></Grid>
-            </Box>
+              Create
+            </Button>
+            <Grid container></Grid>
           </Box>
-        </Container>
+        </Box>
+      </Container>
     </>
   );
 }
