@@ -15,8 +15,9 @@ import Link from "@mui/material/Link";
 
 function LoginPage() {
   const [error, setError] = useState(false);
-  const [errorMessageEmail, setErrorMessageEmail] = useState(undefined);
-  const [errorMessagePassword, setErrorMessagePassword] = useState(undefined);
+  const [errorMessage, setErrorMessage] = useState(undefined);
+  // const [errorMessageEmail, setErrorMessageEmail] = useState(undefined);
+  // const [errorMessagePassword, setErrorMessagePassword] = useState(undefined);
 
   const { storeToken, authenticateUser } = useContext(AuthContext);
 
@@ -38,8 +39,10 @@ function LoginPage() {
       })
       .catch((error) => {
         setError(true);
-        setErrorMessageEmail(error.response.data.errorMessageEmail);
-        setErrorMessagePassword(error.response.data.errorMessagePassword);
+        // ----CHANGE ROUTES!!!!
+        setErrorMessage(error.response.data.errorMessage)  
+        // setErrorMessageEmail(error.response.data.errorMessageEmail);
+        // setErrorMessagePassword(error.response.data.errorMessagePassword);
         console.log(error);
       });
   };
@@ -95,6 +98,8 @@ function LoginPage() {
             error={error}
             sx={{backgroundColor: "#252a42", borderRadius: "10px", mt:1}}
           />
+
+<p>{errorMessage}</p>
 
           <Button
             type="submit"
