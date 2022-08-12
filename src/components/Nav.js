@@ -1,4 +1,4 @@
-import * as React from "react";
+
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
@@ -8,7 +8,7 @@ import Person from "@mui/icons-material/Person";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { NavLink } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import {
   ViewDayOutlined,
@@ -29,15 +29,11 @@ import {
 import ProfileMenu from "./ProfileMenu";
 
 export default function SimpleBottomNavigation(props) {
-  const [value, setValue] = React.useState(0);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [value, setValue] = useState(0);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  console.log("navprops", props)
-
   return (
-
-
 
     <Box sx={{ width: "100vw", position: "fixed", bottom: 0, zIndex: 1 }}>
       <BottomNavigation

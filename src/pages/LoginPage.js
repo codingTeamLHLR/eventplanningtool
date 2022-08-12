@@ -16,8 +16,6 @@ import Link from "@mui/material/Link";
 function LoginPage() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
-  // const [errorMessageEmail, setErrorMessageEmail] = useState(undefined);
-  // const [errorMessagePassword, setErrorMessagePassword] = useState(undefined);
 
   const { storeToken, authenticateUser } = useContext(AuthContext);
 
@@ -39,16 +37,16 @@ function LoginPage() {
       })
       .catch((error) => {
         setError(true);
-        // ----CHANGE ROUTES!!!!
-        setErrorMessage(error.response.data.errorMessage)  
-        // setErrorMessageEmail(error.response.data.errorMessageEmail);
-        // setErrorMessagePassword(error.response.data.errorMessagePassword);
+        setErrorMessage(error.response.data.errorMessage);
         console.log(error);
       });
   };
 
   return (
-    <Container  maxWidth="xs" sx={{backgroundColor: "none", color:"text.primary"}}>
+    <Container
+      maxWidth="xs"
+      sx={{ backgroundColor: "none", color: "text.primary" }}
+    >
       <Box
         sx={{
           marginTop: 8,
@@ -56,7 +54,7 @@ function LoginPage() {
           flexDirection: "column",
           alignItems: "center",
           backgroundColor: "transparent",
-          color: "text.primary"
+          color: "text.primary",
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
@@ -82,7 +80,7 @@ function LoginPage() {
             autoComplete="email"
             autoFocus
             error={error}
-            sx={{backgroundColor: "#252a42", borderRadius: "10px", mt:1}}
+            sx={{ backgroundColor: "#252a42", borderRadius: "10px", mt: 1 }}
           />
 
           <TextField
@@ -96,10 +94,12 @@ function LoginPage() {
             id="password"
             autoComplete="current-password"
             error={error}
-            sx={{backgroundColor: "#252a42", borderRadius: "10px", mt:1}}
+            sx={{ backgroundColor: "#252a42", borderRadius: "10px", mt: 1 }}
           />
 
-<p>{errorMessage}</p>
+          <Typography color="error" sx={{mt:3}}>
+          {errorMessage}
+          </Typography>
 
           <Button
             type="submit"

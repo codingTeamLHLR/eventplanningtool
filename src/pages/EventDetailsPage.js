@@ -3,8 +3,6 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import Check from "@mui/icons-material/Check";
 import Close from "@mui/icons-material/Close";
-
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import ShowImage from "../functions/ShowImage";

@@ -59,10 +59,9 @@ function CreateEventPage() {
         navigate("/events");
       })
       .catch((error) => {
-        const errorDescription = error.response.data.errorMessage;
         setError(true);
-        setErrorMessage(errorDescription);
-        console.log(errorDescription);
+        setErrorMessage(error.response.data.errorMessage);
+        console.log(error.response.data.errorMessage);
       });
     };
     
@@ -73,6 +72,16 @@ function CreateEventPage() {
       <Typography sx={{color:"text.primary", fontSize:"12px", mt: 2 }}>{errorMessage}</Typography>  
 
         <Container maxWidth="xs" sx={{backgroundColor: "none"}}>
+        <Box
+              sx={{
+                marginTop: 0,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                marginBottom: 10,
+              }}
+          >
+          
           <Box
             component="form"
             onSubmit={handleCreateEventSubmit}
@@ -201,7 +210,9 @@ function CreateEventPage() {
 
             <CloudinaryWidget setImage={setImage} />
 
-            <p>{errorMessage}</p>
+            <Typography color="error" sx={{mt:3}}>
+          {errorMessage}
+          </Typography>
 
             <Button
               type="submit"
@@ -211,10 +222,17 @@ function CreateEventPage() {
             >
               Create
             </Button>
-            <Grid container></Grid>
-          </Box>
-        
-      </Container>
+            <Button
+                  href={`/events`}
+                  fullWidth
+                  sx={{ mt: 3, mb: 2, textDecoration: "underline" }}
+                >
+                  Back
+                </Button>
+                <Grid container></Grid>
+              </Box>
+            </Box>
+          </Container>
     </>
   );
 }

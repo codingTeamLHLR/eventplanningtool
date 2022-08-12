@@ -3,13 +3,19 @@ import { useEffect, useState } from "react";
 import EventCard from "../components/EventCard";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import { Button, CircularProgress, Collapse, Slide, Typography } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  Collapse,
+  Slide,
+  Typography,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import SortByDate from "../functions/SortByDate";
 // import nightlights from "../images/default-event-picture3.jpg";
 // import nightlights from "../images/default-event-picture3.jpg";
-import nightlights from "../images/default-event-picture.jpg"
-import {useScrollTrigger} from "@mui/material";
+import nightlights from "../images/default-event-picture.jpg";
+import { useScrollTrigger } from "@mui/material";
 
 export default function EventListPage(props) {
   const [events, setEvents] = useState([]);
@@ -28,13 +34,9 @@ export default function EventListPage(props) {
         console.log(error);
       });
   }, []);
-  
-  // const trigger = useScrollTrigger();
 
   return (
     <>
-    {/* <Collapse in={!trigger} collapsedSize={40} position="sticky">
-      <> */}
       <Box>
         <Typography
           variant="h2"
@@ -67,8 +69,6 @@ export default function EventListPage(props) {
           }}
         ></Box>
       </Box>
-      {/* </>
-      </Collapse> */}
 
       <Button
         component={Link}
@@ -81,7 +81,9 @@ export default function EventListPage(props) {
       </Button>
 
       {events.length === 0 ? (
-        <CircularProgress size={40} sx={{ mt: "100px", align: "center" }} />
+        <Typography variant="p" color="primary">
+          No Events to show here
+        </Typography>
       ) : (
         <Grid container sx={{ p: 2 }} columnSpacing={2}>
           {events.map((element) => {

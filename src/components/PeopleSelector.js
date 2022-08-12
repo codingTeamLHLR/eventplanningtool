@@ -1,4 +1,4 @@
-import * as React from "react";
+
 import {
   FormControl,
   Select,
@@ -7,6 +7,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 function PeopleSelector(props) {
 
@@ -19,12 +20,12 @@ function PeopleSelector(props) {
     },
   };
 
-  const [personId, setPersonId] = React.useState([]);
-  const [users, setUsers] = React.useState([]);
-  const [errorMessage, setErrorMessage] = React.useState(undefined);
-  const [currentUserId, setCurrentUserId] = React.useState(null);
+  const [personId, setPersonId] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(undefined);
+  const [currentUserId, setCurrentUserId] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (props.people) {
       setPersonId(props.people);
     }

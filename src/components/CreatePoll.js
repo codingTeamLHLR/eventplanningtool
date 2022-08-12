@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -11,6 +11,7 @@ import {
   IconButton,
   InputAdornment,
   InputBase,
+  Typography,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -20,13 +21,13 @@ import PeopleSelector from "./PeopleSelector";
 
 export default function CreatePoll(props) {
   const { eventId } = useParams();
-  const [error, setError] = React.useState(false);
-  const [errorMessage, setErrorMessage] = React.useState(undefined);
-  const [optionNames, setOptionNames] = React.useState([]);
-  const [title, setTitle] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [optionInput, setOptionInput] = React.useState("");
-  const [voters, setVoters] = React.useState([]);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(undefined);
+  const [optionNames, setOptionNames] = useState([]);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [optionInput, setOptionInput] = useState("");
+  const [voters, setVoters] = useState([]);
 
   const storedToken = localStorage.getItem("authToken");
 
@@ -56,6 +57,8 @@ export default function CreatePoll(props) {
         setTitle("");
         setDescription("");
         setOptionNames([]);
+        setErrorMessage(undefined);
+        setError(false);
         console.log(response);
       })
       .catch((error) => {
@@ -71,6 +74,8 @@ export default function CreatePoll(props) {
     setTitle("");
     setDescription("");
     setOptionNames([]);
+    setErrorMessage(undefined);
+    setError(false);
   };
 
   return (
@@ -90,7 +95,6 @@ export default function CreatePoll(props) {
           InputLabelProps={{ shrink: true }}
           name="title"
           error={error}
-          helperText={errorMessage}
           value={title}
           onChange={(event) => setTitle(event.target.value)}
         />
@@ -129,6 +133,7 @@ export default function CreatePoll(props) {
           InputLabelProps={{ shrink: true }}
           name="options"
           value={optionInput}
+          error={error}
           onChange={(event) => {
             setOptionInput(event.target.value);
           }}
@@ -176,7 +181,11 @@ export default function CreatePoll(props) {
               </div>
             );
           })}
+      <Typography color="error" sx={{mt:3}}>
+          {errorMessage}
+          </Typography>
       </DialogContent>
+
       <DialogActions sx={{ backgroundColor: "#110d26" }}>
         <Button onClick={handleCancel}>Cancel</Button>
         <Button onClick={handleSubmit}>Create</Button>

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import * as React from "react";
 
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -95,10 +94,9 @@ function UpdateEventPage() {
         navigate(`/${eventId}`);
       })
       .catch((error) => {
-        const errorDescription = error.response.data.errorMessage;
         setError(true);
-        setErrorMessage(errorDescription);
-        console.log(errorDescription);
+        setErrorMessage(error.response.data.errorMessage);
+        console.log(error.response.data.errorMessage);
       });
   };
 
@@ -263,7 +261,9 @@ function UpdateEventPage() {
 
                 <CloudinaryWidget setImage={setImage} image={event.image} />
 
-                <p>{errorMessage}</p>
+                <Typography color="error" sx={{mt:3}}>
+          {errorMessage}
+          </Typography>
 
                 <Button
                   type="submit"

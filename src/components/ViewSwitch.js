@@ -1,10 +1,11 @@
-import * as React from 'react';
+
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { useState } from 'react';
 
 
 export default function ViewSwitch(props) {
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = useState(false);
 
   const handleChange = (event) => {
       if(checked===false){

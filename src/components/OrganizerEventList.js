@@ -31,7 +31,6 @@ export default function OrganizerEventListPage() {
             organizerEvents.push(event);
           }
         });
-        console.log(organizerEvents);
         setEvents(SortByDate(organizerEvents));
       })
       .catch((error) => {

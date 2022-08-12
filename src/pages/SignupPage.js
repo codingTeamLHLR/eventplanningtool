@@ -19,9 +19,6 @@ import { FormLabel } from "@mui/material";
 function SignupPage() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
-  // const [errorMessageEmail, setErrorMessageEmail] = useState(undefined);
-  // const [errorMessagePassword, setErrorMessagePassword] = useState(undefined);
-  // const [errorMessageUsername, setErrorMessageUsername] = useState(undefined);
   const [image, setImage] = useState("");
 
   const { storeToken, authenticateUser } = useContext(AuthContext);
@@ -46,11 +43,7 @@ function SignupPage() {
       })
       .catch((error) => {
         setError(true);
-                // ----CHANGE ROUTES!!!!
                 setErrorMessage(error.response.data.errorMessage)
-        // setErrorMessageUsername(error.response.data.errorMessageUsername);
-        // setErrorMessageEmail(error.response.data.errorMessageEmail);
-        // setErrorMessagePassword(error.response.data.errorMessagePassword);
         console.log(error);
       });
   };
@@ -121,7 +114,9 @@ function SignupPage() {
 
             <CloudinaryWidget setImage={setImage} />
 
-            <p>{errorMessage}</p>
+            <Typography color="error" sx={{mt:3}}>
+          {errorMessage}
+          </Typography>
 
             <Button
               type="submit"

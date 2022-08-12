@@ -113,7 +113,6 @@ function UpdateUserProfilePage() {
                   type="string"
                   id="username"
                   autoComplete="username"
-                  error={error}
                   value={userDetails.username}
                   onChange={handleChange}
                   sx={{backgroundColor: "#252a42", borderRadius: "10px", mt:1}}
@@ -129,7 +128,9 @@ function UpdateUserProfilePage() {
                   />
                 </Box>
 
-                <p>{errorMessage}</p>
+                <Typography color="error" sx={{mt:3}}>
+          {errorMessage}
+          </Typography>
 
                 <Button
                   type="submit"
