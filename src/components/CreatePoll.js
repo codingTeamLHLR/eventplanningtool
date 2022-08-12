@@ -113,6 +113,7 @@ export default function CreatePoll(props) {
 
         <TextField
           autoFocus
+          required
           sx={{ backgroundColor: "#252a42", borderRadius: "10px" }}
           margin="dense"
           id="options"
