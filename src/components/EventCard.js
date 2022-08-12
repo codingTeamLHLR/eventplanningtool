@@ -89,7 +89,7 @@ export default function EventCard(props) {
               {formatDate}
             </Typography>
 
-            <Typography gutterBottom variant="h6" component="div" align="left">
+            <Typography gutterBottom variant="h7" component="div" align="left">
               {props.data.name}
             </Typography>
 
