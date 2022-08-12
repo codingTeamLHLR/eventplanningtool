@@ -103,7 +103,6 @@ export default function Poll({ pollId }) {
       });
   };
 
-  //SHOW TOTAL VOTES ??? + num participants? ---- show participants?
   return (
     <>
       {!poll ? (

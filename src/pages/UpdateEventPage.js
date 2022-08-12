@@ -86,7 +86,7 @@ function UpdateEventPage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        navigate(`/${eventId}`);
+        navigate(`/events/${eventId}`);
       })
       .catch((error) => {
         setError(true);
@@ -269,7 +269,7 @@ function UpdateEventPage() {
                   Save Changes
                 </Button>
                 <Button
-                  href={`/${eventId}`}
+                  href={`/events/${eventId}`}
                   fullWidth
                   sx={{ mt: 3, mb: 2, textDecoration: "underline" }}
                 >

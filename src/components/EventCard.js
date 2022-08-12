@@ -60,7 +60,7 @@ export default function EventCard(props) {
     }));
 
   return (
-    <Link underline="none" href={`./${props.data._id}`}>
+    <Link underline="none" href={`./events/${props.data._id}`}>
       <Card
         sx={{
           maxHeight: "110px",

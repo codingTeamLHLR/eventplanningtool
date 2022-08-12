@@ -100,7 +100,7 @@ function App() {
             }
           />
           <Route
-            path="/:eventId/update-event"
+            path="/events/:eventId/update-event"
             element={
               <IsPrivate>
                 {" "}
@@ -109,7 +109,7 @@ function App() {
             }
           />
           <Route
-            path="/:eventId"
+            path="/events/:eventId"
             element={
               <IsPrivate>
                 {" "}

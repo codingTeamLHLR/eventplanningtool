@@ -367,7 +367,7 @@ function EventDetailsPage() {
                     variant="contained"
                     sx={{ width: "49%" }}
                     startIcon={<EditIcon />}
-                    href={`/${eventId}/update-event`}
+                    href={`/events/${eventId}/update-event`}
                   >
                     Edit
                   </Button>

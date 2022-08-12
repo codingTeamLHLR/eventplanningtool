@@ -52,7 +52,7 @@ function CreateEventPage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        navigate("/events");
+        navigate(`/events/${response.data._id}`);
       })
       .catch((error) => {
         setError(true);
