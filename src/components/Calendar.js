@@ -72,28 +72,24 @@ function Calendar(props) {
     );
   };
 
-  // const MonthViewLayout = ({children, style, ...restProps}) => {
-  //     return (
-  //     <MonthView.MonthViewLayout>
-  //         {children}
-  //     </MonthView.MonthViewLayout>
-  //     )
-  // };
-
   return (
     <Paper
       sx={{
         background: "none",
-        border: "1px solid white",
         "& .css-99cbwm .MainLayout-background": {
           backgroundColor: "#110d26",
         },
         "& .css-y76m1d.Appointment-appointment": {
             height: "50%",
         },
-        // "& .css-1kbmavd.Container-container": {
-        //     height: 200
-        // }
+        "& .css-99cbwm.MainLayout-container": {
+            border: "1px solid white",
+            borderRadius: "10px",
+            overflow: "hidden",
+        },
+        "& .css-1b7ni76-MuiToolbar-root.Toolbar-toolbar": {
+            borderBottom: 0,
+        }
       }}
     >
       {/* <Paper sx={{backgroundColor: "#252a42"}}> */}

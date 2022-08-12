@@ -56,7 +56,7 @@ function EventDetailsPage() {
           setEventImage(imageUrl);
         }
         else {
-          setEventImage(defaultEventPicture);
+          
         }
         setFormatDate(Moment(response.data.date).format("MMM Do YY"));
         setFormatTime(Moment(response.data.date).format("h:mm A"));

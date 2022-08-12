@@ -90,12 +90,12 @@ export default function EventCard(props) {
         </Typography>
 
         <Typography sx={{fontSize: "11px", mt: -1}}> 
-          <Box sx={{display: "flex"}}>
+          <Box sx={{display: "flex", flexWrap: "wrap"}}>
             by &nbsp; {props.data.organizers.map( (element, index) => {
               return(
                 <>
                   {index>0 &&  <span> and &nbsp; </span>}
-                  <span>{element.username} &nbsp; </span>
+                  <Typography sx={{fontSize: "11px", whiteSpace: "nowrap"}}>{element.username} &nbsp; </Typography>
                 </>
               )
             })}
@@ -108,7 +108,7 @@ export default function EventCard(props) {
 
         {currentUsersStatus==='accepted' &&
           <Box sx={{display: "flex"}}>
-            <span>you have accepted</span>
+            <Typography sx={{fontSize: "11px", whiteSpace: "nowrap"}}>you have accepted</Typography>
             <StatusIcon src={badgeAccepted} sx={{ml: 1}}/>
           </Box>
 
@@ -116,25 +116,14 @@ export default function EventCard(props) {
 
         {currentUsersStatus==='declined' &&
           <Box sx={{display: "flex"}}>
-            <span>you have declined</span>
+            <Typography sx={{fontSize: "11px", whiteSpace: "nowrap"}}>you have declined</Typography>
             <StatusIcon src={badgeDeclined} sx={{ml: 1}}/>
           </Box>
         }
         </Typography>
 
-
-
-
       </Box>
       </CardContent>
-      {/* <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">
-          <Link underline="hover" href={`./${props.data._id}`}>
-            Learn more
-          </Link>
-        </Button>
-      </CardActions> */}
     </Card>
 
     </Link>
