@@ -3,20 +3,10 @@ import { useEffect, useState } from "react";
 import EventCard from "../components/EventCard";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import {
-  Button,
-  CircularProgress,
-  Collapse,
-  Slide,
-  Typography,
-} from "@mui/material";
+import { Button, CircularProgress, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import SortByDate from "../functions/SortByDate";
-// import nightlights from "../images/default-event-picture3.jpg";
-// import nightlights from "../images/default-event-picture3.jpg";
-import nightlights from "../images/default-event-picture.jpg";
-import { useScrollTrigger } from "@mui/material";
-
+import nightlights from "../images/default-event-picture.jpg"
 export default function EventListPage(props) {
   const [events, setEvents] = useState([]);
 
@@ -58,10 +48,9 @@ export default function EventListPage(props) {
           sx={{
             width: "100vw",
             height: "60vw",
-            background: "lightgrey",
-            backgroundImage:
-              "https://media.istockphoto.com/id/1134266228/de/foto/tropenbar-athmocphere-hintergrund-mit-gelber-girlanden-bokeh-nacht-lebenskonzept.webp?s=612x612&w=is&k=20&c=UJtPIdzZ9q_5XUzdw_1sKDdf2_TgCto0u2Im_b1vxOE=",
+            backgroundColor: "lightgrey",
             backgroundRepeat: "no-repeat",
+            backgroundImage: "https://cdn.pixabay.com/photo/2016/05/05/02/37/sunset-1373171__480.jpg", //random placeholder
             backgroundSize: "cover",
             backgroundPositionY: "center",
             borderRadius: 1,

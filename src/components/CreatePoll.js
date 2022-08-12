@@ -5,16 +5,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import {
-  Box,
-  Grid,
-  IconButton,
-  InputAdornment,
-  InputBase,
-  Typography,
-} from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import ClearIcon from "@mui/icons-material/Clear";
+import { InputAdornment, Typography } from "@mui/material";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import PeopleSelector from "./PeopleSelector";
@@ -59,7 +50,6 @@ export default function CreatePoll(props) {
         setOptionNames([]);
         setErrorMessage(undefined);
         setError(false);
-        console.log(response);
       })
       .catch((error) => {
         const errorDescription = error.response.data.errorMessage;
@@ -79,8 +69,8 @@ export default function CreatePoll(props) {
   };
 
   return (
-    <Dialog open={props.open} onClose={props.handleClose}>
-      <DialogTitle sx={{ backgroundColor: "#110d26" }}>Start Poll</DialogTitle>
+    <Dialog open={props.open} onClose={props.handleClose} >
+      <DialogTitle sx={{ backgroundColor: "#110d26"}}>Start Poll</DialogTitle>
       <DialogContent sx={{ backgroundColor: "#110d26" }}>
         <TextField
           autoFocus

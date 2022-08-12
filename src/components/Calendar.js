@@ -18,23 +18,14 @@ function Calendar(props) {
     return date;
   }
 
-  // const currentDate = Moment();
-  const nextDate = Moment().add(2, "months").calendar();
-  console.log("nextDate", nextDate);
-
   const schedulerData = [];
 
   props.data.forEach((element) => {
-    // console.log(element.date)
     const startDateTemp = new Date(element.date);
-    // console.log("startDateTemp", startDateTemp)
     const startDate = Moment(startDateTemp).format("yyyy-MM-DDTHH:mm");
-    // console.log("startDate", startDate)
 
     const endDateTemp = addHours(2, startDateTemp);
-    // console.log("endDateTemp", endDateTemp)
     const endDate = Moment(endDateTemp).format("yyyy-MM-DDTHH:mm");
-    // console.log("endDate", endDate)
 
     schedulerData.push({
       startDate,
@@ -43,12 +34,10 @@ function Calendar(props) {
       id: element._id,
     });
   });
-  // console.log("schedulerData", schedulerData)
 
   let navigate = useNavigate();
 
   const openEventDetails = (event) => {
-    console.log(event.data.id);
     navigate(`/${event.data.id}`);
   };
 
@@ -71,42 +60,33 @@ function Calendar(props) {
     );
   };
 
-  // const MonthViewLayout = ({children, style, ...restProps}) => {
-  //     return (
-  //     <MonthView.MonthViewLayout>
-  //         {children}
-  //     </MonthView.MonthViewLayout>
-  //     )
-  // };
-
   return (
     <Paper
       sx={{
         background: "none",
-        border: "1px solid white",
         "& .css-99cbwm .MainLayout-background": {
           backgroundColor: "#110d26",
         },
         "& .css-y76m1d.Appointment-appointment": {
             height: "50%",
         },
-        // "& .css-1kbmavd.Container-container": {
-        //     height: 200
-        // }
+        "& .css-99cbwm.MainLayout-container": {
+            border: "1px solid white",
+            borderRadius: "10px",
+            overflow: "hidden",
+        },
+        "& .css-1b7ni76-MuiToolbar-root.Toolbar-toolbar": {
+            borderBottom: 0,
+        }
       }}
     >
-      {/* <Paper sx={{backgroundColor: "#252a42"}}> */}
+
       <Scheduler
         data={schedulerData}
-
-        // height={300} // scroll?
       >
-        <ViewState
-        // defaultCurrentDate={currentDate}
-        // currentDate={nextDate}
-        />
+        <ViewState/>
         <MonthView />
-        <Toolbar sx={{ backgroundColor: "red" }} />
+        <Toolbar />
         <DateNavigator openButtonComponent="none" />
         <TodayButton />
         <Appointments data appointmentComponent={Appointment} />

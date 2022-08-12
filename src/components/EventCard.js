@@ -1,8 +1,6 @@
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Moment from "moment";
 import Link from "@mui/material/Link";
@@ -12,9 +10,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
 import { Avatar } from "@mui/material";
-import badgeAccepted from "../images/badge-accepted.png";
-import badgeDeclined from "../images/badge-declined.png";
-import defaultEventPicture from "../images/default-event-picture.jpg";
+import badgeAccepted from "../images/badge-accepted.png"
+import badgeDeclined from "../images/badge-declined.png"
+import defaultEventPicture from "../images/default-event-picture.jpg"
 
 export default function EventCard(props) {
   const [currentUserId, setCurrentUserId] = useState(null);
@@ -34,12 +32,6 @@ export default function EventCard(props) {
   } else {
     eventImage = defaultEventPicture;
   }
-
-  // const SmallAvatar = styled(Avatar)(({ theme }) => ({
-  //   width: 15,
-  //   height: 15,
-  //   border: `2px solid ${theme.palette.background.paper}`,
-  // }));
 
   const storedToken = localStorage.getItem("authToken");
 
@@ -61,10 +53,11 @@ export default function EventCard(props) {
       });
   }, [currentUserId, storedToken, props.data.participants]);
 
-  const StatusIcon = styled(Avatar)(({ theme }) => ({
-    width: 15,
-    height: 15,
-  }));
+
+    const StatusIcon = styled(Avatar)(({ theme }) => ({
+      width: 15,
+      height: 15,
+    }));
 
   return (
     <Link underline="none" href={`./${props.data._id}`}>
@@ -100,47 +93,39 @@ export default function EventCard(props) {
               {props.data.name}
             </Typography>
 
-            <Typography sx={{ fontSize: "11px", mt: -1 }}>
-              <Box sx={{ display: "flex" }}>
-                by &nbsp;{" "}
-                {props.data.organizers.map((element, index) => {
-                  return (
-                    // CHANGE
-                    <div key={index}>
-                      {index > 0 && <span> and &nbsp; </span>}
-                      <span>{element.username} &nbsp; </span>
-                    </div>
-                  );
-                })}
-              </Box>
-            </Typography>
-
-            <Typography sx={{ fontSize: "11px", mt: 1 }}>
-              {currentUsersStatus === "accepted" && (
-                <Box sx={{ display: "flex" }}>
-                  <span>you have accepted</span>
-                  <StatusIcon src={badgeAccepted} sx={{ ml: 1 }} />
+        <Box sx={{fontSize: "11px", mt: -1, display: "flex", flexDirection: "row", flexWrap: "wrap"}}> 
+            by &nbsp; {props.data.organizers.map( (element, index) => {
+              return(
+                <Box key={index} sx={{display: "flex", flexDirection: "row"}}>
+                  {index>0 &&  <span> and &nbsp; </span>}
+                  <span style={{fontSize: "11px", whiteSpace: "nowrap"}}>{element.username} &nbsp; </span>
                 </Box>
-              )}
+              )
+            })}
+        </Box>
 
-              {currentUsersStatus === "declined" && (
-                <Box sx={{ display: "flex" }}>
-                  <span>you have declined</span>
-                  <StatusIcon src={badgeDeclined} sx={{ ml: 1 }} />
-                </Box>
-              )}
-            </Typography>
+        <Box sx={{fontSize: "11px", mt: 1}}>
+
+        {currentUsersStatus==='accepted' &&
+          <Box sx={{display: "flex"}}>
+            <Typography sx={{fontSize: "11px", whiteSpace: "nowrap"}}>you have accepted</Typography>
+            <StatusIcon src={badgeAccepted} sx={{ml: 1}}/>
           </Box>
-        </CardContent>
-        {/* <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">
-          <Link underline="hover" href={`./${props.data._id}`}>
-            Learn more
-          </Link>
-        </Button>
-      </CardActions> */}
-      </Card>
+
+        }
+
+        {currentUsersStatus==='declined' &&
+          <Box sx={{display: "flex"}}>
+            <Typography sx={{fontSize: "11px", whiteSpace: "nowrap"}}>you have declined</Typography>
+            <StatusIcon src={badgeDeclined} sx={{ml: 1}}/>
+          </Box>
+        }
+        </Box>
+
+      </Box>
+      </CardContent>
+    </Card>
+
     </Link>
   );
 }

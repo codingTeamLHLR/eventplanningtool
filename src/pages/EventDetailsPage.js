@@ -12,8 +12,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Typography } from "@mui/material";
 import Moment from "moment";
 import Poll from "../components/Polls";
-import CircularProgress from "@mui/material/CircularProgress";
-
 import { CalendarMonth, Place } from "@mui/icons-material";
 import GroupedAvatars from "../components/GroupedAvatars";
 import DeleteDialog from "../components/DeleteDialog";
@@ -49,7 +47,6 @@ function EventDetailsPage() {
       .then((response) => {
         setEvent(response.data);
         if(response.data.image) {
-
           const imageUrl = ShowImage(response.data.image);
           setEventImage(imageUrl);
         }
@@ -66,10 +63,10 @@ function EventDetailsPage() {
         );
       })
       .then((userInStatusArray) => {
-        if (userInStatusArray.status === "accepted") {
+        if (userInStatusArray?.status === "accepted") {
           setCurrentUsersStatus("accepted");
         }
-        if (userInStatusArray.status === "declined") {
+        if (userInStatusArray?.status === "declined") {
           setCurrentUsersStatus("declined");
         }
       })
@@ -108,7 +105,6 @@ function EventDetailsPage() {
       requestBody = { status: "declined" };
     }
 
-    console.log("resquestBody", requestBody);
     axios
       .put(
         process.env.REACT_APP_API_URL + "/events/" + eventId + "/status",
@@ -122,7 +118,6 @@ function EventDetailsPage() {
           setCurrentUsersStatus("accepted");
         } else {
           setCurrentUsersStatus("declined");
-          // console.log(currentUsersStatus)
         }
       })
       .catch((error) => {
@@ -141,7 +136,6 @@ function EventDetailsPage() {
             width="100%"
             sx={{
               height: "70vw",
-              // background: "linear-gradient(#e66465, #9198e5)",
               background: "lightgrey",
               backgroundImage: `url(${eventImage})`,
               backgroundRepeat: "no-repeat",

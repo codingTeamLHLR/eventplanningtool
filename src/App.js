@@ -18,12 +18,7 @@ import EventsListPage from "./pages/EventsListPage";
 const theme = createTheme({
   palette: {
     primary: {
-      // main: "#f79525",
-      // main: "#fcbf47",
       main: "#f7aa0f",
-      // main: "#ff702e",
-      // main: "#e8f0c2",
-      // main: "#fafa8e",
     },
     secondary: {
       main: "#f2c66f",

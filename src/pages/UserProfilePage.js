@@ -8,10 +8,7 @@ import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Typography } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
 import DeleteDialog from "../components/DeleteDialog";
-import IconButton from "@mui/material/IconButton";
-import { SettingsOutlined } from "@mui/icons-material";
 import OrganizerEventList from "../components/OrganizerEventList";
 
 function UserProfilePage() {
@@ -77,7 +74,6 @@ function UserProfilePage() {
                     width="30vw"
                     sx={{
                       height: "30vw",
-                      // background: "linear-gradient(#e66465, #9198e5)",
                       background: "lightgrey",
                       backgroundImage: `url(${ShowImage(userDetails.image)})`,
                       backgroundRepeat: "no-repeat",
@@ -140,9 +136,7 @@ function UserProfilePage() {
                     justifyContent="center"
                     sx={{ width: "100vw", p: "5%", m: 0, color:"text.primary" }}
                   >
-
-
-      
+    
               </Grid>
 
         </>

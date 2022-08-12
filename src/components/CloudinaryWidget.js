@@ -27,7 +27,6 @@ const CloudinaryWidget = (props) => {
         },
         (error, result) => {
           if (!error && result && result.event === "success") {
-            console.log("Done! Here is the image info: ", result.info);
             props.setImage(result.info.public_id);
             setImageName(result.info.original_filename);
             setImageFormat(result.info.format);

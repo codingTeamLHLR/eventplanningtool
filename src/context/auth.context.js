@@ -54,7 +54,7 @@ function AuthProviderWrapper(props) {
   const logOutUser = () => {
     removeToken();
     authenticateUser();
-    navigate("/login");
+    navigate("/");
   };
 
   useEffect(() => {
