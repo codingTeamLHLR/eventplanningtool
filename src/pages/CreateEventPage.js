@@ -11,6 +11,7 @@ import Container from "@mui/material/Container";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import {DesktopDateTimePicker} from '@mui/x-date-pickers/DesktopDateTimePicker';
 
 import PeopleSelector from "../components/PeopleSelector";
 import CloudinaryWidget from "../components/CloudinaryWidget";
@@ -94,7 +95,7 @@ function CreateEventPage() {
             />
 
             <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DateTimePicker
+              <DesktopDateTimePicker 
 
                 renderInput={(props) => (
                   <TextField
@@ -110,11 +111,21 @@ function CreateEventPage() {
                   />
                 )}
                 PaperProps={{
-                  sx: { backgroundColor: "#252a42" },
+                  sx: { 
+                    ml: 1.8,
+                    backgroundColor: "#252a42" , 
+                    "& .css-23vv5s-MuiButtonBase-root-MuiPickersDay-root": {background: "none"}, 
+                    "& .css-lm85tx-MuiButtonBase-root-MuiPickersDay-root": {background: "none"}, 
+                    "& .css-1khl9uc-MuiButtonBase-root-MuiIconButton-root": {color: "white"},
+                    "& .css-173nj1u-MuiButtonBase-root-MuiIconButton-root": {color: "white"}, 
+                    "& .css-1ae9t7h-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button": {color: "white"}, 
+                    "& .css-jro82b-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button": {color: "white"},
+                    "& .css-7kykdr-MuiButtonBase-root-MuiIconButton-root": {color: "white"},
+                    "& .css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root": {color: "white"},
+                    },
                 }}
                 disablePast={true}
 
-                // PopperProps={}
                 label="Date and Time"
                 value={time}
                 onChange={(newValue) => {
@@ -189,6 +200,8 @@ function CreateEventPage() {
             />
 
             <CloudinaryWidget setImage={setImage} />
+
+            <p>{errorMessage}</p>
 
             <Button
               type="submit"

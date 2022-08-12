@@ -3,14 +3,15 @@ import { useEffect, useState } from "react";
 import EventCard from "../components/EventCard";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import { Button, CircularProgress, Typography } from "@mui/material";
+import { Button, CircularProgress, Collapse, Slide, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import SortByDate from "../functions/SortByDate";
 // import nightlights from "../images/default-event-picture3.jpg";
 // import nightlights from "../images/default-event-picture3.jpg";
 import nightlights from "../images/default-event-picture.jpg"
+import {useScrollTrigger} from "@mui/material";
 
-export default function EventListPage() {
+export default function EventListPage(props) {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -27,9 +28,13 @@ export default function EventListPage() {
         console.log(error);
       });
   }, []);
+  
+  // const trigger = useScrollTrigger();
 
   return (
     <>
+    {/* <Collapse in={!trigger} collapsedSize={40} position="sticky">
+      <> */}
       <Box>
         <Typography
           variant="h2"
@@ -62,6 +67,8 @@ export default function EventListPage() {
           }}
         ></Box>
       </Box>
+      {/* </>
+      </Collapse> */}
 
       <Button
         component={Link}

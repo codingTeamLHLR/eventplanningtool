@@ -93,10 +93,11 @@ export default function EventCard(props) {
           <Box sx={{display: "flex"}}>
             by &nbsp; {props.data.organizers.map( (element, index) => {
               return(
-                <>
+                // CHANGE
+                <div key={index}>
                   {index>0 &&  <span> and &nbsp; </span>}
                   <span>{element.username} &nbsp; </span>
-                </>
+                </div>
               )
             })}
           </Box>
