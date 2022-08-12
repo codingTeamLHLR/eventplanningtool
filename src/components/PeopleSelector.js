@@ -1,11 +1,5 @@
 import * as React from "react";
-import {
-  FormControl,
-  Select,
-  InputLabel,
-  OutlinedInput,
-  MenuItem,
-} from "@mui/material";
+import { FormControl, Select, InputLabel, OutlinedInput, MenuItem } from "@mui/material";
 import axios from "axios";
 
 function PeopleSelector(props) {
@@ -58,7 +52,7 @@ function PeopleSelector(props) {
       .catch((error) => {
         const errorDescription = error.response.data.message;
         setErrorMessage(errorDescription);
-        console.log("this is error", errorDescription);
+        console.log(errorDescription);
       });
   }, [props]);
 
@@ -69,7 +63,6 @@ function PeopleSelector(props) {
       target: { value },
     } = event;
     setPersonId(value);
-    // setPersonName()
   };
 
 

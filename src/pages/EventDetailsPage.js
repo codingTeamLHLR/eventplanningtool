@@ -3,7 +3,6 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import Check from "@mui/icons-material/Check";
 import Close from "@mui/icons-material/Close";
-
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -14,8 +13,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Typography } from "@mui/material";
 import Moment from "moment";
 import Poll from "../components/Polls";
-import CircularProgress from "@mui/material/CircularProgress";
-
 import { CalendarMonth, Place } from "@mui/icons-material";
 import GroupedAvatars from "../components/GroupedAvatars";
 import DeleteDialog from "../components/DeleteDialog";
@@ -51,12 +48,11 @@ function EventDetailsPage() {
       .then((response) => {
         setEvent(response.data);
         if(response.data.image) {
-
           const imageUrl = ShowImage(response.data.image);
           setEventImage(imageUrl);
         }
         else {
-          
+          setEventImage(defaultEventPicture);
         }
         setFormatDate(Moment(response.data.date).format("MMM Do YY"));
         setFormatTime(Moment(response.data.date).format("h:mm A"));
@@ -68,10 +64,10 @@ function EventDetailsPage() {
         );
       })
       .then((userInStatusArray) => {
-        if (userInStatusArray.status === "accepted") {
+        if (userInStatusArray?.status === "accepted") {
           setCurrentUsersStatus("accepted");
         }
-        if (userInStatusArray.status === "declined") {
+        if (userInStatusArray?.status === "declined") {
           setCurrentUsersStatus("declined");
         }
       })
@@ -110,7 +106,6 @@ function EventDetailsPage() {
       requestBody = { status: "declined" };
     }
 
-    console.log("resquestBody", requestBody);
     axios
       .put(
         process.env.REACT_APP_API_URL + "/events/" + eventId + "/status",
@@ -124,7 +119,6 @@ function EventDetailsPage() {
           setCurrentUsersStatus("accepted");
         } else {
           setCurrentUsersStatus("declined");
-          // console.log(currentUsersStatus)
         }
       })
       .catch((error) => {
@@ -143,7 +137,6 @@ function EventDetailsPage() {
             width="100%"
             sx={{
               height: "70vw",
-              // background: "linear-gradient(#e66465, #9198e5)",
               background: "lightgrey",
               backgroundImage: `url(${eventImage})`,
               backgroundRepeat: "no-repeat",

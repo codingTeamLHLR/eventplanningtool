@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Bar } from "react-chartjs-2";
-import Chart from 'chart.js/auto'
 
 export default function PollChart({pollOptions}) {
 
@@ -43,7 +42,6 @@ export default function PollChart({pollOptions}) {
 
   return (
     <>
-      {/* {console.log(pollData)} */}
       <Bar
         data={pollData()}
         options={{

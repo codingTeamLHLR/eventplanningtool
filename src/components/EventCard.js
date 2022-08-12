@@ -1,9 +1,7 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Moment from "moment";
 import Link from "@mui/material/Link";
@@ -16,7 +14,6 @@ import { Avatar } from "@mui/material";
 import badgeAccepted from "../images/badge-accepted.png"
 import badgeDeclined from "../images/badge-declined.png"
 import defaultEventPicture from "../images/default-event-picture.jpg"
-
 
 export default function EventCard(props) {
 
@@ -39,12 +36,6 @@ export default function EventCard(props) {
       defaultEventPicture;
   }
 
-  // const SmallAvatar = styled(Avatar)(({ theme }) => ({
-  //   width: 15,
-  //   height: 15,
-  //   border: `2px solid ${theme.palette.background.paper}`,
-  // }));
-
   const storedToken = localStorage.getItem("authToken");
 
   useEffect(() => {
@@ -65,7 +56,6 @@ export default function EventCard(props) {
     const StatusIcon = styled(Avatar)(({ theme }) => ({
       width: 15,
       height: 15,
-      // border: `1px solid ${theme.palette.background.paper}`,
     }));
 
   return (
@@ -89,23 +79,18 @@ export default function EventCard(props) {
           {props.data.name}
         </Typography>
 
-        <Typography sx={{fontSize: "11px", mt: -1}}> 
-          <Box sx={{display: "flex", flexWrap: "wrap"}}>
+        <Box sx={{fontSize: "11px", mt: -1, display: "flex", flexDirection: "row", flexWrap: "wrap"}}> 
             by &nbsp; {props.data.organizers.map( (element, index) => {
               return(
-                // CHANGE
-                <div key={index}>
+                <Box key={index} sx={{display: "flex", flexDirection: "row"}}>
                   {index>0 &&  <span> and &nbsp; </span>}
-                  <Typography sx={{fontSize: "11px", whiteSpace: "nowrap"}}>{element.username} &nbsp; </Typography>
-                </div>
+                  <span style={{fontSize: "11px", whiteSpace: "nowrap"}}>{element.username} &nbsp; </span>
+                </Box>
               )
             })}
-          </Box>
-        </Typography>
-        
+        </Box>
 
-
-        <Typography sx={{fontSize: "11px", mt: 1}}>
+        <Box sx={{fontSize: "11px", mt: 1}}>
 
         {currentUsersStatus==='accepted' &&
           <Box sx={{display: "flex"}}>
@@ -121,7 +106,7 @@ export default function EventCard(props) {
             <StatusIcon src={badgeDeclined} sx={{ml: 1}}/>
           </Box>
         }
-        </Typography>
+        </Box>
 
       </Box>
       </CardContent>

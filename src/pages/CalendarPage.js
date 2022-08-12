@@ -15,9 +15,6 @@ function CalendarPage() {
           headers: { Authorization: `Bearer ${storedToken}` },
         })
         .then((response) => {
-          // console.log('Object of all events:', response.data);
-          // console.log("api response", response.data)
-          // console.log("sorted", SortByDate(response.data))
           setEvents(SortByDate(response.data));
   
         })

@@ -13,13 +13,11 @@ import badgeDeclined from "../images/badge-declined.png"
 const StatusIcon = styled(Avatar)(({ theme }) => ({
   width: 15,
   height: 15,
-  // border: `1px solid ${theme.palette.background.paper}`,
 }));
 
 export default function GroupedAvatars(props) {
 
   return (
-    // <AvatarGroup sx={{backgroundColor: "red", display: 'flex'}}>
 
     <Box sx={{display: "flex", flexWrap: "wrap", }}>
 
@@ -108,42 +106,3 @@ export default function GroupedAvatars(props) {
   );
 }
 
-
-            // {/* {participant.status==='accepted' ? (
-            //   <Box sx={{backgroundColor: "red"}}/>
-            // ) : (
-            //   <></>
-            // )} */}
-
-
-    //             {/* <AvatarGroup
-    //   sx={{
-    //     display: "flex",
-    //     flexDirection: "row-reverse",
-    //     justifyContent: "flex-end",
-    //   }}
-    // >
-    //   {avatars.map((participant) => {
-    //     return (
-    //       <Box key={participant._id} sx={{ m: 0 }}>
-    //         {participant.image ? (
-    //           <Avatar
-    //             alt={participant.username}
-    //             src={ShowImage(participant.image)}
-    //           />
-    //         ) : (
-    //           <BackgroundLetterAvatars name={participant.user.username} />
-    //         )}
-    //         {props.organizersArray.includes(participant._id) ? (
-    //           <Typography style={{ fontSize: "11px" }}> Host </Typography>
-    //         ) : (
-    //           <></>
-    //         )}
-
-            
-    //       </Box>
-    //     );
-    //   })}
-
-    //   {!!surplus && <Avatar sx={{ left: 8, top: 0 }}>+{surplus}</Avatar>}
-    // </AvatarGroup> */}

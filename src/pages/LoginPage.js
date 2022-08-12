@@ -1,10 +1,8 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
-
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -16,9 +14,7 @@ import Link from "@mui/material/Link";
 function LoginPage() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
-  // const [errorMessageEmail, setErrorMessageEmail] = useState(undefined);
-  // const [errorMessagePassword, setErrorMessagePassword] = useState(undefined);
-
+  
   const { storeToken, authenticateUser } = useContext(AuthContext);
 
   const handleLoginSubmit = (event) => {
@@ -39,10 +35,7 @@ function LoginPage() {
       })
       .catch((error) => {
         setError(true);
-        // ----CHANGE ROUTES!!!!
         setErrorMessage(error.response.data.errorMessage)  
-        // setErrorMessageEmail(error.response.data.errorMessageEmail);
-        // setErrorMessagePassword(error.response.data.errorMessagePassword);
         console.log(error);
       });
   };

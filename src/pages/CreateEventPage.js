@@ -1,18 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import {DesktopDateTimePicker} from '@mui/x-date-pickers/DesktopDateTimePicker';
-
 import PeopleSelector from "../components/PeopleSelector";
 import CloudinaryWidget from "../components/CloudinaryWidget";
 import { Typography } from "@mui/material";
@@ -90,7 +86,6 @@ function CreateEventPage() {
               autoComplete="name"
               autoFocus
               error={error}
-              // helperText={errorMessage}
               sx={{ backgroundColor: "#252a42", borderRadius: "10px", mt: 1 }}
             />
 

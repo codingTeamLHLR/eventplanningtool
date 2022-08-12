@@ -1,6 +1,5 @@
 import {useState, useEffect} from "react";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import PollCard from "./PollCard";
 import axios from "axios";
 import CreatePoll from "./CreatePoll";
@@ -10,7 +9,6 @@ export default function PollList(props) {
   const [open, setOpen] = useState(false);
   const [polls, setPolls] = useState(null);
   const [rerender, setRerender] = useState(false);
-  const [userId, setUserId] = useState(null);
 
   const storedToken = localStorage.getItem("authToken");
 
@@ -20,7 +18,6 @@ export default function PollList(props) {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        setUserId(response.data._id);
         return axios.get(
           process.env.REACT_APP_API_URL + "/events/:eventId/polls",
           {

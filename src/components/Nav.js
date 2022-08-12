@@ -2,42 +2,16 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import Event from "@mui/icons-material/Event";
-import Forum from "@mui/icons-material/Forum";
-import Person from "@mui/icons-material/Person";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { NavLink } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "../context/auth.context";
-import {
-  ViewDayOutlined,
-  CalendarMonthOutlined,
-  ManageAccountsOutlined,
-} from "@mui/icons-material";
-
-import LoginIcon from "@mui/icons-material/Login";
-import LogoutIcon from "@mui/icons-material/Logout";
-import {
-  Button,
-  IconButton,
-  ListItemIcon,
-  Menu,
-  MenuItem,
-  Tooltip,
-} from "@mui/material";
+import {ViewDayOutlined, CalendarMonthOutlined, ManageAccountsOutlined} from "@mui/icons-material";
+import {IconButton, Tooltip} from "@mui/material";
 import ProfileMenu from "./ProfileMenu";
 
 export default function SimpleBottomNavigation(props) {
   const [value, setValue] = React.useState(0);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-
-  console.log("navprops", props)
 
   return (
-
-
 
     <Box sx={{ width: "100vw", position: "fixed", bottom: 0, zIndex: 1 }}>
       <BottomNavigation
@@ -62,9 +36,7 @@ export default function SimpleBottomNavigation(props) {
           <BottomNavigationAction
             component={IconButton}
             onClick={(event) => setAnchorEl(event.currentTarget)}
-            // aria-controls={open ? "account-menu" : undefined}
             aria-haspopup="true"
-            // aria-expanded={open ? "true" : undefined}
             label="Account"
             icon={<ManageAccountsOutlined sx={{ color: "#b5b5ba" }} />}
           />

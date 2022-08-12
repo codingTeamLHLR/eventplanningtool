@@ -1,13 +1,30 @@
 
 import Box from "@mui/material/Box";
-// import nightlights from "./../images/nightlights.jpg"
-// import nightlights from "../images/test.png"
 import nightlights from "../images/default-event-picture.jpg";
 import { Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
+
+const storedToken = localStorage.getItem("authToken");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get(process.env.REACT_APP_API_URL + "/verify", {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then(() => {
+        navigate("/events");
+      })
+      .catch(() => {
+        console.log("Welcome. Please Sign up or log in.")
+      })
+    })
 
 
   return (
@@ -50,9 +67,11 @@ function HomePage() {
                 <Typography variant="h1" >
                     rumble
                 </Typography>
+
                 <Link to="/login" > 
                     <Button variant="outlined" sx={{mt: "20px"}}> Log In </Button>
                 </Link>
+
                 <Link to="/signup" > 
                     <Button sx={{mt: "20px"}}> Sign Up</Button>
                 </Link>

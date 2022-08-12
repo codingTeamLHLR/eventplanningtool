@@ -1,16 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import CloudinaryWidget from "../components/CloudinaryWidget";
-import { CircularProgress } from "@mui/material";
-
 
 function UpdateUserProfilePage() {
   const [error, setError] = useState(false);
@@ -73,7 +69,7 @@ function UpdateUserProfilePage() {
         const errorDescription = error.response.data.errorMessage;
         setError(true);
         setErrorMessage(errorDescription);
-        console.log("this is error", errorDescription);
+        console.log(errorDescription);
       });
   };
 
