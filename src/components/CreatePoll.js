@@ -69,8 +69,8 @@ export default function CreatePoll(props) {
   };
 
   return (
-    <Dialog open={props.open} onClose={props.handleClose} >
-      <DialogTitle sx={{ backgroundColor: "#110d26"}}>Start Poll</DialogTitle>
+    <Dialog open={props.open} onClose={props.handleClose}>
+      <DialogTitle sx={{ backgroundColor: "#110d26" }}>Start Poll</DialogTitle>
       <DialogContent sx={{ backgroundColor: "#110d26" }}>
         <TextField
           autoFocus
@@ -172,9 +172,9 @@ export default function CreatePoll(props) {
               </div>
             );
           })}
-      <Typography color="error" sx={{mt:3}}>
+        <Typography color="error" sx={{ mt: 3 }}>
           {errorMessage}
-          </Typography>
+        </Typography>
       </DialogContent>
 
       <DialogActions sx={{ backgroundColor: "#110d26" }}>

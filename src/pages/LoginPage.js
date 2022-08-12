@@ -14,7 +14,7 @@ import Link from "@mui/material/Link";
 function LoginPage() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
-  
+
   const { storeToken, authenticateUser } = useContext(AuthContext);
 
   const handleLoginSubmit = (event) => {
@@ -95,8 +95,8 @@ function LoginPage() {
             sx={{ backgroundColor: "#252a42", borderRadius: "10px", mt: 1 }}
           />
 
-          <Typography color="error" sx={{mt:3}}>
-          {errorMessage}
+          <Typography color="error" sx={{ mt: 3 }}>
+            {errorMessage}
           </Typography>
 
           <Button

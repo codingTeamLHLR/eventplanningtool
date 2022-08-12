@@ -15,7 +15,7 @@ import Poll from "../components/Polls";
 import { CalendarMonth, Place } from "@mui/icons-material";
 import GroupedAvatars from "../components/GroupedAvatars";
 import DeleteDialog from "../components/DeleteDialog";
-import defaultEventPicture from "../images/default-event-picture.jpg"
+import defaultEventPicture from "../images/default-event-picture.jpg";
 
 function EventDetailsPage() {
   const { eventId } = useParams();
@@ -46,11 +46,10 @@ function EventDetailsPage() {
       })
       .then((response) => {
         setEvent(response.data);
-        if(response.data.image) {
+        if (response.data.image) {
           const imageUrl = ShowImage(response.data.image);
           setEventImage(imageUrl);
-        }
-        else {
+        } else {
           setEventImage(defaultEventPicture);
         }
         setFormatDate(Moment(response.data.date).format("MMM Do YY"));

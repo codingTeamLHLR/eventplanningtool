@@ -30,11 +30,12 @@ function AuthProviderWrapper(props) {
           setIsLoading(false);
         })
         .then(() => {
-          if(redirect) { 
+          if (redirect) {
             navigate(redirect);
-          }})
+          }
+        })
         .catch((error) => {
-          console.log(error)
+          console.log(error);
           setIsLoggedIn(false);
           setUser(null);
           setIsLoading(false);
@@ -49,7 +50,6 @@ function AuthProviderWrapper(props) {
   const removeToken = () => {
     localStorage.removeItem("authToken");
   };
-
 
   const logOutUser = () => {
     removeToken();

@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import PollCard from "./PollCard";
 import axios from "axios";
@@ -45,14 +45,14 @@ export default function PollList(props) {
     <>
       <Grid container spacing={3}>
         <Grid item xs={12} elevation={4}>
-            <Button variant="outlined" fullwidth onClick={handleClickOpen} >
-              Start new poll
-            </Button>
-            <CreatePoll
-              open={open}
-              handleClose={handleClose}
-              participants={props.participants}
-            />
+          <Button variant="outlined" fullwidth onClick={handleClickOpen}>
+            Start new poll
+          </Button>
+          <CreatePoll
+            open={open}
+            handleClose={handleClose}
+            participants={props.participants}
+          />
         </Grid>
         <>
           {!polls ? (
@@ -70,6 +70,8 @@ export default function PollList(props) {
                       <PollCard pollId={poll._id} />
                     </Grid>
                   );
+                } else{ 
+                  return <></>
                 }
               })}
             </>

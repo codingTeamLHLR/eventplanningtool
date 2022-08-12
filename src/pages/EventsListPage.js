@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import EventCard from "../components/EventCard";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import { Button, CircularProgress, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import SortByDate from "../functions/SortByDate";
-import nightlights from "../images/default-event-picture.jpg"
+import nightlights from "../images/default-event-picture.jpg";
 export default function EventListPage(props) {
   const [events, setEvents] = useState([]);
 
@@ -50,7 +50,8 @@ export default function EventListPage(props) {
             height: "60vw",
             backgroundColor: "lightgrey",
             backgroundRepeat: "no-repeat",
-            backgroundImage: "https://cdn.pixabay.com/photo/2016/05/05/02/37/sunset-1373171__480.jpg", //random placeholder
+            backgroundImage:
+              "https://cdn.pixabay.com/photo/2016/05/05/02/37/sunset-1373171__480.jpg", //random placeholder
             backgroundSize: "cover",
             backgroundPositionY: "center",
             borderRadius: 1,

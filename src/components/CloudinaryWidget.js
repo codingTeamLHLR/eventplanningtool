@@ -47,13 +47,13 @@ const CloudinaryWidget = (props) => {
   };
 
   return (
-    <Box sx={{mt: 2}}>
+    <Box sx={{ mt: 2 }}>
       <Button
         variant="outlined"
         fullWidth
         startIcon={<FileUploadIcon />}
         onClick={openWidget}
-        sx={{height: 56, borderRadius: "10px"}}
+        sx={{ height: 56, borderRadius: "10px" }}
       >
         Upload Picture
       </Button>

@@ -1,4 +1,12 @@
-import { Button, Card, CardContent, CardHeader, Grid, IconButton, Tooltip } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -110,12 +118,11 @@ export default function Poll({ pollId }) {
       ) : (
         <Card sx={{ background: "#252a42" }}>
           <CardHeader
-            titleTypographyProps={{align: "left"}}
-            subheaderTypographyProps={{align: "left"}}
+            titleTypographyProps={{ align: "left" }}
+            subheaderTypographyProps={{ align: "left" }}
             title={poll.title}
             subheader={poll.description}
-            action=
-            {
+            action={
               <>
                 {poll.owner === userId && (
                   <>
@@ -129,7 +136,7 @@ export default function Poll({ pollId }) {
                               poll.status === "active" ? "success" : "error"
                             }
                             onClick={changeStatus}
-                            sx={{ height: "22px", mr: "20px"}}
+                            sx={{ height: "22px", mr: "20px" }}
                           >
                             {poll.status}
                           </Button>
@@ -163,13 +170,13 @@ export default function Poll({ pollId }) {
           <CardContent>
             <>
               {!voted && poll.status === "active" && (
-                <Grid container xs={12} spacing={1} sx={{mb: "10px"}}>
+                <Grid container xs={12} spacing={1} sx={{ mb: "10px" }}>
                   {poll.options.map((option) => {
                     return (
                       <Grid item key={option._id}>
                         <Button
                           variant="outlined"
-                          sx={{height: "22px"}}
+                          sx={{ height: "22px" }}
                           size="small"
                           onClick={() => {
                             setVoted(true);

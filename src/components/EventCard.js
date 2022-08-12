@@ -10,9 +10,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
 import { Avatar } from "@mui/material";
-import badgeAccepted from "../images/badge-accepted.png"
-import badgeDeclined from "../images/badge-declined.png"
-import defaultEventPicture from "../images/default-event-picture.jpg"
+import badgeAccepted from "../images/badge-accepted.png";
+import badgeDeclined from "../images/badge-declined.png";
+import defaultEventPicture from "../images/default-event-picture.jpg";
 
 export default function EventCard(props) {
   const [currentUserId, setCurrentUserId] = useState(null);
@@ -53,11 +53,10 @@ export default function EventCard(props) {
       });
   }, [currentUserId, storedToken, props.data.participants]);
 
-
-    const StatusIcon = styled(Avatar)(({ theme }) => ({
-      width: 15,
-      height: 15,
-    }));
+  const StatusIcon = styled(Avatar)(({ theme }) => ({
+    width: 15,
+    height: 15,
+  }));
 
   return (
     <Link underline="none" href={`./events/${props.data._id}`}>
@@ -93,39 +92,52 @@ export default function EventCard(props) {
               {props.data.name}
             </Typography>
 
-        <Box sx={{fontSize: "11px", display: "flex", flexDirection: "row", flexWrap: "wrap"}}> 
-            by &nbsp; {props.data.organizers.map( (element, index) => {
-              return(
-                <Box key={index} sx={{display: "flex", flexDirection: "row"}}>
-                  {index>0 &&  <span> and &nbsp; </span>}
-                  <span style={{fontSize: "11px", whiteSpace: "nowrap"}}>{element.username} &nbsp; </span>
+            <Box
+              sx={{
+                fontSize: "11px",
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+              }}
+            >
+              by &nbsp;{" "}
+              {props.data.organizers.map((element, index) => {
+                return (
+                  <Box
+                    key={index}
+                    sx={{ display: "flex", flexDirection: "row" }}
+                  >
+                    {index > 0 && <span> and &nbsp; </span>}
+                    <span style={{ fontSize: "11px", whiteSpace: "nowrap" }}>
+                      {element.username} &nbsp;{" "}
+                    </span>
+                  </Box>
+                );
+              })}
+            </Box>
+
+            <Box sx={{ fontSize: "11px", mt: 1 }}>
+              {currentUsersStatus === "accepted" && (
+                <Box sx={{ display: "flex" }}>
+                  <Typography sx={{ fontSize: "11px", whiteSpace: "nowrap" }}>
+                    you have accepted
+                  </Typography>
+                  <StatusIcon src={badgeAccepted} sx={{ ml: 1 }} />
                 </Box>
-              )
-            })}
-        </Box>
+              )}
 
-        <Box sx={{fontSize: "11px", mt: 1}}>
-
-        {currentUsersStatus==='accepted' &&
-          <Box sx={{display: "flex"}}>
-            <Typography sx={{fontSize: "11px", whiteSpace: "nowrap"}}>you have accepted</Typography>
-            <StatusIcon src={badgeAccepted} sx={{ml: 1}}/>
+              {currentUsersStatus === "declined" && (
+                <Box sx={{ display: "flex" }}>
+                  <Typography sx={{ fontSize: "11px", whiteSpace: "nowrap" }}>
+                    you have declined
+                  </Typography>
+                  <StatusIcon src={badgeDeclined} sx={{ ml: 1 }} />
+                </Box>
+              )}
+            </Box>
           </Box>
-
-        }
-
-        {currentUsersStatus==='declined' &&
-          <Box sx={{display: "flex"}}>
-            <Typography sx={{fontSize: "11px", whiteSpace: "nowrap"}}>you have declined</Typography>
-            <StatusIcon src={badgeDeclined} sx={{ml: 1}}/>
-          </Box>
-        }
-        </Box>
-
-      </Box>
-      </CardContent>
-    </Card>
-
+        </CardContent>
+      </Card>
     </Link>
   );
 }

@@ -1,10 +1,13 @@
-
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import { NavLink } from "react-router-dom";
-import {ViewDayOutlined, CalendarMonthOutlined, ManageAccountsOutlined} from "@mui/icons-material";
-import {IconButton, Tooltip} from "@mui/material";
+import {
+  ViewDayOutlined,
+  CalendarMonthOutlined,
+  ManageAccountsOutlined,
+} from "@mui/icons-material";
+import { IconButton, Tooltip } from "@mui/material";
 import ProfileMenu from "./ProfileMenu";
 import { useState } from "react";
 
@@ -13,7 +16,6 @@ export default function SimpleBottomNavigation(props) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   return (
-
     <Box sx={{ width: "100vw", position: "fixed", bottom: 0, zIndex: 1 }}>
       <BottomNavigation
         showLabels
@@ -46,6 +48,5 @@ export default function SimpleBottomNavigation(props) {
         <ProfileMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
       </BottomNavigation>
     </Box>
-
   );
 }

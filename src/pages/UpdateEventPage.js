@@ -23,7 +23,6 @@ function UpdateEventPage() {
   const [image, setImage] = useState("");
   const [organizers, setOrganizers] = useState([]);
   const [event, setEvent] = useState({});
-  const [userId, setUserId] = useState(null);
 
   const storedToken = localStorage.getItem("authToken");
 
@@ -101,10 +100,19 @@ function UpdateEventPage() {
         <></>
       ) : (
         <>
-        <Typography component="h1" variant="h5" sx={{color: "text.primary", mt:"20px"}}>Update Event</Typography>
+          <Typography
+            component="h1"
+            variant="h5"
+            sx={{ color: "text.primary", mt: "20px" }}
+          >
+            Update Event
+          </Typography>
 
-          <Container component="main" maxWidth="xs" sx={{color: "text.primary", mt:"20px"}}>
-
+          <Container
+            component="main"
+            maxWidth="xs"
+            sx={{ color: "text.primary", mt: "20px" }}
+          >
             <Box
               sx={{
                 marginTop: 0,
@@ -131,7 +139,11 @@ function UpdateEventPage() {
                   autoComplete="name"
                   autoFocus
                   error={error}
-                  sx={{ backgroundColor: "#252a42", borderRadius: "10px", mt: 1 }}
+                  sx={{
+                    backgroundColor: "#252a42",
+                    borderRadius: "10px",
+                    mt: 1,
+                  }}
                   value={event.name}
                   onChange={handleChange}
                 />
@@ -140,30 +152,41 @@ function UpdateEventPage() {
                   <DesktopDateTimePicker
                     renderInput={(props) => (
                       <TextField
-                      sx={{
-                      backgroundColor: "#252a42",
-                      borderRadius: "10px",
-                      mt: 2,
-                      mb: 1
-                    }}
-                    fullWidth
-                    InputLabelProps={{ shrink: true }}
-                    {...props}
-                  />
+                        sx={{
+                          backgroundColor: "#252a42",
+                          borderRadius: "10px",
+                          mt: 2,
+                          mb: 1,
+                        }}
+                        fullWidth
+                        InputLabelProps={{ shrink: true }}
+                        {...props}
+                      />
                     )}
                     PaperProps={{
-                      sx: { 
+                      sx: {
                         ml: 1.8,
-                        backgroundColor: "#252a42" , 
-                        "& .css-23vv5s-MuiButtonBase-root-MuiPickersDay-root": {background: "none"}, 
-                        "& .css-lm85tx-MuiButtonBase-root-MuiPickersDay-root": {background: "none"}, 
-                        "& .css-1khl9uc-MuiButtonBase-root-MuiIconButton-root": {color: "white"},
-                        "& .css-173nj1u-MuiButtonBase-root-MuiIconButton-root": {color: "white"}, 
-                        "& .css-1ae9t7h-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button": {color: "white"}, 
-                        "& .css-jro82b-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button": {color: "white"},
-                        "& .css-7kykdr-MuiButtonBase-root-MuiIconButton-root": {color: "white"},
-                        "& .css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root": {color: "white"},
+                        backgroundColor: "#252a42",
+                        "& .css-23vv5s-MuiButtonBase-root-MuiPickersDay-root": {
+                          background: "none",
                         },
+                        "& .css-lm85tx-MuiButtonBase-root-MuiPickersDay-root": {
+                          background: "none",
+                        },
+                        "& .css-1khl9uc-MuiButtonBase-root-MuiIconButton-root":
+                          { color: "white" },
+                        "& .css-173nj1u-MuiButtonBase-root-MuiIconButton-root":
+                          { color: "white" },
+                        "& .css-1ae9t7h-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button":
+                          { color: "white" },
+                        "& .css-jro82b-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button":
+                          { color: "white" },
+                        "& .css-7kykdr-MuiButtonBase-root-MuiIconButton-root": {
+                          color: "white",
+                        },
+                        "& .css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root":
+                          { color: "white" },
+                      },
                     }}
                     disablePast={true}
                     label="Date and Time"
@@ -256,9 +279,9 @@ function UpdateEventPage() {
 
                 <CloudinaryWidget setImage={setImage} image={event.image} />
 
-                <Typography color="error" sx={{mt:3}}>
-          {errorMessage}
-          </Typography>
+                <Typography color="error" sx={{ mt: 3 }}>
+                  {errorMessage}
+                </Typography>
 
                 <Button
                   type="submit"

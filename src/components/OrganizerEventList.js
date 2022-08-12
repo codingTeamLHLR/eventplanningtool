@@ -27,7 +27,7 @@ export default function OrganizerEventListPage() {
         const organizerEvents = [];
 
         response.data.forEach((event) => {
-          if (event.organizers.find(element => element._id ===userId)) {
+          if (event.organizers.find((element) => element._id === userId)) {
             organizerEvents.push(event);
           }
         });
@@ -40,17 +40,16 @@ export default function OrganizerEventListPage() {
 
   return (
     <>
-
       <Grid container sx={{ p: 2 }} columnSpacing={2}>
         {events.length === 0 ? (
-                <Typography
-                align="left"
-                variant="p"
-                color="primary"
-                sx={{ mt: 2, p: 0.5 }}
-              >
-                No Events to show here 
-              </Typography>
+          <Typography
+            align="left"
+            variant="p"
+            color="primary"
+            sx={{ mt: 2, p: 0.5 }}
+          >
+            No Events to show here
+          </Typography>
         ) : (
           <>
             {events.map((element) => {

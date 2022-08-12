@@ -67,98 +67,101 @@ function UserProfilePage() {
         <> </>
       ) : (
         <>
+          <Box
+            sx={{
+              color: "text.primary",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              m: "5%",
+            }}
+          >
+            <Box
+              width="30vw"
+              sx={{
+                height: "30vw",
+                background: "lightgrey",
+                backgroundImage: `url(${ShowImage(userDetails.image)})`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundPositionY: "center",
+                borderRadius: "50%",
+                mr: "20px",
+              }}
+            />
+            <Typography
+              align="center"
+              variant="h6"
+              component="div"
+              gutterBottom
+            >
+              {userDetails.username}
+            </Typography>
+          </Box>
 
-                <Box sx={{color:"text.primary", display: "flex", justifyContent: "center", alignItems:"center", m:"5%"}}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              m: "5%",
+              pb: "20px",
+              borderBottom: "1px solid #f7aa0f",
+            }}
+          >
+            <Button
+              variant="outlined"
+              color="error"
+              sx={{ width: "49%" }}
+              onClick={() => deleteUserHandleClickOpen()}
+              startIcon={<DeleteIcon />}
+            >
+              Delete
+            </Button>
 
-                  <Box
-                    width="30vw"
-                    sx={{
-                      height: "30vw",
-                      background: "lightgrey",
-                      backgroundImage: `url(${ShowImage(userDetails.image)})`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundSize: "cover",
-                      backgroundPositionY: "center",
-                      borderRadius: "50%",
-                      mr: "20px"
-                    }}
-                  />
-                  <Typography
-                    align="center"
-                    variant="h6"
-                    component="div"
-                    gutterBottom
-                  >
-                    {userDetails.username}
-                  </Typography>
+            <Button
+              variant="contained"
+              sx={{ width: "49%" }}
+              startIcon={<EditIcon />}
+              href={`/update-user`}
+            >
+              Edit
+            </Button>
+          </Box>
 
-                </Box>
+          <Box sx={{ ml: "5%", mr: "5%" }}>
+            <Typography
+              align="left"
+              variant="h6"
+              component="div"
+              color="secondary"
+              sx={{ mb: -5 }}
+            >
+              Your Events
+            </Typography>
+          </Box>
 
-                <Box sx={{display: "flex", justifyContent:"space-between", m:"5%", pb:"20px", borderBottom: "1px solid #f7aa0f"}}>
-
-                  <Button
-                      variant="outlined"
-                      color="error"
-                      sx={{ width: "49%" }}
-                      onClick={() => deleteUserHandleClickOpen()}
-                      startIcon={<DeleteIcon />}
-                    >
-                      Delete
-                  </Button>
-
-                  <Button
-                        variant="contained"
-                        sx={{ width: "49%" }}
-                        startIcon={<EditIcon />}
-                        href={`/update-user`}
-                      >
-                        Edit
-                  </Button>
-
-                </Box>
-
-                <Box sx={{ml:"5%", mr:"5%"}}>
-                    <Typography
-                            align="left"
-                            variant="h6"
-                            component="div"
-                            color="secondary"
-                            sx={{mb: -5}}
-                          >
-                            Your Events
-                      </Typography>
-                </Box>
-
-                <Grid
-                    container
-                    rowSpacing={3}
-                    align="center"
-                    justifyContent="center"
-                    sx={{ width: "100vw", p: "5%", m: 0, color:"text.primary" }}
-                  >
-    
-              </Grid>
-
+          <Grid
+            container
+            rowSpacing={3}
+            align="center"
+            justifyContent="center"
+            sx={{ width: "100vw", p: "5%", m: 0, color: "text.primary" }}
+          ></Grid>
         </>
-
-
       )}
 
-            {openDeleteModal === true && (
-              <DeleteDialog
-                open={openDeleteModal}
-                callBackToClose={deleteUserHandleClose}
-                callBackToDelete={deleteUser}
-                type="deleteUser"
-              />
-            )}
+      {openDeleteModal === true && (
+        <DeleteDialog
+          open={openDeleteModal}
+          callBackToClose={deleteUserHandleClose}
+          callBackToDelete={deleteUser}
+          type="deleteUser"
+        />
+      )}
 
-
-        <Grid item xs={12}>
-          <OrganizerEventList/>
-        </Grid>
-
-      
+      <Grid item xs={12}>
+        <OrganizerEventList />
+      </Grid>
     </>
   );
 }

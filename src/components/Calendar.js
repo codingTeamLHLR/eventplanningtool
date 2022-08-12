@@ -38,7 +38,7 @@ function Calendar(props) {
   let navigate = useNavigate();
 
   const openEventDetails = (event) => {
-    navigate(`/${event.data.id}`);
+    navigate(`/events/${event.data.id}`);
   };
 
   const Appointment = ({ children, style, ...restProps }) => {
@@ -52,7 +52,6 @@ function Calendar(props) {
           borderRadius: "5%",
           fontSize: "13px",
           border: "none",
-
         }}
       >
         {children}
@@ -68,23 +67,20 @@ function Calendar(props) {
           backgroundColor: "#110d26",
         },
         "& .css-y76m1d.Appointment-appointment": {
-            height: "50%",
+          height: "50%",
         },
         "& .css-99cbwm.MainLayout-container": {
-            border: "1px solid white",
-            borderRadius: "10px",
-            overflow: "hidden",
+          border: "1px solid white",
+          borderRadius: "10px",
+          overflow: "hidden",
         },
         "& .css-1b7ni76-MuiToolbar-root.Toolbar-toolbar": {
-            borderBottom: 0,
-        }
+          borderBottom: 0,
+        },
       }}
     >
-
-      <Scheduler
-        data={schedulerData}
-      >
-        <ViewState/>
+      <Scheduler data={schedulerData}>
+        <ViewState />
         <MonthView />
         <Toolbar />
         <DateNavigator openButtonComponent="none" />

@@ -1,14 +1,19 @@
-import { FormControl, Select, InputLabel, OutlinedInput, MenuItem } from "@mui/material";
+import {
+  FormControl,
+  Select,
+  InputLabel,
+  OutlinedInput,
+  MenuItem,
+} from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 function PeopleSelector(props) {
-
   const MenuProps = {
     PaperProps: {
       style: {
         maxHeight: 48 * 4.5 + 8,
-        backgroundColor: "#252a42", 
+        backgroundColor: "#252a42",
       },
     },
   };
@@ -56,8 +61,6 @@ function PeopleSelector(props) {
       });
   }, [props]);
 
-
-
   const handlePeopleChange = (event) => {
     const {
       target: { value },
@@ -65,29 +68,43 @@ function PeopleSelector(props) {
     setPersonId(value);
   };
 
-
   let label;
   let styles;
   if (props.type === "organizers") {
     label = "Organizers";
-    styles = {width:360, mt: 2, mb: 1, backgroundColor: "#252a42", borderRadius: "10px"}
+    styles = {
+      width: 360,
+      mt: 2,
+      mb: 1,
+      backgroundColor: "#252a42",
+      borderRadius: "10px",
+    };
   } else if (props.type === "invites") {
     label = "Guests";
-    styles = {width:360, mt: 2, mb: 1, backgroundColor: "#252a42", borderRadius: "10px"}
+    styles = {
+      width: 360,
+      mt: 2,
+      mb: 1,
+      backgroundColor: "#252a42",
+      borderRadius: "10px",
+    };
   } else if (props.type === "pollParticipants") {
     label = "Voters";
-    styles = {width:280, mt: 1, mb: 1, backgroundColor: "#252a42", borderRadius: "10px"}
+    styles = {
+      width: 280,
+      mt: 1,
+      mb: 1,
+      backgroundColor: "#252a42",
+      borderRadius: "10px",
+    };
   }
 
   return (
     <>
-      {users.length > 0 &&
-        <> 
-        <FormControl sx={styles}>
-            <InputLabel
-              id="demo-multiple-name-label"
-              shrink
-            >
+      {users.length > 0 && (
+        <>
+          <FormControl sx={styles}>
+            <InputLabel id="demo-multiple-name-label" shrink>
               {label}
             </InputLabel>
 
@@ -104,10 +121,7 @@ function PeopleSelector(props) {
               {users.map((user) => {
                 if (user._id !== currentUserId) {
                   return (
-                    <MenuItem
-                      value={user._id}
-                      key={user._id}
-                    >
+                    <MenuItem value={user._id} key={user._id}>
                       {user.username}
                     </MenuItem>
                   );
@@ -117,7 +131,7 @@ function PeopleSelector(props) {
             {errorMessage}
           </FormControl>
         </>
-      }
+      )}
     </>
   );
 }

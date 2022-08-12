@@ -6,7 +6,7 @@ import { CircularProgress } from "@mui/material";
 function IsAnon({ children }) {
   const { isLoggedIn, isLoading } = useContext(AuthContext);
 
-  if (isLoading) return <CircularProgress size={60} sx={{mt:"150px"}} />;
+  if (isLoading) return <CircularProgress size={60} sx={{ mt: "150px" }} />;
 
   if (isLoggedIn) {
     return <Navigate to="/" />;
