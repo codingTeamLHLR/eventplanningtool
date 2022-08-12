@@ -63,7 +63,7 @@ export default function EventCard(props) {
     <Link underline="none" href={`./events/${props.data._id}`}>
       <Card
         sx={{
-          maxHeight: "110px",
+          maxHeight: "120px",
           mb: 2,
           display: "flex",
           flexDirection: "row",
