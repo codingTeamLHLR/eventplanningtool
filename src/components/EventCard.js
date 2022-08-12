@@ -96,13 +96,8 @@ export default function EventCard(props) {
                 // CHANGE
                 <div key={index}>
                   {index>0 &&  <span> and &nbsp; </span>}
-<<<<<<< HEAD
                   <Typography sx={{fontSize: "11px", whiteSpace: "nowrap"}}>{element.username} &nbsp; </Typography>
-                </>
-=======
-                  <span>{element.username} &nbsp; </span>
                 </div>
->>>>>>> 50464d1aebf0099e277982d0960aaaa2183bdb7f
               )
             })}
           </Box>
