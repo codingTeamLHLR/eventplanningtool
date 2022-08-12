@@ -35,7 +35,7 @@ export default function GroupedAvatars(props) {
                   <StatusIcon src={badgeAccepted} />
                   }
                 >
-                  {participant.image ? (
+                  {participant.user.image ? (
                     <Avatar
                       alt={participant.user.username}
                       src={ShowImage(participant.user.image)}
@@ -64,7 +64,7 @@ export default function GroupedAvatars(props) {
                   <StatusIcon src={badgeDeclined} />
                   }
                 >
-                  {participant.image ? (
+                  {participant.user.image ? (
                     <Avatar
                       alt={participant.user.username}
                       src={ShowImage(participant.user.image)}
@@ -80,7 +80,7 @@ export default function GroupedAvatars(props) {
 
               <Box sx={{ m: 0.5, display:"flex", flexDirection: "column" }}>
 
-                  {participant.image ? (
+                  {participant.user.image ? (
                     <Avatar
                       alt={participant.user.username}
                       src={ShowImage(participant.user.image)}
