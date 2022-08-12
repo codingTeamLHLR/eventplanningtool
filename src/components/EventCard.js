@@ -80,7 +80,7 @@ export default function EventCard(props) {
           alt="green iguana"
         />
         <CardContent sx={{ backgroundColor: "none" }}>
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Box sx={{ display: "flex", flexDirection: "column", mt: -1 }}>
             <Typography
               variant="body2"
               align="left"
@@ -93,7 +93,7 @@ export default function EventCard(props) {
               {props.data.name}
             </Typography>
 
-        <Box sx={{fontSize: "11px", mt: 0.5, display: "flex", flexDirection: "row", flexWrap: "wrap"}}> 
+        <Box sx={{fontSize: "11px", display: "flex", flexDirection: "row", flexWrap: "wrap"}}> 
             by &nbsp; {props.data.organizers.map( (element, index) => {
               return(
                 <Box key={index} sx={{display: "flex", flexDirection: "row"}}>
