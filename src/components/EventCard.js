@@ -93,7 +93,7 @@ export default function EventCard(props) {
               {props.data.name}
             </Typography>
 
-        <Box sx={{fontSize: "11px", mt: -1, display: "flex", flexDirection: "row", flexWrap: "wrap"}}> 
+        <Box sx={{fontSize: "11px", mt: 1, display: "flex", flexDirection: "row", flexWrap: "wrap"}}> 
             by &nbsp; {props.data.organizers.map( (element, index) => {
               return(
                 <Box key={index} sx={{display: "flex", flexDirection: "row"}}>
