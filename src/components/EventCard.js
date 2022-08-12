@@ -80,11 +80,11 @@ export default function EventCard(props) {
           alt="green iguana"
         />
         <CardContent sx={{ backgroundColor: "none" }}>
-          <Box sx={{ display: "flex", flexDirection: "column", mt: -1, p: 0 }}>
+          <Box sx={{ display: "flex", flexDirection: "column", mt: -1 }}>
             <Typography
               variant="body2"
               align="left"
-              sx={{ color: "#f7aa0f", fontSize: "13px" }}
+              sx={{ color: "#f7aa0f", fontSize: "11px" }}
             >
               {formatDate}
             </Typography>
