@@ -6,6 +6,9 @@ Say goodbye to hundreds of different whatsapp chats and exploding messages and d
 
 The application is built based on the MERN stack (MongoDB, Express, React and Node.JS). The SPA frontend built with React consists of multiple views and implements all CRUD actions by communicating with a REST API backend built with ExpressJS, MongoDB and Mongoose.
 
+This is the frontend repository of the application. Check out the backend repository here.
+https://github.com/codingTeamLHLR/eventplanningtool_server
+
 # Demo 
 
 Check out our app here and please not that it is designed for mobile. 
